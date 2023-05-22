@@ -1,113 +1,187 @@
 import Image from 'next/image'
+import { AiOutlineEye, AiOutlineLike } from 'react-icons/ai';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
+    <main className="bg-white">
+      <div>
+        <nav className="bg-white">
+          {/* Navbar left */}
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a href="/" className="flex items-center">
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+                  src="/images/grasp_logo.jpeg"
+                  alt="Vercel Logo"
+                  width={150}
+                  height={30}
+                  priority
+                />
           </a>
+          {/* Navbar right */}
+          <div className="hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border  rounded-lg bg-white md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
+              <li className="md:py-2">
+                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light" aria-current="page">Home</a>
+              </li>
+              <li className="md:py-2">
+                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">How it works</a>
+              </li>
+              <li className="md:py-2">
+                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Membership</a>
+              </li>
+              <li className="md:py-2">
+                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</a>
+              </li>
+              <li>
+                <button type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </nav>
+
+        {/* Home page section before log in */}
+        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
+          <div className='grid grid-cols-1 w-full md:grid-cols-2'>
+            <div className='my-auto'>
+              <span className='text-6xl font-semibold'>
+                Lorem Ipsum
+              </span>
+              <span>
+                <p className='text-sm font-light text-gray-500 py-4'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing<br/> elit, sed do eiusmod tempor incididunt<br/> ut labore et dolore magna aliqua.
+                </p>
+              </span>
+              <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center '>
+                Start taking your notes ->
+              </button>
+            </div>
+            <div>
+              <Image
+                src="/images/home_page.svg"
+                alt="Home Page Image"
+                width={500}
+                height={500}
+                priority
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        {/* Search bar */}
+        <div className='w-full mx-auto py-10'>
+          <div className='w-2/4 mx-auto rounded-lg shadow-lg px-10 py-5'>
+            {/* search bar here */}
+            <form>
+              <div className="pb-5">  
+                  <div className="relative w-full">
+                      <input type="search" id="search-dropdown" className="block p-2.5 w-full h-14 z-20 text-sm text-gray-400 bg-gray-100 rounded-lg  focus:outline focus:outline-violet-300" placeholder="Search Notes..." required />
+                      <button type="submit" className="absolute top-0 right-0 p-2.5 h-14 w-29 text-sm font-medium text-white bg-violet-800 rounded-r-lg border-violet-800 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-800 ">
+                          <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                          <span className="sr-only">Search</span>
+                      </button>
+                  </div>
+              </div>
+              <div className='flex mx-auto items-center text-sm justify-center'>
+                <span className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
+                  Computing
+                </span>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                <span className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
+                  Business
+                </span>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+                <span className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
+                  Physics
+                </span>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+                <span className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
+                  CS2030S
+                </span>
+
+                <span className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
+                  CEG5104
+                </span>
+
+              </div>
+          </form>
+          </div>
+        </div>
+
+
+
+        {/* Notes section */}
+        <div className='bg-white mx-20 my-10 p-4 h-screen'>
+          {/* Card layout  */}
+          <div className='grid grid-cols-1 w-full md:grid-cols-2'>
+            {/* Card 1 */}
+            <div className=''>
+              <div className='bg-white rounded-lg shadow-2xl h-52 w-11/12 hover:outline hover:outline-violet-800'>
+                <div className='grid grid-cols-2 w-full h-full'>
+                  <div className='flex flex-col bg-gradient-to-r from-violet-800 to-violet-500 p-5 text-white text-2xl font-semibold rounded-l-lg'>
+                    Notes Topic
+                    <div className='flex mt-auto w-2/4'>
+                      <span className='ml-auto text-xs text-light text-violet-800 rounded-full bg-white border-2 border-violet-800 py-1 px-1'>
+                        CS2030S
+                      </span>
+                      <span className='ml-auto text-xs text-light text-violet-800 rounded-full bg-white border-2 border-violet-800 py-1 px-1'>
+                        CS2030S
+                      </span>
+                    </div>
+                    
+                  </div>
+                  <div className='p-4 flex flex-col rounded-r-lg'>
+                    <p className='text-sm font-light text-gray-500'>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                      <div className='flex mt-auto'>
+                        <AiOutlineEye className='text-2xl'/> <span className='pr-4'>20</span>
+                        <AiOutlineLike className='text-2xl'/> <span>32</span>
+                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read -></button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className=''>
+              <div className='bg-white rounded-lg shadow-2xl h-52 w-11/12 hover:outline hover:outline-violet-800'>
+                <div className='grid grid-cols-2 w-full h-full'>
+                  <div className='flex flex-col bg-gradient-to-r from-violet-800 to-violet-500 p-5 text-white text-2xl font-semibold rounded-l-lg'>
+                    Notes Topic
+                    <div className='flex mt-auto w-2/4'>
+                      <span className='ml-auto text-xs text-light text-violet-800 rounded-full bg-white border-2 border-violet-800 py-1 px-1'>
+                        CS2030S
+                      </span>
+                      <span className='ml-auto text-xs text-light text-violet-800 rounded-full bg-white border-2 border-violet-800 py-1 px-1'>
+                        CS2030S
+                      </span>
+                    </div>
+                    
+                  </div>
+                  <div className='p-4 flex flex-col rounded-r-lg'>
+                    <p className='text-sm font-light text-gray-500'>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                      <div className='flex mt-auto'>
+                        <AiOutlineEye className='text-2xl'/> <span className='pr-4'>20</span>
+                        <AiOutlineLike className='text-2xl'/> <span>32</span>
+                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read -></button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </main>
   )
 }
+
+
+
