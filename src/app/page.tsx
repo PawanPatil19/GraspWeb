@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <main className="bg-white">
-      <div className=''>
+      <div className='flex flex-col h-full'>
         <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
         {/* Home page section before log in */}
@@ -106,9 +106,9 @@ export default function Home() {
 
 
         {/* Notes section */}
-        <div className='bg-white mx-20 my-10 p-4 h-screen'>
+        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-10'>
           {/* Card layout  */}
-          <div className='grid grid-cols-1 w-full md:grid-cols-2'>
+          <div className='grid grid-cols-1 md:grid-cols-2'>
             {/* Card 1 */}
             <div className=''>
               <div className='bg-white rounded-lg shadow-2xl h-52 w-11/12 hover:outline hover:outline-violet-800'>
