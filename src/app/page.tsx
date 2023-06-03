@@ -1,47 +1,37 @@
-import Image from 'next/image'
-import { AiOutlineEye, AiOutlineLike } from 'react-icons/ai';
+'use client';
+
+import { redirect } from 'next/navigation';
+import Image from 'next/image';
+import React from 'react';
+import { AiOutlineEye, AiOutlineLike, AiFillApple, AiOutlineCloseCircle, AiOutlineArrowRight } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import Login from './components/Login/Login';
+import RegisterPart1 from './components/Register/RegisterPart1';
+import Register from './components/Register/RegisterPart1';
+import RegisterPart2 from './components/Register/RegisterPart2';
+import RegisterPart3 from './components/Register/RegisterPart3';
+import Navbar from './components/Navigation Bar/navbar';
 
 export default function Home() {
+  const [showLoginModal, setShowLoginModal] = React.useState(false);
+  const [showRegisterModal, setShowRegisterModal] = React.useState(false);
+  const [showRegisterPart2Modal, setShowRegisterPart2Modal] = React.useState(false);
+  const [showRegisterPart3Modal, setShowRegisterPart3Modal] = React.useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+
+  
+
+  const handleClick = () => {
+    redirect('/upload');
+  };
+
   return (
     <main className="bg-white">
-      <div>
-        <nav className="bg-white">
-          {/* Navbar left */}
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="/" className="flex items-center">
-            <Image
-                  src="/images/grasp_logo.jpeg"
-                  alt="Vercel Logo"
-                  width={150}
-                  height={30}
-                  priority
-                />
-          </a>
-          {/* Navbar right */}
-          <div className="hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border  rounded-lg bg-white md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
-              <li className="md:py-2">
-                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light" aria-current="page">Home</a>
-              </li>
-              <li className="md:py-2">
-                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">How it works</a>
-              </li>
-              <li className="md:py-2">
-                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Membership</a>
-              </li>
-              <li className="md:py-2">
-                <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</a>
-              </li>
-              <li>
-                <button type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
-              </li>
-            </ul>
-          </div>
-          </div>
-        </nav>
+      <div className=''>
+        <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
         {/* Home page section before log in */}
-        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
+        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-10'>
           <div className='grid grid-cols-1 w-full md:grid-cols-2'>
             <div className='my-auto'>
               <span className='text-6xl font-semibold'>
@@ -52,8 +42,12 @@ export default function Home() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing<br/> elit, sed do eiusmod tempor incididunt<br/> ut labore et dolore magna aliqua.
                 </p>
               </span>
-              <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center '>
-                Start taking your notes ->
+              <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-semibold rounded-xl px-4 py-2 text-center' 
+                onClick={handleClick}>
+                <span>
+                  Start taking your notes&nbsp;
+                  <AiOutlineArrowRight className='inline-block'/>
+                </span>
               </button>
             </div>
             <div>
@@ -138,7 +132,7 @@ export default function Home() {
                       <div className='flex mt-auto'>
                         <AiOutlineEye className='text-2xl'/> <span className='pr-4'>20</span>
                         <AiOutlineLike className='text-2xl'/> <span>32</span>
-                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read -></button>
+                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read <AiOutlineArrowRight className='inline-block'/></button>
                       </div>
                   </div>
                 </div>
@@ -163,12 +157,12 @@ export default function Home() {
                   </div>
                   <div className='p-4 flex flex-col rounded-r-lg'>
                     <p className='text-sm font-light text-gray-500'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.mad
                     </p>
                       <div className='flex mt-auto'>
                         <AiOutlineEye className='text-2xl'/> <span className='pr-4'>20</span>
                         <AiOutlineLike className='text-2xl'/> <span>32</span>
-                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read -></button>
+                        <button className='w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800'>Read  <AiOutlineArrowRight className='inline-block'/></button>
                       </div>
                   </div>
                 </div>
@@ -178,6 +172,29 @@ export default function Home() {
           </div>
         </div>
 
+
+        {/* Login popup modal */}
+        {showLoginModal ? (
+          <Login setShowLoginModal={setShowLoginModal}/>
+          ) : null }
+        
+        {/* Register popup modal */}
+        {showRegisterModal ? (
+          // pass multiple state to Register
+          <RegisterPart1 setShowRegisterModal={setShowRegisterModal} setShowRegisterPart2Modal={setShowRegisterPart2Modal}/>
+          ) : null }
+
+        {/* Register part 2 popup modal */}
+        {showRegisterPart2Modal ? (
+          <RegisterPart2 setShowRegisterModal={setShowRegisterModal} setShowRegisterPart2Modal={setShowRegisterPart2Modal} setShowRegisterPart3Modal={setShowRegisterPart3Modal}/>
+          ) : null }
+
+        {/* Register part 3 popup modal */}
+        {showRegisterPart3Modal ? (
+          <RegisterPart3 setShowRegisterPart2Modal={setShowRegisterPart2Modal} setShowRegisterPart3Modal={setShowRegisterPart3Modal}/>
+          ) : null }
+
+        
       </div>
     </main>
   )
