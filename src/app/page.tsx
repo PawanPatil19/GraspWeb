@@ -52,7 +52,7 @@ export default function Home() {
                   </p>
                 </div>
                 <Link href='/upload'>
-                  <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-semibold rounded-xl px-4 py-2 text-center' 
+                  <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-light rounded-xl px-4 py-2 text-center' 
                     onClick={handleClick}>
                     <span>
                       Start taking your notes&nbsp;
