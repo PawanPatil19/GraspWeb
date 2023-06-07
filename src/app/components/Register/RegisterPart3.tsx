@@ -23,7 +23,7 @@ export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0:
     return (
         <>
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-4/6 my-6 mx-auto">
+            <div className="relative mx-2 w-full md:w-4/6 my-6">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -44,10 +44,10 @@ export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0:
                 <div className='flex w-3/4 mx-auto'>
                   <div className='flex flex-col w-full'>
                     <div className='w-full flex justify-center py-5'>
-                      <div className="text-black font-medium text-2xl">Choice/Preferences of subjects</div>
+                      <div className="text-black font-medium text-lg md:text-2xl">Choice/Preferences of subjects</div>
                     </div>
 
-                    <div className='grid grid-cols-5 gap-3'>
+                    <div className='grid grid-cols-2 md:grid-cols-5 gap-3 row-'>
                       <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
                         <div className='mt-auto text-white font-medium'>
                           Computing
@@ -73,44 +73,52 @@ export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0:
                         </div>
                       </div>
 
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
+                        </div>
+                      </div>
+                      
 
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
                         </div>
                       </div>
 
-
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
                         </div>
                       </div>
 
-
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
                         </div>
                       </div>
 
-
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
                         </div>
                       </div>
 
-
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
-                        </div>
-                      </div>
-
-                      <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
-                        <div className='mt-auto text-white font-medium'>
-                          Computing
+                      <div className='hidden md:block'>
+                        <div className='flex h-28 w-28 rounded-lg justify-end p-3 bg-gradient-to-r from-violet-500 to-violet-900 bg-opacity-40 shadow hover:outline'>
+                          <div className='mt-auto text-white font-medium'>
+                            Computing
+                          </div>
                         </div>
                       </div>
                     

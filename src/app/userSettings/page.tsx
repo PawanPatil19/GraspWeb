@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
-import { AiOutlineSearch, AiOutlineEye, AiOutlineLike, AiOutlineEdit, AiOutlineArrowRight } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineEye, AiOutlineLike, AiOutlineEdit, AiOutlineArrowRight, AiOutlineDownCircle } from 'react-icons/ai';
 import {FaUserCircle} from 'react-icons/fa';
 import Navbar from '../components/Navigation Bar/navbar';
 import RegisterPart1 from '../components/Register/RegisterPart1';
@@ -22,6 +22,8 @@ export default function Home() {
   const [isAccountSelected, setIsAccountSelected] = React.useState(true);
   const [isPasswordSelected, setIsPasswordSelected] = React.useState(false);
   const [isNotificationsSelected, setIsNotificationsSelected] = React.useState(false);
+
+  const [showMenuDiv, setShowMenuDiv] = React.useState(false);
 
   const handleNavigation = (index: number) => {
     if (index == 0) {
@@ -49,65 +51,64 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-white">
+    <main className="bg-white px-5 md:px-0">
       <div className='mb-10'>
         <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
-        <div className='h-screen'>
-
-            {/*Search bar in right top corner*/}
-            <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='flex justify-end w-full'>
-                    <div className='flex justify-end w-1/3'>
-                        <div className='flex justify-end w-1/2'>
-                            <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
-                            <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div className='h-full md:h-screen'>
 
             {/* User profile settings */}
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-white'>
                 <div className='flex justify-center w-full my-10'>
-                    <div className='grid grid-cols-5 divide-x-2'>
-                        <div className='flex flex-col col-span-1 mx-2'>
-                            <div>
-                                <FaUserCircle className='mx-auto text-9xl text-gray-300'/>
+                    <div className='grid grid-cols-1 md:grid-cols-5 md:divide-x-2'>
+                        <div className='w-full flex justify-center mx-auto'>
+                            <div className='flex flex-col col-span-1 mx-2'>
+                                <div>
+                                    <FaUserCircle className='mx-auto text-9xl text-gray-300'/>
+                                </div>
+                                <div className='flex justify-center text-2xl font-medium mt-2 mb-5 items-center'>
+                                    User Name 
+                                    <span>
+                                        <button onClick={() => setShowMenuDiv(!showMenuDiv)}>
+                                            <AiOutlineDownCircle className='mx-2 text-xl text-gray-500'/>
+                                        </button>
+                                    </span>
+                                </div>
+                                {showMenuDiv && (
+                                    <div className=''>
+                                        <div className={isAccountSelected 
+                                            ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
+                                            : 'flex justify-center my-3 text-gray-400'} 
+                                            onClick={() => handleNavigation(0)}>
+                                                <button>Account</button>
+                                        </div>
+                                        <div className={isPasswordSelected 
+                                            ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
+                                            : 'flex justify-center my-3 text-gray-400'} 
+                                            onClick={() => handleNavigation(1)}>
+                                            <button>Password</button>
+                                        </div>
+                                        <div className={isNotificationsSelected 
+                                            ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
+                                            : 'flex justify-center my-3 text-gray-400'} 
+                                            onClick={() => handleNavigation(2)}>
+                                            <button>Notifications</button>
+                                        </div>  
+                                    </div> )}                         
                             </div>
-                            <div className='flex justify-center text-2xl font-medium mt-2 mb-5'>
-                                User Name 
-                            </div>
-                            <div className={isAccountSelected 
-                                ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
-                                : 'flex justify-center my-3 text-gray-400'} 
-                                onClick={() => handleNavigation(0)}>
-                                    <button>Account</button>
-                            </div>
-                            <div className={isPasswordSelected 
-                                ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
-                                : 'flex justify-center my-3 text-gray-400'} 
-                                onClick={() => handleNavigation(1)}>
-                                <button>Password</button>
-                            </div>
-                            <div className={isNotificationsSelected 
-                                ? 'flex justify-center my-3 text-white py-3 bg-violet-800 rounded-full' 
-                                : 'flex justify-center my-3 text-gray-400'} 
-                                onClick={() => handleNavigation(2)}>
-                                <button>Notifications</button>
-                            </div>                            
                         </div>
 
-                        <div className='mx-6 col-span-4'>
-                            <div className='flex flex-col mx-10'>
-                                <div className='flex justify-start text-2xl font-medium mt-2 mb-5'>
+                        
+
+                        <div className='w-full flex justify-center mx-auto md:mx-6 col-span-4'>
+                            <div className='flex flex-col mx-0 md:mx-10'>
+                                <div className='justify-start text-2xl font-medium mt-2 mb-5 hidden md:block'>
                                     User Profile Details
                                 </div>
                                 <div className=''>
                                     <form>
-                                        <div className="flex mb-4">
-                                            <div className='mr-2'>
+                                        <div className="md:flex mb-4">
+                                            <div className='mb-4 md:mr-2'>
                                                 <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="firstName">
                                                     First Name
                                                 </label>

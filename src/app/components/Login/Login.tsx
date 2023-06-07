@@ -5,7 +5,7 @@ export default function Login({ setShowLoginModal } : { setShowLoginModal: any }
     return (
         <>
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
-            <div className="relative w-1/3 my-6 mx-auto max-w-3xl">
+            <div className="relative mx-2 w-full md:w-1/3 my-6  max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -70,10 +70,10 @@ export default function Login({ setShowLoginModal } : { setShowLoginModal: any }
               
                 {/*footer*/}
                 <div className="flex items-center justify-between p-6 rounded-b">
-                  <span>
-                    <label className="inline-block text-xs text-light text-black">New to Grasp? &nbsp;</label>
+                  <span className='flex flex-row'>
+                    <label className="text-xs text-light text-black hidden md:block">New to Grasp? &nbsp;</label>
                     <a className="inline-block text-xs text-light text-violet-800 hover:text-violet-500" href="#">
-                          Sign up here
+                          Sign up
                     </a>
                   </span>
                   <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button" onClick={() => setShowLoginModal(false)}>

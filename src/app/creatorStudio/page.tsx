@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-white">
+    <main className="bg-white px-5 md:px-0">
       <div className='mb-10'>
         <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
@@ -33,9 +33,9 @@ export default function Home() {
 
             {/*Search bar in right top corner*/}
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='flex justify-end w-full'>
-                    <div className='flex justify-end w-1/3'>
-                        <div className='flex justify-end w-1/2'>
+                <div className='flex justify-end w-full pt-4'>
+                    <div className='flex justify-end w-full md:w-1/3'>
+                        <div className='flex justify-end w-full md:w-1/2'>
                             <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
                             <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
                         </div>
@@ -43,14 +43,13 @@ export default function Home() {
                 </div>
             </div>
 
-
             {/* Analytics cards */}
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-white'>
-                <span className='text-3xl font-medium'>
+                <span className='text-2xl md:text-3xl font-medium'>
                     Your Dashboard
                 </span>
                 <div className='w-full my-10'>
-                    <div className='grid grid-cols-2 gap-5'>
+                    <div className='grid md:grid-cols-2 gap-5'>
                         <div className='bg-gray-100 h-96 rounded-2xl'>
 
                         </div>
@@ -63,12 +62,12 @@ export default function Home() {
             </div>
 
             {/* Account Registered */}
-            <div className='w-2/4 flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-gray-100'>
+            <div className='w-full md:w-2/4 flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-gray-100'>
                 <div className='w-full my-10'>
-                    <div className='flex justify-center text-sm font-light mb-2'>
+                    <div className='flex justify-center text-sm font-light mb-2 px-2 text-center'>
                         You have no bank account registered with your creator account
                     </div>
-                    <div className='flex justify-center text-sm font-light'>
+                    <div className='flex justify-center text-sm font-light mt-5'>
                         <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center'>
                             Add your account details <AiOutlineArrowRight className='inline-block'/>
                         </button>
@@ -79,14 +78,14 @@ export default function Home() {
 
 
             
-            {/* Your notes section*/}
+             {/* Your notes section*/}
             
-            <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-12'>
+             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-12'>
                 <div className='w-full'>
                     <div className=''>
                         <div className='text-3xl font-medium'>Your notes</div>
                     </div>
-                    <div className='grid grid-cols-3 mt-5 gap-12'>
+                    <div className='grid grid-cols-1 md:grid-cols-3 mt-5 gap-12'>
                         {/* Create a notes card */}
                         <div className='flex flex-col bg-white rounded-2xl shadow-lg'>
                             <div className='p-4'>
@@ -132,7 +131,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
             
             
 

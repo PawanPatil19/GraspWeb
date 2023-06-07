@@ -24,7 +24,7 @@ export default function RegisterPart2(props: { setShowRegisterModal: (arg0: bool
     return (
         <>
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-4/6 my-6 mx-auto">
+            <div className="relative mx-2 w-full md:w-4/6 my-6">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -43,19 +43,19 @@ export default function RegisterPart2(props: { setShowRegisterModal: (arg0: bool
 
                 {/*body*/}
 
-                <div className='flex w-2/4 mx-auto'>
+                <div className='flex w-3/4 md:w-2/4 mx-auto'>
                   <div className='flex flex-col w-full'>
                     <div className='w-full flex justify-center py-5'>
-                      <div className="text-black font-medium text-2xl">Please tell us about you</div>
+                      <div className="text-black font-medium text-lg md:text-2xl">Please tell us about you</div>
                     </div>
-                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light">
+                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100">
                       <option>Select your university</option>
                       <option>National University of Singapore</option>
                       <option>Nanyang Technological University, Singapore</option>
                       <option>Others</option>
                     </select>
 
-                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light">
+                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100">
                       <option>Select your course of study</option>
                       <option>Computer Science</option>
                       <option>Business</option>

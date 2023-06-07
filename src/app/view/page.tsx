@@ -28,7 +28,7 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-white">
+    <main className="bg-white px-5 md:px-0">
       <div className='mb-10'>
         <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
@@ -36,9 +36,9 @@ export default function Home() {
 
             {/*Search bar in right top corner*/}
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='flex justify-end w-full'>
-                    <div className='flex justify-end w-1/3'>
-                        <div className='flex justify-end w-1/2'>
+                <div className='flex justify-end w-full pt-4'>
+                    <div className='flex justify-end w-full md:w-1/3'>
+                        <div className='flex justify-end w-full md:w-1/2'>
                             <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
                             <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
                         </div>
@@ -48,7 +48,7 @@ export default function Home() {
 
             <div className='max-w-screen-xl flex flex-wrap items-center mx-auto'>
                 <div className='flex flex-col'>
-                    <div className='font-bold text-4xl px-4 mt-10'>
+                    <div className='font-bold text-2xl md:text-4xl px-4 mt-10'>
                         Lorem ipsum dolor sit amet &nbsp;
                         {isFavourite ? (
                             <button onClick={() => setIsFavourite(false)}>
@@ -66,7 +66,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className='flex w-1/3 p-4 items-center'>
+                    <div className='flex w-4/6 md:w-1/3 p-4 items-center'>
                         <div className='w-1/3'>
                             <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>
                         </div>
@@ -88,10 +88,22 @@ export default function Home() {
                 <div className='flex justify-end w-full'>
                     <div className='flex justify-end w-1/3'>
                         <div className='flex justify-end gap-3 items-center text-gray-700'>
-                            <span><AiOutlineLike className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> Like</span>
-                            <span><AiOutlineShareAlt className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> Share</span>
-                            <span><AiOutlineDownload className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> Download</span>
-                            <span><AiOutlineHighlight className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> Highlight</span>
+                            <span>
+                                <AiOutlineLike className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                <span className='hidden md:block'>Like</span>
+                            </span>
+                            <span>
+                                <AiOutlineShareAlt className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                <span className='hidden md:block'>Share</span>
+                            </span>
+                            <span>
+                                <AiOutlineDownload className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                <span className='hidden md:block'>Download</span>
+                            </span>
+                            <span>
+                                <AiOutlineHighlight className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                <span className='hidden md:block'>Highlight</span>
+                            </span>
                         </div>
                     </div>
                 </div>

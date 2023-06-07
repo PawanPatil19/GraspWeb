@@ -9,7 +9,7 @@ export default function RegisterPart1(props: { setShowRegisterModal: (arg0: bool
     return (
         <>
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-4/6 my-6 mx-auto">
+            <div className="relative mx-2 w-full md:w-4/6 my-6 ">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -66,8 +66,16 @@ export default function RegisterPart1(props: { setShowRegisterModal: (arg0: bool
                 
                   
                 </div>
-                <div className='mx-auto'>
+
+                <div className='mx-auto hidden md:block'>
                   <div className="-ml-0.5 w-0.5 h-full bg-gray-200"></div>
+                </div>
+
+                {/* or with lines */}
+                <div className='md:hidden flex items-center justify-center m-5'>
+                  <div className='w-2/4 h-0.5 bg-gray-200'></div>
+                  <span className='px-4 text-gray-400'>or</span>
+                  <div className='w-2/4 h-0.5 bg-gray-200'></div>
                 </div>
                 
 

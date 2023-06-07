@@ -18,18 +18,26 @@ export default function Home() {
   const [showRegisterPart2Modal, setShowRegisterPart2Modal] = React.useState(false);
   const [showRegisterPart3Modal, setShowRegisterPart3Modal] = React.useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+  const [isMonthlyPlan, setIsMonthlyPlan] = React.useState(true);
+  const [isYearlyPlan, setIsYearlyPlan] = React.useState(false);
+
+  const handleToggle = () => {
+    setIsMonthlyPlan(!isMonthlyPlan);
+    setIsYearlyPlan(!isYearlyPlan);
+  }
 
   return (
-    <main className="bg-white">
-      <div className='mb-10'>
+    <main className="bg-white px-5 md:px-0">
+      <div className='h-screen'>
         <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
         <div className='h-full'>
+            {/*Search bar in right top corner*/}
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='flex justify-end w-full'>
-                    <div className='flex justify-end w-1/3'>
-                        <div className='flex justify-end w-1/2'>
-                            <input className='w-full border-b-2 px-4 py-2 text-center' type="text" placeholder="Search"/>
+                <div className='flex justify-end w-full pt-4'>
+                    <div className='flex justify-end w-full md:w-1/3'>
+                        <div className='flex justify-end w-full md:w-1/2'>
+                            <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
                             <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
                         </div>
                     </div>
@@ -37,24 +45,28 @@ export default function Home() {
             </div>
 
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='mx-auto font-bold text-4xl p-4 mt-10'>
+                <div className='mx-auto font-bold text-2xl md:text-4xl p-4 mt-10'>
                     Membership Plans
                 </div>
                 {/* Plan card */}
                 <div className='w-full'>
                     {/* Create toggle button */}
                     <div className='flex justify-center mt-5 mb-10'>
-                        <div className='flex justify-center w-1/6 bg-violet-800 rounded-full'>
+                        <div className='flex justify-center w-3/4 md:w-1/6 bg-violet-800 rounded-full'>
                             <div className='flex justify-center w-1/2'>
-                                <button className='bg-white my-1 font-medium rounded-full px-4 py-2 text-center'>Monthly</button>
+                                <button onClick={handleToggle}
+                                    className={isMonthlyPlan ? 'bg-white my-1 font-medium rounded-full px-4 py-2 text-center'
+                                                : 'text-white my-1 font-medium rounded-full px-4 py-2 text-center'}>Monthly</button>
                             </div>
                             <div className='flex justify-center w-1/2'>
-                                <button className='text-white my-1 font-medium rounded-full px-4 py-2 text-center'>Yearly</button>
+                                <button onClick={handleToggle}
+                                    className={isYearlyPlan ? 'bg-white my-1 font-medium rounded-full px-4 py-2 text-center'
+                                    : 'text-white my-1 font-medium rounded-full px-4 py-2 text-center'}>Yearly</button>
                             </div>
                         </div>
                     </div>
 
-                    <div className='w-1/4 border-2 border-gray-200 rounded-2xl shadow-lg mx-auto'>
+                    <div className='w-full md:w-1/4 border-2 border-gray-200 rounded-2xl shadow-lg mx-auto'>
                         <div className='flex flex-col gap-6 my-8'>
                             <div className='flex justify-center'>
                                 <span className='font-light'>MONTHLY</span>
