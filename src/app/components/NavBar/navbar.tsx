@@ -1,17 +1,26 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
 import {VscAccount} from 'react-icons/vsc';
 import {BiAnalyse, BiBell, BiLogOutCircle, BiBrightness} from 'react-icons/bi';
 import { Dropdown } from "@nextui-org/react";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import Link from 'next/link';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { signOut } from 'next-auth/react';
+import { SafeUser } from '@/app/types';
+import Avatar from '../Avatar';
 
 
-export default function Navbar(props: { 
-  setShowLoginModal: (arg0: boolean) => void; 
-  setShowRegisterModal: (arg0: boolean) => void;
-  isUserLoggedIn: boolean;
- }) {
+interface NavbarProps {
+  currentUser? : SafeUser | null;
+}
+
+
+const Navbar : React.FC<NavbarProps> = ({
+  currentUser
+}) => {
     const [showDropdown, setShowDropdown] = React.useState(false);
     const [nav, setNav] = React.useState(false);
 
@@ -19,13 +28,16 @@ export default function Navbar(props: {
       setNav(!nav);
     }
 
+    const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
+
     return (
         <nav className="bg-white">
           {/* Navbar left */}
           <div className="max-w-screen-xl flex flex-row items-center justify-between mx-auto p-4">
             <a href="/" className="flex items-center z-10">
               <Image
-                    src="/images/grasp_logo.jpeg"
+                    src="/images/grasp_logo.png"
                     alt="Vercel Logo"
                     width={150}
                     height={30}
@@ -53,26 +65,37 @@ export default function Navbar(props: {
                 </li>
 
                 {/* Sign in button before sign in */}
-                {!props.isUserLoggedIn ? (
+                {currentUser == null ? (
                   <li className="md:py-2">
-                    <button onClick={() => {props.setShowLoginModal(true);}} type='button' className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</button>
+                    <button onClick={loginModal.onOpen} type='button' className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</button>
                   </li>
                 ) : (
-                // <button onClick={() => setShowDropdown(!showDropdown)}>
-                //   <VscAccount className='text-4xl text-gray-400'/>
-                // </button>
+
+
                 <Dropdown>
-                    <Dropdown.Button light color={'secondary'}><VscAccount className='text-4xl text-gray-400'/></Dropdown.Button>
+                    <Dropdown.Button light color={'secondary'}>
+                      {currentUser?.image == null ? 
+                        (<VscAccount className='text-4xl text-gray-400'/>)
+                        : (<Avatar src={currentUser?.image}/>)
+                      }
+                    </Dropdown.Button>
                     <Dropdown.Menu aria-label="Static Actions">
+                      <Dropdown.Section>
+                        <Dropdown.Item key="new">
+                          <span>Hi, {currentUser.name} 👋</span>
+                        </Dropdown.Item>
+                      </Dropdown.Section>
+                      
+                      <Dropdown.Section>
                       <Dropdown.Item key="new">
-                        <a href="/creatorStudio" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" id="menu-item-0">
+                        <a href="/creatorStudio" className="text-gray-700 block py-2 text-sm" role="menuitem" id="menu-item-0">
                           <span className='items-center'>
                             <BiAnalyse size={20} className="inline-block"/> &nbsp;Creator Studio
                           </span>
                         </a>
                       </Dropdown.Item>
                       <Dropdown.Item key="copy">
-                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" id="menu-item-1">
+                        <a href="#" className="text-gray-700 block py-2 text-sm" role="menuitem" id="menu-item-1">
                           <span className='flex justify-between'>
                             <span>
                               <BiBell size={20} className="inline-block"/> &nbsp;Notifications
@@ -82,25 +105,28 @@ export default function Navbar(props: {
                         </a>
                       </Dropdown.Item>
                       <Dropdown.Item key="edit">
-                        <a href="/userSettings" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" id="menu-item-3">
+                        <a href="/userSettings" className="text-gray-700 block py-2 text-sm" role="menuitem" id="menu-item-3">
                           <span className='items-center'>
                             <BiBrightness size={20} className="inline-block"/> &nbsp;Settings
                           </span>
                         </a>
                       </Dropdown.Item>
+                      </Dropdown.Section>
                       <Dropdown.Item key="delete" withDivider color="error">
-                        <span className='items-center'>
-                          <BiLogOutCircle size={20} className="inline-block"/> &nbsp;Sign Out
-                        </span>
+                        <button onClick={() => signOut()}>
+                          <span className='items-center'>
+                            <BiLogOutCircle size={20} className="inline-block"/> &nbsp;Sign Out
+                          </span>
+                        </button>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 )}
 
                 {/* Get started button before sign in */}
-                {!props.isUserLoggedIn ? (
+                {currentUser == null  ? (
                   <li>
-                    <button onClick={() => {props.setShowRegisterModal(true);}} type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
+                    <button onClick={registerModal.onOpen} type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
                   </li>
                 ) : null}
 
@@ -176,7 +202,7 @@ export default function Navbar(props: {
                       <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 font-light">Upload</a>
                     </li>
 
-                    {props.isUserLoggedIn ? (
+                    {currentUser == null  ? (
                       <div>
                         <li className="py-4">
                           <a href="/creatorStudio" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Creator Studio</a>
@@ -194,13 +220,13 @@ export default function Navbar(props: {
                       </div>
                       ) : 
                       <li className="py-4">
-                        <button onClick={() => {props.setShowLoginModal(true);}} type='button' className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</button>
+                        <button onClick={loginModal.onOpen} type='button' className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</button>
                       </li>
                     }
 
-                    {!props.isUserLoggedIn ? (
+                    {currentUser == null  ? (
                       <li className='py-4'>
-                        <button onClick={() => {props.setShowRegisterModal(true);}} type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
+                        <button onClick={registerModal.onOpen} type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
                       </li> ) : null}
                   </ul>
                 </div>
@@ -212,3 +238,5 @@ export default function Navbar(props: {
         </nav>
     );
 }
+
+export default Navbar;

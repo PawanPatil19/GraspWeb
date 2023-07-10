@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+Image {
+  width: 200px;
+  height: 100px;
+}

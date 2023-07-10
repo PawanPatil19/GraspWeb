@@ -4,21 +4,39 @@ import { Combobox } from '@headlessui/react';
 import { useState, Fragment } from 'react';
 
 
-export default function RegisterPart2(props: { setShowRegisterModal: (arg0: boolean) => void; 
-  setShowRegisterPart2Modal: (arg0: boolean) => void;
-  setShowRegisterPart3Modal: (arg0: boolean) => void; }) {
+export default function RegisterPart2({ prevStep, nextStep, setState, values, handleClose }: any) {
   const universities = [
-    {id: 0, name: "Select your university"},
-    {id : 1, name : 'National University of Singapore'},
+    "Select your university",
+    'National University of Singapore',
   ]
-  const [selectedUniversity, setSelectedUniversity] = useState(universities[0])
-  const [query, setQuery] = useState('')
 
-  const filteredPeople =
+  const courses = [
+    "Select your course",
+    'Computer Science',
+    'Business',
+    'Others'
+  ]
+
+  const [step, setStep] = useState(values.step);
+  const [firstName, setFirstName] = useState(values.firstName);
+  const [lastName, setLastName] = useState(values.lastName);
+  const [email, setEmail] = useState(values.email);
+  const [password, setPassword] = useState(values.password);
+  const [confirmPassword, setConfirmPassword] = useState(values.confirmPassword);
+  const [university, setUniversity] = useState(values.university);
+  const [course, setCourse] = useState(values.course);
+  const [query, setQuery] = useState('')
+  
+
+  console.log("Values ", values);
+
+
+
+  const filteredUniversities =
     query === ''
       ? universities
       : universities.filter((university) => {
-          return university.name.toLowerCase().includes(query.toLowerCase())
+          return university.toLowerCase().includes(query.toLowerCase())
         })
 
     return (
@@ -34,7 +52,7 @@ export default function RegisterPart2(props: { setShowRegisterModal: (arg0: bool
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 float-right text-gray-300 text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => props.setShowRegisterPart2Modal(false)}
+                    onClick={() => handleClose()}
                   >
                    <AiOutlineCloseCircle/>
                   </button>
@@ -48,18 +66,20 @@ export default function RegisterPart2(props: { setShowRegisterModal: (arg0: bool
                     <div className='w-full flex justify-center py-5'>
                       <div className="text-black font-medium text-lg md:text-2xl">Please tell us about you</div>
                     </div>
-                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100">
-                      <option>Select your university</option>
-                      <option>National University of Singapore</option>
-                      <option>Nanyang Technological University, Singapore</option>
+                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100" 
+                      onChange={event => setUniversity(event.target.value)}>
+                      <option value={universities[0]} disabled={true}>Select your university</option>
+                      <option value={universities[1]}>National University of Singapore</option>
+                      <option value={universities[2]}>Nanyang Technological University, Singapore</option>
                       <option>Others</option>
                     </select>
 
-                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100">
-                      <option>Select your course of study</option>
-                      <option>Computer Science</option>
-                      <option>Business</option>
-                      <option>Others</option>
+                    <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100"
+                      onChange={event => setCourse(event.target.value)}>
+                      <option value={courses[0]}>Select your course of study</option>
+                      <option value={courses[1]}>Computer Science</option>
+                      <option value={courses[2]}>Business</option>
+                      <option value={courses[3]}>Others</option>
                     </select>
                   </div>
                     
@@ -70,10 +90,14 @@ export default function RegisterPart2(props: { setShowRegisterModal: (arg0: bool
               {/*footer*/}
               <div className="flex mx-auto my-10">
                 <div>
-                  <button className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" onClick={() => {props.setShowRegisterModal(true); props.setShowRegisterPart2Modal(false);}}>
+                  <button className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" 
+                    type="button" 
+                    onClick={(e) => {e.preventDefault(); prevStep();}}>
                         <AiOutlineArrowLeft className='inline-block'/> Back
                   </button>
-                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" onClick={() => {props.setShowRegisterPart2Modal(false); props.setShowRegisterPart3Modal(true);}}>
+                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" 
+                    type="button" 
+                    onClick={(e) => {e.preventDefault(); nextStep();}}>
                         Next <AiOutlineArrowRight className='inline-block'/>
                   </button>
                 </div>
