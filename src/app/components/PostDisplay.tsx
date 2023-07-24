@@ -11,7 +11,7 @@ interface PostProps {
     };
 }
 
-const Post: React.FC<PostProps> = ({
+const PostDisplay: React.FC<PostProps> = ({
     post
 }) => {
     const [liked, setLiked] = useState(false);
@@ -57,4 +57,4 @@ const Post: React.FC<PostProps> = ({
     );
 }
 
-export default Post;
+export default PostDisplay;

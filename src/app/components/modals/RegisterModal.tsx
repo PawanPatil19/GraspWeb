@@ -127,7 +127,7 @@ const RegisterModal = () => {
 
             <select className="form-select my-3 px-2 py-3 block w-full rounded-lg text-gray-600 font-light bg-gray-100"
                 {...register("course")}>
-                <option value='' disabled={true}>Select your course of study</option>
+                <option value='' disabled={true}>Select your course of teaching</option>
                 <option value={courses[1]}>Computer Science</option>
                 <option value={courses[2]}>Business</option>
                 <option value={courses[3]}>Others</option>
@@ -137,45 +137,45 @@ const RegisterModal = () => {
     )
 
 
-    const footerContent = (
-        <div className='flex flex-col px-5'>
-            {/* or with lines */}
-            <div className='flex items-center justify-center m-5'>
-                <div className='w-2/4 h-0.5 bg-gray-200'></div>
-                <span className='px-4 text-gray-400'>or</span>
-                <div className='w-2/4 h-0.5 bg-gray-200'></div>
-            </div>
+    // const footerContent = (
+    //     <div className='flex flex-col px-5'>
+    //         {/* or with lines */}
+    //         <div className='flex items-center justify-center m-5'>
+    //             <div className='w-2/4 h-0.5 bg-gray-200'></div>
+    //             <span className='px-4 text-gray-400'>or</span>
+    //             <div className='w-2/4 h-0.5 bg-gray-200'></div>
+    //         </div>
             
 
-            <div className='px-5 items-center my-auto'>
-                <div className='flex w-full'>
-                {/* google login button */}
-                <button 
-                    className='flex justify-center border-2 border-gray-100 bg-white rounded-full w-full text-black text-sm text-light px-3 py-2 hover:shadow'
-                    onClick={() => signIn('google')}    
-                >
-                    <FcGoogle className='text-2xl'/>
-                    <span className='pl-2'>Sign up with Google</span>
-                </button>
-                </div>
-                {/* apple login button */}
-                <div className='flex items-center justify-center pt-4'>
-                <button 
-                    className='flex justify-center bg-white border-2 border-gray-100 w-full rounded-full text-black text-sm text-light px-3 py-2 hover:shadow'
-                    onClick={() => signIn('github')}
-                >
-                    <AiFillGithub className='text-2xl'/>
-                    <span className='pl-2'>Sign up with Github</span>
-                </button>
-                </div>
-            </div>
+    //         <div className='px-5 items-center my-auto'>
+    //             <div className='flex w-full'>
+    //             {/* google login button */}
+    //             <button 
+    //                 className='flex justify-center border-2 border-gray-100 bg-white rounded-full w-full text-black text-sm text-light px-3 py-2 hover:shadow'
+    //                 onClick={() => signIn('google')}    
+    //             >
+    //                 <FcGoogle className='text-2xl'/>
+    //                 <span className='pl-2'>Sign up with Google</span>
+    //             </button>
+    //             </div>
+    //             {/* apple login button */}
+    //             <div className='flex items-center justify-center pt-4'>
+    //             <button 
+    //                 className='flex justify-center bg-white border-2 border-gray-100 w-full rounded-full text-black text-sm text-light px-3 py-2 hover:shadow'
+    //                 onClick={() => signIn('github')}
+    //             >
+    //                 <AiFillGithub className='text-2xl'/>
+    //                 <span className='pl-2'>Sign up with Github</span>
+    //             </button>
+    //             </div>
+    //         </div>
 
-            <div className='flex justify-start px-5 pt-8'>
-                <span className='text-sm text-gray-400'>Already have an account?</span>
-                <button className='text-sm text-violet-800 pl-2'>Log in</button>
-            </div>
-        </div>
-    )
+    //         <div className='flex justify-start px-5 pt-8'>
+    //             <span className='text-sm text-gray-400'>Already have an account?</span>
+    //             <button className='text-sm text-violet-800 pl-2'>Log in</button>
+    //         </div>
+    //     </div>
+    // )
 
     // switch (step) {
     //     case 1:
@@ -187,7 +187,7 @@ const RegisterModal = () => {
                     actionLabel='Register'
                     onSubmit={handleSubmit(onSubmit)}
                     body={bodyContentPart1}
-                    footer={footerContent}
+                    // footer={footerContent}
                 />);
         // case 2:
         //     return (<Modal

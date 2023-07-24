@@ -1,18 +1,18 @@
 'use client';
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { SafePost, SafeUser } from "@/app/types";
 import React from 'react';
 import {  BiEditAlt, BiSave, BiCheck } from 'react-icons/bi';
-import { AiOutlineEye, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineClose, AiOutlineUpload } from 'react-icons/ai';
 import { VscSettings, VscFile } from 'react-icons/vsc';
 import { useParams } from 'next/navigation';
 import { Quill } from 'react-quill';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
-import { FileUploader } from "react-drag-drop-files";
+import BlotFormatter, {AlignAction, DeleteAction, ImageSpec} from 'quill-blot-formatter';
 
 
 
@@ -22,25 +22,31 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 import Link from "next/link";
 
+const BlockEmbed = Quill.import('blots/block/embed');
+
+
 Quill.register('modules/imageActions', ImageActions);
 Quill.register('modules/imageFormats', ImageFormats);
+Quill.register('modules/blotFormatter', BlotFormatter);
 
+class CustomImageSpec extends ImageSpec {
+    getActions() {
+        return [AlignAction, DeleteAction];
+    }
+}
 
 const modules = {
     
     toolbar: [
-      [{ header: '1' }, { header: '2' }, { font: [] }],
-      [{ size: [] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-      ],
-      [{'align': []}],
-      ['link', 'image', 'video', 'formula', 'code-block'],
-      ['clean'],
+        [{ 'font': [] }, { 'size': [] }],
+        [ 'bold', 'italic', 'underline', 'strike' ],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'script': 'super' }, { 'script': 'sub' }],
+        [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
+        [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
+        [ 'direction', { 'align': [] }],
+        [ 'link', 'image', 'video', 'formula' ],
+        [ 'clean' ]
     ],
 
     clipboard: {
@@ -49,7 +55,13 @@ const modules = {
     },
     imageActions: {},
     imageFormats: {},
+    blotFormatter: {
+        specs: [CustomImageSpec],
+    },
 }
+
+
+
 
 const formats = [
     'header',
@@ -103,22 +115,61 @@ const EditorClient : React.FC<EditorClientProps> = ({
     const postID = params?.postID;
     console.log(postID);
     const [files, setFiles] = useState<File[]>([]);
+    const [fileNames, setFileNames] = useState<string[]>([]);
+    const [fileReferences, setFileReferences] = useState<string[]>([]);
 
     const handleFileChange = (event:any) => {
-        console.log(event.target.files[0]);
+
         //change reference of files
         let tmpFiles = [...files]
         tmpFiles.push(event.target.files[0]);
         setFiles(tmpFiles);
+
+        let tmpFileNames = [...fileNames]
+        tmpFileNames.push(event.target.files[0].name);
+        setFileNames(tmpFileNames);
     }
 
     const removeFile = (index: number) => {
         let tmpFiles = [...files]
         tmpFiles.splice(index, 1);
         setFiles(tmpFiles);
+
+        let tmpFileNames = [...fileNames]
+        tmpFileNames.splice(index, 1);
+        setFileNames(tmpFileNames);
     }
 
+    const handleFileUpload = async () => {
 
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileName = fileNames[i];
+            const res = await axios.get(`/api/uploadFiles?file=${fileName}`);
+            console.log(res);
+            const { url, fields } = await res.data;
+            const formData = new FormData();
+
+            Object.entries({ ...fields, file }).forEach(([key, value]) => {
+                formData.append(key, value as string);
+            });
+
+            
+            const upload = await fetch(url, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (upload.ok) {
+                fileReferences.push(url+fileName);
+                console.log('Uploaded successfully!');
+            }
+            else {
+                console.error('Upload failed.');
+            }
+
+        }
+    }
 
     const onEditorChange = (content: string, delta: any, source: string, editor: any) => {
         setContent(content);
@@ -134,33 +185,34 @@ const EditorClient : React.FC<EditorClientProps> = ({
         // change content to delta
         console.log(deltaContent);
 
-        // convert files to binData
-        let binData = [];
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                binData.push(reader.result);
-            }
-        }
+        useEffect(() => {
+            
+        })
 
-        const data = {
-            postID: postID,
-            title: title,
-            content: deltaContent,
-            displayContent: content
-        }
-        axios.post('/api/createPost', data)
-            .then((res) => {
-                console.log(res);
-                toast.success('Post saved successfully!');
+        handleFileUpload().then(() => {
+            console.log('Files uploaded successfully!');
+
+            const data = {
+                postID: postID,
+                title: title,
+                content: deltaContent,
+                displayContent: content,
+                uploadFiles: fileReferences
             }
-        ).catch((err) => {
+            axios.post('/api/createPost', data)
+                .then((res) => {
+                    console.log(res);
+                    toast.success('Post saved successfully!');
+                }
+            ).catch((err) => {
+                console.log(err);
+                toast.error('Error saving post!');
+            }
+            );
+        }).catch((err) => {
             console.log(err);
-            toast.error('Error saving post!');
-        }
-        );
+            toast.error('Error uploading files!');
+        })
 
     }
     
@@ -201,7 +253,6 @@ const EditorClient : React.FC<EditorClientProps> = ({
                             <Link href={`/view/${postID}`} >
                             {!preview ? 
                                 (<div className="flex flex-col items-center justify-center my-7">
-                                    
                                         <AiOutlineEye className='text-3xl text-gray-400' 
                                             onClick={() => {setPreview(true); setEdit(false); setSave(false);}}/>
                                         <span className='flex font-light text-sm text-gray-500'>Preview</span>
@@ -260,21 +311,30 @@ const EditorClient : React.FC<EditorClientProps> = ({
                                 <span className='flex font-light text-gray-500'><VscSettings className='text-2xl' /> &nbsp; Upload</span>
                             </div>
                             {/* browse files and upload */}
-                            <div className='mt-5'>
+                            <div className='flex mt-5 bg-white border-2 border-violet-800  font-medium rounded-lg border-dotted'>
                                 <input type="file" id="file" className="hidden" onChange={handleFileChange} />
-                                <label htmlFor="file" className='bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-full px-6 py-2 text-center'>
-                                    Browse Files
+                                <label htmlFor="file" className=' w-full py-10'>
+                                    <div className="flex flex-col">
+                                        <AiOutlineUpload className='text-2xl mx-auto text-violet-800' />
+                                        <span className="mx-auto">Browse files</span><br></br>
+                                        <span className="mx-auto text-sm text-gray-400">PDF/PPTX files only</span>
+                                    </div>
+                                    
                                 </label>
                             </div>
                             
                             {files.map((file, index) => (
                                 <div key={index} className='mt-5'>
-                                    <div className='flex font-light text-gray-500'>
-                                        <VscFile className='text-2xl' /> &nbsp; {file.name}
-                                        <AiOutlineClose className='text-2xl ml-2 hover:text-violet-800' onClick={() => removeFile(index)} />
+                                    <div className='flex font-light text-gray-500 items-center'>
+                                        <VscFile className='text-lg' /> &nbsp; {file.name}
+                                        <AiOutlineClose className='text-lg ml-auto hover:text-violet-800' onClick={() => removeFile(index)} />
                                     </div>
                                 </div>
                             ))}
+
+                            {/* <div className='flex justify-center mt-5'>
+                                <button className='bg-violet-800 text-white px-5 py-2 rounded-lg' onClick={handleFileUpload}>Upload</button>
+                            </div> */}
                         </div>
                     </div>
                 </div>

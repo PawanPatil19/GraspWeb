@@ -18,7 +18,8 @@ export async function POST(
         postID,
         title,
         content,
-        displayContent
+        displayContent,
+        uploadFiles
     } = body;
 
     // check if there is a post with the same postID, if yes update the post, else create a new post
@@ -37,6 +38,7 @@ export async function POST(
                 title,
                 content,
                 displayContent,
+                uploadFiles,
                 updatedAt: new Date(),
             },
         });
@@ -48,6 +50,7 @@ export async function POST(
                 title,
                 content,
                 displayContent,
+                uploadFiles,
                 authorName: currentUser.name,
                 authorId: currentUser.id,
             },

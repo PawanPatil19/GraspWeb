@@ -1,25 +1,19 @@
 import { redirect, useRouter } from 'next/navigation';
-
-
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineLike, AiFillApple, AiOutlineCloseCircle, AiOutlineArrowRight } from 'react-icons/ai';
-import Navbar from './components/NavBar/navbar';
 import Link from 'next/link';
-import RegisterModal from './components/modals/RegisterModal';
-import ToasterProvider from './providers/ToasterProvider';
-import LoginModal from './components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
 import ClientOnly from './components/ClientOnly';
 import EmptyState from './components/EmptyState';
 import getPosts from './actions/getPosts';
-import Post from './components/Post';
+import PostDisplay from './components/PostDisplay';
+import { CircularProgress } from '@mui/material';
 
 
 
 export default async function Home() {
   const posts = await getPosts();
-  const currentUser = await getCurrentUser();
 
     if(posts.length === 0) {
         return (
@@ -32,13 +26,10 @@ export default async function Home() {
 
   return (
     <div className="bg-white px-5 md:px-0">
-      <div className='flex flex-col h-full'>
-        
-
-        {/* Home page section before log in */}
-        
+      <div className='flex flex-col h-full min-h-screen'>
+        {/* Home page section before log in */} 
         <div>
-          <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-10'>
+          <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  mt-10'>
             <div className='w-full grid grid-cols-1 md:grid-cols-2'>
               <div className='py-10 md:my-auto'>
                 <span className='text-4xl md:text-6xl font-semibold'>
@@ -119,7 +110,7 @@ export default async function Home() {
           {/* Card layout  */}
           <div className='grid grid-cols-1 md:grid-cols-2'>
             {posts.map((post) => (
-              <Post post={post} />
+              <PostDisplay post={post} />
             ))}
 
           </div>

@@ -57,10 +57,6 @@ const Navbar : React.FC<NavbarProps> = ({
                 </li>
 
                 <li className="md:py-2">
-                  <a href="/membership" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Membership</a>
-                </li>
-
-                <li className="md:py-2">
                   <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Upload</a>
                 </li>
 
@@ -192,10 +188,6 @@ const Navbar : React.FC<NavbarProps> = ({
 
                     <li className="py-4">
                       <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 font-light">How it works</a>
-                    </li>
-
-                    <li className="py-4">
-                      <a href="/membership" className="block py-2 pl-3 pr-4 text-gray-400 font-light">Membership</a>
                     </li>
 
                     <li className="py-4">

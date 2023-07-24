@@ -58,21 +58,21 @@ const LoginModal = () => {
     const bodyContent = (
         <div className="relative px-6 flex-auto">
             {/* google login button */}
-            <div className='flex w-full'>
+            {/* <div className='flex w-full'>
                 <button className='flex justify-center border-2 border-gray-100 bg-white rounded-full w-full text-black text-sm text-light px-3 py-2 hover:shadow'
                     onClick={() => signIn('google')}>
                     <FcGoogle className='text-2xl'/>
                     <span className='pl-2'>Sign in with Google</span>
                 </button>
-            </div>
+            </div> */}
             {/* apple login button */}
-            <div className='flex items-center justify-center py-4'>
+            {/* <div className='flex items-center justify-center py-4'>
                 <button className='flex justify-center bg-white border-2 border-gray-100 w-full rounded-full text-black text-sm text-light px-3 py-2 hover:shadow'
                     onClick={() => signIn('github')}>
                     <AiFillGithub className='text-2xl'/>
                     <span className='pl-2'>Sign in with Apple</span>
                 </button>
-            </div>
+            </div> */}
             {/* or with lines */}
             <div className='flex items-center justify-center m-5'>
                 <div className='w-2/4 h-0.5 bg-gray-200'></div>

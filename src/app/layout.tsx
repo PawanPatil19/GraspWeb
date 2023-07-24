@@ -34,6 +34,7 @@ export default async function RootLayout({
           <LoginModal />
         </ClientOnly>
         {children}
+        
       </body>
     </html>
   )

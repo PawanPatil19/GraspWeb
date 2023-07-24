@@ -52,6 +52,7 @@ model Post {
   title     String?
   content   Json
   displayContent String
+  uploadFiles String[]
   published Boolean @default(false)
   authorName String?
   authorId  String?  @db.ObjectId

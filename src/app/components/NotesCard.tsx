@@ -13,7 +13,7 @@ interface PostProps {
     };
 }
 
-const Post: React.FC<PostProps> = ({
+const NotesCard: React.FC<PostProps> = ({
     post
 }) => {
     const [liked, setLiked] = useState(false);
@@ -28,7 +28,7 @@ const Post: React.FC<PostProps> = ({
             </div>
             <div className='flex mt-auto p-4'>
                 <span className='text-sm text-gray-400'>Last updated on: {moment(post?.updatedAt).format('MMM DD, YYYY')}</span>
-                <Link href={`/editor/${post.id}`} className='ml-auto'>
+                <Link href={`/editor/${post.postID}`} className='ml-auto'>
                     <AiOutlineEdit className='text-2xl' />
                 </Link>
             </div>
@@ -50,4 +50,4 @@ const Post: React.FC<PostProps> = ({
     );
 }
 
-export default Post;
+export default NotesCard;
