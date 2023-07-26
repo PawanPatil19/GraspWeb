@@ -419,7 +419,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
                             modules={modules}
                             formats={formats}
                             onChange={onEditorChange}
-                            defaultValue={content}
+                            defaultValue={content as string}
                         />
                     </div>
                     <div className='col-span-2 bg-gray-100 px-5'>
