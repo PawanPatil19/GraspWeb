@@ -23,7 +23,15 @@ export default async function getPostById(params: IParams) {
             return null;
         }
 
-        return posts;
+        const safePosts = posts.map((post) => {
+            return {
+                ...post,
+                createdAt: post.createdAt.toString(),
+                updatedAt: post.updatedAt.toString(),
+            };
+        });
+
+        return safePosts;
     } catch (error : any) {
         console.error(error);
         throw new Error(error);

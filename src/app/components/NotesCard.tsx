@@ -8,9 +8,7 @@ import React, { useState } from "react";
 import moment from 'moment';
 
 interface PostProps {
-    post: SafePost & {
-        user: SafeUser;
-    };
+    post: SafePost;
 }
 
 const NotesCard: React.FC<PostProps> = ({

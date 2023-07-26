@@ -7,7 +7,16 @@ export default async function getPosts() {
                 createdAt: "desc",
             },
         });
-        return posts;
+        
+        const safePosts = posts.map((post) => {
+            return {
+                ...post,
+                createdAt: post.createdAt.toString(),
+                updatedAt: post.updatedAt.toString(),
+            };
+        });
+
+        return safePosts;
     } catch (error: any) {
         throw new Error(error);
     }

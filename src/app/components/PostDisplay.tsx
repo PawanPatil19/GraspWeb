@@ -7,9 +7,7 @@ import React, { useState } from "react";
 
 
 interface PostProps {
-    post: SafePost & {
-        user: SafeUser;
-    };
+    post: SafePost;
 }
 
 const PostDisplay: React.FC<PostProps> = ({

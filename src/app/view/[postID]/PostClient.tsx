@@ -16,9 +16,7 @@ import Link from "next/link";
 
 
 interface PostClientProps {
-    post: SafePost & {
-        user: SafeUser;
-    };
+    post: SafePost;
     currentUser?: SafeUser | null;
 }
 
@@ -71,11 +69,8 @@ const PostClient : React.FC<PostClientProps> = ({
                         <div className='flex p-4 items-center gap-4'>
                             <div className=''>
                                 {
-                                    post?.user.image === null ? (
-                                        <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>
-                                    ) : (
-                                        <Avatar src={post?.user.image} />
-                                    )
+                                    <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>
+                                    
                                 }
                                  
                             </div>
