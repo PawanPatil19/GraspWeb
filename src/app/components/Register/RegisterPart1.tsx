@@ -1,9 +1,20 @@
 import { AiOutlineEye, AiOutlineLike, AiFillApple, AiOutlineCloseCircle, AiFillEyeInvisible, AiOutlineArrowRight } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import RegisterPart2 from './RegisterPart2';
 
-export default function RegisterPart1(props: { setShowRegisterModal: (arg0: boolean) => void; setShowRegisterPart2Modal: (arg0: boolean) => void; }) {
+
+export default function RegisterPart1(props : { nextStep: any, setState: any, values: any, handleClose: any, registerCallback: any } ) {
+
+    const [step, setStep] = useState(props.values.step);
+    const [firstName, setFirstName] = useState(props.values.firstName);
+    const [lastName, setLastName] = useState(props.values.lastName);
+    const [email, setEmail] = useState(props.values.email);
+    const [password, setPassword] = useState(props.values.password);
+    const [confirmPassword, setConfirmPassword] = useState(props.values.confirmPassword);
+    const [university, setUniversity] = useState(props.values.university);
+    const [course, setCourse] = useState(props.values.course);
+
     
 
     return (
@@ -19,7 +30,7 @@ export default function RegisterPart1(props: { setShowRegisterModal: (arg0: bool
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 float-right text-gray-300 text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => props.setShowRegisterModal(false)}
+                    onClick={() => props.handleClose()}
                   >
                    <AiOutlineCloseCircle/>
                   </button>
@@ -34,32 +45,37 @@ export default function RegisterPart1(props: { setShowRegisterModal: (arg0: bool
                               <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="firstName">
                                   First Name
                               </label>
-                              <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" id="username" type="text" placeholder='' />
+                              <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" 
+                                id="username" type="text" placeholder='' defaultValue={props.values.firstName} onChange={event => {event.preventDefault(); setFirstName(event.target.value);}}/>
                           </div>
                           <div>
                               <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="lastName">
                                   Last Name
                               </label>
-                              <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" id="username" type="text" placeholder='' />
+                              <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" 
+                                id="username" type="text" placeholder='' defaultValue={props.values.lastName} onChange={event => {event.preventDefault(); setLastName(event.target.value)}} />
                           </div>
                       </div>
                       <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="email">
                           Email
                         </label>
-                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" id="username" type="text" placeholder='abc@example.com' />
+                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" 
+                          id="username" type="text" defaultValue={props.values.email} onChange={event => {event.preventDefault(); setEmail(event.target.value)}}/>
                       </div>
                       <div className="mb-4 ">
                         <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">
                           Password
                         </label>
-                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 mb-2 focus:outline focus:outline-violet-400" id="password" type="password" placeholder="******************" />
+                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 mb-2 focus:outline focus:outline-violet-400" 
+                          id="password" type="password" defaultValue={props.values.email} onChange={event => {event.preventDefault(); setPassword(event.target.value)}}  />
                       </div>
                       <div>
                         <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">
                           Confirm Password
                         </label>
-                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 mb-2 focus:outline focus:outline-violet-400" id="password" type="password" placeholder="******************" />
+                        <input className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 mb-2 focus:outline focus:outline-violet-400" 
+                          id="password" type="password" defaultValue={props.values.email} onChange={event => {event.preventDefault(); setConfirmPassword(event.target.value)}} />
                       </div>
                     </form>
                   
@@ -100,7 +116,24 @@ export default function RegisterPart1(props: { setShowRegisterModal: (arg0: bool
               {/*footer*/}
               <div className="flex mx-auto my-5">
                 <div>
-                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline" type="button" onClick={() => {props.setShowRegisterModal(false); props.setShowRegisterPart2Modal(true);}}>
+                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline" type="button" 
+                    onClick={(e) => {
+                      e.preventDefault(); 
+                      const val = {
+                        step: 1,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        confirmPassword: confirmPassword,
+                        university: university,
+                        course: course
+                      }
+                      console.log(val);
+                      props.registerCallback(val);
+
+                      props.nextStep();
+                    }}>
                         Next <AiOutlineArrowRight className='inline-block'/>
                   </button>
                 </div>

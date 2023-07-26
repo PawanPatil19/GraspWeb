@@ -1,24 +1,13 @@
 'use client';
 
 import { redirect } from 'next/navigation';
-import Image from 'next/image';
 import React from 'react';
-import { AiOutlineSearch, AiOutlineEye, AiOutlineLike, AiOutlineEdit, AiOutlineArrowRight, AiOutlineDownCircle } from 'react-icons/ai';
+import { AiOutlineDownCircle } from 'react-icons/ai';
 import {FaUserCircle} from 'react-icons/fa';
-import Navbar from '../components/Navigation Bar/navbar';
-import RegisterPart1 from '../components/Register/RegisterPart1';
-import RegisterPart2 from '../components/Register/RegisterPart2';
-import RegisterPart3 from '../components/Register/RegisterPart3';
-import Login from '../components/Login/Login';
+
 
 
 export default function Home() {
-  const [showLoginModal, setShowLoginModal] = React.useState(false);
-  const [showRegisterModal, setShowRegisterModal] = React.useState(false);
-  const [showRegisterPart2Modal, setShowRegisterPart2Modal] = React.useState(false);
-  const [showRegisterPart3Modal, setShowRegisterPart3Modal] = React.useState(false);
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(true);
-
   const [isAccountSelected, setIsAccountSelected] = React.useState(true);
   const [isPasswordSelected, setIsPasswordSelected] = React.useState(false);
   const [isNotificationsSelected, setIsNotificationsSelected] = React.useState(false);
@@ -46,14 +35,9 @@ export default function Home() {
   }
   
 
-  const handleClick = () => {
-    redirect('/upload');
-  };
-
   return (
     <main className="bg-white px-5 md:px-0">
       <div className='mb-10'>
-        <Navbar setShowLoginModal={setShowLoginModal} setShowRegisterModal={setShowRegisterModal} isUserLoggedIn={isUserLoggedIn}/>
 
         <div className='h-full md:h-screen'>
 
@@ -155,49 +139,7 @@ export default function Home() {
                 </div>
 
             </div>
-
-            
-
-
-            
-            
-
-            
-            
-
-
-
         </div>
-
-
-        
-
-
-
-        
-
-
-        {/* Login popup modal */}
-        {showLoginModal ? (
-          <Login setShowLoginModal={setShowLoginModal}/>
-          ) : null }
-        
-        {/* Register popup modal */}
-        {showRegisterModal ? (
-          // pass multiple state to Register
-          <RegisterPart1 setShowRegisterModal={setShowRegisterModal} setShowRegisterPart2Modal={setShowRegisterPart2Modal}/>
-          ) : null }
-
-        {/* Register part 2 popup modal */}
-        {showRegisterPart2Modal ? (
-          <RegisterPart2 setShowRegisterModal={setShowRegisterModal} setShowRegisterPart2Modal={setShowRegisterPart2Modal} setShowRegisterPart3Modal={setShowRegisterPart3Modal}/>
-          ) : null }
-
-        {/* Register part 3 popup modal */}
-        {showRegisterPart3Modal ? (
-          <RegisterPart3 setShowRegisterPart2Modal={setShowRegisterPart2Modal} setShowRegisterPart3Modal={setShowRegisterPart3Modal}/>
-          ) : null }
-
         
       </div>
     </main>

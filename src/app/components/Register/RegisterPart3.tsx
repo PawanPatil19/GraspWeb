@@ -4,8 +4,7 @@ import { Combobox } from '@headlessui/react';
 import { useState, Fragment } from 'react';
 
 
-export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0: boolean) => void;
-  setShowRegisterPart3Modal: (arg0: boolean) => void;}) {
+export default function RegisterPart3({ prevStep, nextStep, setState, values, handleClose }: any) {
   const universities = [
     {id: 0, name: "Select your university"},
     {id : 1, name : 'National University of Singapore'},
@@ -33,7 +32,7 @@ export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0:
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 float-right text-gray-300 text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => props.setShowRegisterPart3Modal(false)}
+                    onClick={() => handleClose()}
                   >
                    <AiOutlineCloseCircle/>
                   </button>
@@ -140,10 +139,12 @@ export default function RegisterPart3(props: { setShowRegisterPart2Modal: (arg0:
               {/*footer*/}
               <div className="flex mx-auto my-10">
                 <div>
-                  <button className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" onClick={() => {props.setShowRegisterPart2Modal(true); props.setShowRegisterPart3Modal(false);}}>
+                  <button className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" 
+                    onClick={(e) => {e.preventDefault(); prevStep();}}>
                         <AiOutlineArrowLeft className='inline-block'/> Back
                   </button>
-                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" onClick={() => {props.setShowRegisterPart3Modal(false);}}>
+                  <button className=" bg-violet-800 hover:bg-violet-500 text-white font-medium py-2 px-8 rounded-full focus:outline-none focus:shadow-outline mx-2" type="button" 
+                    onClick={(e) => {e.preventDefault(); nextStep();}}>
                         Sign Up <AiOutlineArrowRight className='inline-block'/>
                   </button>
                 </div>
