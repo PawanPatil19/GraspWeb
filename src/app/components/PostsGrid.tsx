@@ -24,7 +24,9 @@ const PostsGrid: React.FC<PostProps> = ({
           {/* Card layout  */}
           <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-6'>
             {posts.map((post) => (
-              <PostDisplay post={post} />
+            <div key={post.postID}>
+              <PostDisplay post={post}/>
+            </div>
             ))}
 
           </div>
