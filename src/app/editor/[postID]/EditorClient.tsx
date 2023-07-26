@@ -95,9 +95,7 @@ const formats = [
 
 
 interface EditorClientProps {
-    post: SafePost & {
-        user: SafeUser;
-    };
+    post: SafePost | null;
     currentUser?: SafeUser | null;
 }
 
