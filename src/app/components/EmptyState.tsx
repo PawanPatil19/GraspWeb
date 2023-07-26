@@ -16,7 +16,7 @@ const EmptyState: React.FC<EmptyState> = ({
     const router = useRouter();
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center bg-white py-10">
             <div className="text-center">
                 <h1 className="text-4xl font-semibold">{title}</h1>
                 <p className="text-gray-500">{subtitle}</p>

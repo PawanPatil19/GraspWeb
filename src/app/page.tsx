@@ -9,19 +9,14 @@ import EmptyState from './components/EmptyState';
 import getPosts from './actions/getPosts';
 import PostDisplay from './components/PostDisplay';
 import { CircularProgress } from '@mui/material';
+import PostsGrid from './components/PostsGrid';
 
 
 
 export default async function Home() {
   const posts = await getPosts();
 
-    if(posts.length === 0) {
-        return (
-            <ClientOnly>
-                <EmptyState showReset />
-            </ClientOnly>
-        )
-    }
+    
 
 
   return (
@@ -105,15 +100,17 @@ export default async function Home() {
 
 
 
-        {/* Notes section */}
-        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
-          {/* Card layout  */}
+        {/* <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
           <div className='grid grid-cols-1 md:grid-cols-2'>
             {posts.map((post) => (
               <PostDisplay post={post} />
             ))}
 
           </div>
+        </div> */}
+
+        <div>
+          <PostsGrid posts={posts} />
         </div>
 
       </div>

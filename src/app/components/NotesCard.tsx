@@ -36,11 +36,11 @@ const NotesCard: React.FC<PostProps> = ({
         ) : (
             <div className='flex flex-col bg-white rounded-2xl shadow-lg'>
                 <div className='p-4'>
-                    <div className='text-lg hover:text-violet-800 hover:underline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
+                    <div className='text-lg hover:text-violet-800 hover:underline'>{post.title}</div>
                 </div>
                 <div className='flex mt-auto p-4'>
-                    <AiOutlineEye className='text-2xl'/> <span className='pr-4'>20</span>
-                    <AiOutlineLike className='text-2xl'/> <span>32</span>
+                    <AiOutlineEye className='text-2xl'/> <span className='pr-4'>0</span>
+                    <AiOutlineLike className='text-2xl'/> <span>0</span>
                     <AiOutlineEdit className='text-2xl ml-auto'/>
                 </div>
             </div>

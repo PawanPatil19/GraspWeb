@@ -12,7 +12,9 @@ import { useParams } from 'next/navigation';
 import { Quill } from 'react-quill';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
-import BlotFormatter, {AlignAction, DeleteAction, ImageSpec} from 'quill-blot-formatter';
+import BlotFormatter, {AlignAction, DeleteAction, ImageSpec, ResizeAction} from 'quill-blot-formatter';
+import { redirect, useRouter } from 'next/navigation';
+import useUploadModal from '@/app/hooks/useUploadModal';
 
 
 
@@ -29,11 +31,14 @@ Quill.register('modules/imageActions', ImageActions);
 Quill.register('modules/imageFormats', ImageFormats);
 Quill.register('modules/blotFormatter', BlotFormatter);
 
+
 class CustomImageSpec extends ImageSpec {
     getActions() {
         return [AlignAction, DeleteAction];
     }
 }
+
+
 
 const modules = {
     
@@ -55,9 +60,12 @@ const modules = {
     },
     imageActions: {},
     imageFormats: {},
-    blotFormatter: {
-        specs: [CustomImageSpec],
-    },
+    // ImageResize : {
+    //     modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+    // }
+    // blotFormatter: {
+    //     specs: [CustomImageSpec],
+    // },
 }
 
 
@@ -86,10 +94,6 @@ const formats = [
 ]
 
 
-
-
-
-
 interface EditorClientProps {
     post: SafePost & {
         user: SafeUser;
@@ -103,7 +107,8 @@ const EditorClient : React.FC<EditorClientProps> = ({
     currentUser
 }) => {
 
-
+    const router = useRouter();
+    const uploadModal = useUploadModal();
     const [content, setContent] = useState(post?.displayContent || null);
     const [deltaContent, setDeltaContent] = useState(post?.content || null);
     const [title, setTitle] = useState(post?.title || null);
@@ -116,7 +121,25 @@ const EditorClient : React.FC<EditorClientProps> = ({
     console.log(postID);
     const [files, setFiles] = useState<File[]>([]);
     const [fileNames, setFileNames] = useState<string[]>([]);
-    const [fileReferences, setFileReferences] = useState<string[]>([]);
+    const [fileReferences, setFileReferences] = useState<string[]>(post?.uploadFiles || []);
+    const [removedFiles, setRemovedFiles] = useState<string[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const getFileNames = () => {
+        let tmpFileNames: string[] = [];
+        for (let i = 0; i < fileReferences.length; i++) {
+            const file = fileReferences[i];
+            const fileName = file.split('/').pop();
+            tmpFileNames.push(fileName as string);
+        }
+        setFileNames(tmpFileNames);
+    }
+
+    useEffect(() => {
+        getFileNames();
+    }, [])
+
+        
 
     const handleFileChange = (event:any) => {
 
@@ -138,9 +161,28 @@ const EditorClient : React.FC<EditorClientProps> = ({
         let tmpFileNames = [...fileNames]
         tmpFileNames.splice(index, 1);
         setFileNames(tmpFileNames);
+
+        let tmpRemovedFiles = [...removedFiles]
+        tmpRemovedFiles.push(fileNames[index]);
+        setRemovedFiles(tmpRemovedFiles);
+
+        let tmpFilereferences = [...fileReferences]
+        tmpFilereferences.splice(index, 1);
+        setFileReferences(tmpFilereferences);
     }
 
     const handleFileUpload = async () => {
+
+        // delete the files that were removed
+        for (let i = 0; i < removedFiles.length; i++) {
+            const file = removedFiles[i];
+            axios.post('/api/deleteFiles', {file: file}).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -181,13 +223,13 @@ const EditorClient : React.FC<EditorClientProps> = ({
 
     // send postID, title, content to axios.post
     const handleSave = async () => {
-        console.log(content);
-        // change content to delta
-        console.log(deltaContent);
 
-        useEffect(() => {
-            
-        })
+        // console.log(content);
+        // // change content to delta
+        // console.log(deltaContent);
+
+        const loadingToast = toast.loading('Saving post...');
+        loadingToast;
 
         handleFileUpload().then(() => {
             console.log('Files uploaded successfully!');
@@ -202,6 +244,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
             axios.post('/api/createPost', data)
                 .then((res) => {
                     console.log(res);
+                    toast.dismiss(loadingToast);
                     toast.success('Post saved successfully!');
                 }
             ).catch((err) => {
@@ -211,10 +254,80 @@ const EditorClient : React.FC<EditorClientProps> = ({
             );
         }).catch((err) => {
             console.log(err);
+            toast.dismiss(loadingToast);
             toast.error('Error uploading files!');
         })
-
     }
+
+    const handlePreview = async () => {
+        const loadingToast = toast.loading('Loading preview...');
+        loadingToast;
+
+        handleFileUpload().then(() => {
+            console.log('Files uploaded successfully!');
+
+            const data = {
+                postID: postID,
+                title: title,
+                content: deltaContent,
+                displayContent: content,
+                uploadFiles: fileReferences
+            }
+            axios.post('/api/createPost', data)
+                .then((res) => {
+                    console.log(res);
+                    toast.dismiss(loadingToast);
+                    // toast.success('Post saved successfully!');
+                    router.push(`/view/${postID}`);
+                }
+            ).catch((err) => {
+                console.log(err);
+                toast.error('Error loading post!');
+            }
+            );
+        }).catch((err) => {
+            console.log(err);
+            toast.dismiss(loadingToast);
+            toast.error('Error uploading files!');
+        })
+    }
+
+    const handleUpload = async () => {
+        const loadingToast = toast.loading('Uploading...');
+        loadingToast;
+
+        handleFileUpload().then(() => {
+            console.log('Files uploaded successfully!');
+
+            const data = {
+                postID: postID,
+                title: title,
+                content: deltaContent,
+                displayContent: content,
+                uploadFiles: fileReferences
+            }
+            axios.post('/api/createPost', data)
+                .then((res) => {
+                    console.log(res);
+                    toast.dismiss(loadingToast);
+                    // toast.success('Post saved successfully!');
+                    uploadModal.onOpen();
+                    console.log(uploadModal.isOpen);
+                }
+            ).catch((err) => {
+                console.log(err);
+                toast.error('Error loading post!');
+            }
+            );
+        }).catch((err) => {
+            console.log(err);
+            toast.dismiss(loadingToast);
+            toast.error('Error uploading files!');
+        })
+    }
+
+    
+
     
     return (
         <main className="bg-white">
@@ -239,7 +352,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
                             
                             {!edit ? (<div className="flex flex-col items-center justify-center my-7">
                                         <BiEditAlt className='text-3xl text-gray-400' 
-                                            onClick={() => {setEdit(true); setPreview(false); setSave(false);}}/>
+                                            onClick={() => {setUpload(false); setEdit(true); setPreview(false); setSave(false);}}/>
                                         <span className='flex font-light text-sm text-gray-500'>Create</span>
                                     </div>)
                                 : (
@@ -250,11 +363,16 @@ const EditorClient : React.FC<EditorClientProps> = ({
                                 )
                             }
 
-                            <Link href={`/view/${postID}`} >
                             {!preview ? 
                                 (<div className="flex flex-col items-center justify-center my-7">
                                         <AiOutlineEye className='text-3xl text-gray-400' 
-                                            onClick={() => {setPreview(true); setEdit(false); setSave(false);}}/>
+                                            onClick={() => {setPreview(true); 
+                                            setEdit(false); 
+                                            setSave(false); 
+                                            setUpload(false);
+                                            //save and then redirect
+                                            handlePreview();
+                                        }}/>
                                         <span className='flex font-light text-sm text-gray-500'>Preview</span>
                                    
                                 </div>) 
@@ -263,12 +381,11 @@ const EditorClient : React.FC<EditorClientProps> = ({
                                     <div className="w-2 h-2 bg-violet-800 rounded-full align-middle"></div>
                                   </div>)
                             }
-                             </Link>
                             
                             {!save ? 
                                 (<div className="flex flex-col items-center justify-center my-7">
                                     <BiSave className='text-3xl text-gray-400' 
-                                        onClick={() => {setSave(true); setPreview(false); setEdit(false); handleSave();}}/>
+                                        onClick={() => {setUpload(false);setSave(true); setPreview(false); setEdit(false); handleSave();}}/>
                                     <span className='flex font-light text-sm text-gray-500'>Save</span>
                                 </div>)
                                 : <div className='flex items-center gap-4'>
@@ -280,7 +397,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
                             {!upload ? 
                                 (<div className="flex flex-col items-center justify-center my-7">
                                     <BiCheck className='text-3xl text-gray-400' 
-                                        onClick={() => {setSave(true); setPreview(false); setEdit(false);}}/>
+                                        onClick={() => {setUpload(true); setSave(false); setPreview(false); setEdit(false); handleUpload(); }}/>
                                     <span className='flex font-light text-sm text-gray-500'>Upload</span>
                                 </div>)
                                 : <div className='flex items-center gap-4'>
@@ -323,10 +440,10 @@ const EditorClient : React.FC<EditorClientProps> = ({
                                 </label>
                             </div>
                             
-                            {files.map((file, index) => (
+                            {fileNames.map((file, index) => (
                                 <div key={index} className='mt-5'>
                                     <div className='flex font-light text-gray-500 items-center'>
-                                        <VscFile className='text-lg' /> &nbsp; {file.name}
+                                        <VscFile className='text-lg' /> &nbsp; {file}
                                         <AiOutlineClose className='text-lg ml-auto hover:text-violet-800' onClick={() => removeFile(index)} />
                                     </div>
                                 </div>

@@ -74,11 +74,11 @@ const LoginModal = () => {
                 </button>
             </div> */}
             {/* or with lines */}
-            <div className='flex items-center justify-center m-5'>
+            {/* <div className='flex items-center justify-center m-5'>
                 <div className='w-2/4 h-0.5 bg-gray-200'></div>
                 <span className='px-4 text-gray-400'>or</span>
                 <div className='w-2/4 h-0.5 bg-gray-200'></div>
-            </div>
+            </div> */}
             {/* email and password */}
             <form>
                 <div className="mb-4">

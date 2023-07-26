@@ -6,6 +6,7 @@ import ToasterProvider from './providers/ToasterProvider'
 import RegisterModal from './components/modals/RegisterModal'
 import LoginModal from './components/modals/LoginModal'
 import getCurrentUser from './actions/getCurrentUser'
+import UploadModal from './components/modals/UploadModal'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -32,6 +33,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
+          <UploadModal />
         </ClientOnly>
         {children}
         

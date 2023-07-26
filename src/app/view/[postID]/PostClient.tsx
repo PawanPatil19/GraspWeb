@@ -4,12 +4,13 @@ import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { AiOutlineSearch, AiOutlineLike, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineLike, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar, AiOutlineEdit } from 'react-icons/ai';
 import {FaRegClone} from 'react-icons/fa';
 import {HiOutlineUserCircle} from 'react-icons/hi';
 import Avatar from '../../components/Avatar';
 import { SafePost, SafeUser } from "@/app/types";
 import moment from 'moment';
+import Link from "next/link";
 
 
 
@@ -33,7 +34,7 @@ const PostClient : React.FC<PostClientProps> = ({
     return (
         <main className="bg-white px-5 md:px-0">
         <div className='mb-10'>
-            <div className='h-screen'>
+            <div className='min-h-screen'>
 
                 {/*Search bar in right top corner*/}
                 <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
@@ -96,10 +97,18 @@ const PostClient : React.FC<PostClientProps> = ({
                     <div className='flex justify-end w-full'>
                         <div className='flex justify-end'>
                             <div className='flex justify-end gap-7 items-center text-gray-700'>
+                                <Link href={`/editor/${post.postID}`}>
+                                {
+                                    post.authorId === currentUser?.id ? (
+                                        <span className="flex gap-2">
+                                            <AiOutlineEdit className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                            <span className='hidden md:block text-gray-400'>Edit</span>
+                                        </span>
+                                    ) : null
+                                }
+                                </Link>
                                 <span className="flex gap-2">
-                                    <AiOutlineLike 
-                                        className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'
-                                    /> 
+                                    <AiOutlineLike className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
                                     <span className='hidden md:block text-gray-400'>Like</span>
                                 </span>
                                 <span className="flex gap-2">
@@ -122,21 +131,26 @@ const PostClient : React.FC<PostClientProps> = ({
 
                 
 
-
+                
                 <div className='max-w-screen-xl items-center justify-between mx-auto py-5'>
+                    { files.length === 0 ? null :
                     <span className="text-gray-400">Files</span>
-                    {
-                        files.map((file, index) => (
-                            <a target="_blank" href={file} rel="noopener noreferrer">
-                                <div className='flex gap-2 border-2 px-2 py-4 rounded-lg w-1/5 hover:border-violet-800'>
-                                    <AiOutlineFileText className='inline-block text-2xl text-gray-400'/>
-                                    <span>{file.split("/").at(-1)}</span>
-                                </div>
-                            </a>
-                        ))
-                    }
-                    
-                    <div dangerouslySetInnerHTML={{__html: post.displayContent}} className="py-5"/>
+                    }   
+                    <div className="grid grid-cols-4 gap-4">
+                        {
+                            files.map((file, index) => (
+                                <a target="_blank" href={file} rel="noopener noreferrer">
+                                    <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
+                                        <AiOutlineFileText className='inline-block text-2xl text-gray-400'/>
+                                        <span>{file.split("/").at(-1)}</span>
+                                    </div>
+                                </a>
+                            ))
+                        }
+                    </div>
+                    <div className="ql-editor">
+                        <div dangerouslySetInnerHTML={{__html: post.displayContent}} className="py-5"/>
+                    </div>
                 </div>
 
 
