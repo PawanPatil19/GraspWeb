@@ -139,12 +139,14 @@ const PostClient : React.FC<PostClientProps> = ({
                     <div className="grid grid-cols-4 gap-4">
                         {
                             files.map((file, index) => (
+                                <div key={file + index}>
                                 <a target="_blank" href={file} rel="noopener noreferrer">
                                     <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
                                         <AiOutlineFileText className='inline-block text-2xl text-gray-400'/>
                                         <span>{file.split("/").at(-1)}</span>
                                     </div>
                                 </a>
+                                </div>
                             ))
                         }
                     </div>

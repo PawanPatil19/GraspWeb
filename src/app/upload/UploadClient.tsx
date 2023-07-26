@@ -68,7 +68,9 @@ const UploadClient : React.FC<UploadClientProps> = ({
                         {/* Create a notes card */}
                         {
                             posts.map((post) => (
-                                <NotesCard post={post} />
+                                <div key={post.postID}>
+                                    <NotesCard post={post} />
+                                </div>
                             ))
                         }
                     </div>
