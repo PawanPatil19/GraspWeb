@@ -13,9 +13,10 @@ interface IParams {
 }
 
 const UploadPage = async () => {
+
     const currentUser = await getCurrentUser();
     const posts = await getPostsByCreatorId(currentUser?.id as IParams);
-    console.log(posts);
+    // console.log(posts);
     
     if(!posts) {
         return null;

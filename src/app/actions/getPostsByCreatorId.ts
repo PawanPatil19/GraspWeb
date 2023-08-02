@@ -4,7 +4,7 @@ interface IParams {
     creatorID? : string;
 }
 
-export default async function getPostById(params: IParams) {
+export default async function getPostsByCreatorId(params: IParams) {
     try {
         const { creatorID } = params;
         const posts = await prisma.post.findMany({

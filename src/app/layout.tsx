@@ -8,6 +8,8 @@ import LoginModal from './components/modals/LoginModal'
 import getCurrentUser from './actions/getCurrentUser'
 import UploadModal from './components/modals/UploadModal'
 
+export const dynamic = "force-dynamic";
+
 
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({
