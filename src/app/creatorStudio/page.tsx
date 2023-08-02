@@ -59,7 +59,7 @@ export default function Home() {
             </div>
 
             {/* Account Registered */}
-            <div className='w-full md:w-2/4 flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-gray-100'>
+            {/* <div className='w-full md:w-2/4 flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-gray-100'>
                 <div className='w-full my-10'>
                     <div className='flex justify-center text-sm font-light mb-2 px-2 text-center'>
                         You have no bank account registered with your creator account
@@ -71,7 +71,7 @@ export default function Home() {
                     </div>
                 </div>
 
-            </div>
+            </div> */}
 
 
             

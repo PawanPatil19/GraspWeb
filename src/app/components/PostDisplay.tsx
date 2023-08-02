@@ -3,7 +3,10 @@
 import { AiOutlineArrowRight, AiOutlineEye, AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { SafePost, SafeUser } from "../types";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import getCoursePlanNameById from "../actions/getCoursePlanName";
+import getCoursePlanName from "../actions/getCoursePlanName";
+import { CoursePlan } from "@prisma/client";
 
 
 interface PostProps {
@@ -14,7 +17,7 @@ const PostDisplay: React.FC<PostProps> = ({
     post
 }) => {
     const [liked, setLiked] = useState(false);
-    
+    console.log(post);
 
     return (
         <div className='py-2 '>
@@ -22,10 +25,11 @@ const PostDisplay: React.FC<PostProps> = ({
             <div className='grid grid-cols-2 w-full h-full'>
                 <div className='flex flex-col bg-gradient-to-r from-violet-800 to-violet-500 p-5 text-white text-lg md:text-2xl font-semibold rounded-l-lg'>
                     {post.title}
-                    <div className='flex mt-auto w-2/4'>
+                    <div className='flex mt-auto'>
                         {/* <span className='ml-auto text-xs text-light text-violet-800 rounded-full bg-white border-2 border-violet-800 py-1 px-1'>
-                            
+                            {post.coursePlan?.title}
                         </span> */}
+
                         
                     </div>
                 

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { CoursePlan, User } from '@prisma/client';
 import { Post } from '@prisma/client';
 
 export type SafePost = Omit<

@@ -77,7 +77,7 @@ const Navbar : React.FC<NavbarProps> = ({
                     </Dropdown.Button>
                     <Dropdown.Menu aria-label="Static Actions">
                       <Dropdown.Section>
-                        <Dropdown.Item key="new">
+                        <Dropdown.Item key="display">
                           <span>Hi, {currentUser.name} 👋</span>
                         </Dropdown.Item>
                       </Dropdown.Section>
@@ -100,13 +100,13 @@ const Navbar : React.FC<NavbarProps> = ({
                           </span>
                         </a>
                       </Dropdown.Item>
-                      <Dropdown.Item key="edit">
+                      {/* <Dropdown.Item key="edit">
                         <a href="/userSettings" className="text-gray-700 block py-2 text-sm" role="menuitem" id="menu-item-3">
                           <span className='items-center'>
                             <BiBrightness size={20} className="inline-block"/> &nbsp;Settings
                           </span>
                         </a>
-                      </Dropdown.Item>
+                      </Dropdown.Item> */}
                       </Dropdown.Section>
                       <Dropdown.Item key="delete" withDivider color="error">
                         <button onClick={() => signOut()}>
@@ -202,9 +202,9 @@ const Navbar : React.FC<NavbarProps> = ({
                         <li className="py-4">
                           <a href="#" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Notifications</a>
                         </li>
-                        <li className="py-4">
+                        {/* <li className="py-4">
                           <a href="/userSettings" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Settings</a>
-                        </li>
+                        </li> */}
                         <li className="py-4">
                           <a href="#" className="block py-2 pl-3 pr-4 text-red-500  font-light">Sign Out</a>
                         </li>
