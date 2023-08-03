@@ -6,6 +6,7 @@ import PostClient from './UploadClient';
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import getPostsByCreatorId from '../actions/getPostsByCreatorId';
 import UploadClient from './UploadClient';
+import toast from 'react-hot-toast';
 
 
 interface IParams {
@@ -15,6 +16,7 @@ interface IParams {
 const UploadPage = async () => {
 
     const currentUser = await getCurrentUser();
+
     const posts = await getPostsByCreatorId(currentUser?.id as IParams);
     // console.log(posts);
     

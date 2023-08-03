@@ -90,7 +90,9 @@ const formats = [
     'formula',
     'code-block',
     'width',
-    'float'
+    'float',
+    'color',
+    'background'
 ]
 
 

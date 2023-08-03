@@ -32,6 +32,7 @@ const Navbar : React.FC<NavbarProps> = ({
     const loginModal = useLoginModal();
 
     return (
+      <>
         <nav className="bg-white">
           {/* Navbar left */}
           <div className="max-w-screen-xl flex flex-row items-center justify-between mx-auto p-4">
@@ -56,9 +57,15 @@ const Navbar : React.FC<NavbarProps> = ({
                   <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">How it works</a>
                 </li>
 
+                {currentUser == null ? (
+                  <li className="md:py-2">
+                    <button onClick={loginModal.onOpen} className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Upload</button>
+                  </li>
+                ) : (
                 <li className="md:py-2">
-                  <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Upload</a>
+                    <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Upload</a>
                 </li>
+                )}
 
                 {/* Sign in button before sign in */}
                 {currentUser == null ? (
@@ -228,6 +235,7 @@ const Navbar : React.FC<NavbarProps> = ({
           </div>
 
         </nav>
+        </>
     );
 }
 
