@@ -24,7 +24,9 @@ const UploadModal = () =>  {
     const [createPlan, setCreatePlan] = useState(false);
 
     const params = useParams();
+    //console.log(params);
     const postID = params?.postID;
+    //console.log(postID);
 
     const {
         register,
@@ -41,7 +43,7 @@ const UploadModal = () =>  {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
-        console.log(data);
+        data.postID = postID;
         axios.post('/api/uploadPost', data)
             .then(() => {
                 console.log("Done")

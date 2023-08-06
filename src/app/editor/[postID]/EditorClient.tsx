@@ -142,7 +142,6 @@ const EditorClient : React.FC<EditorClientProps> = ({
         
 
     const handleFileChange = (event:any) => {
-
         //change reference of files
         let tmpFiles = [...files]
         tmpFiles.push(event.target.files[0]);
@@ -176,12 +175,18 @@ const EditorClient : React.FC<EditorClientProps> = ({
         // delete the files that were removed
         for (let i = 0; i < removedFiles.length; i++) {
             const file = removedFiles[i];
-            axios.post('/api/deleteFiles', {file: file}).then((res) => {
+            console.log(file);
+            const data = {
+                file: file
+            }
+            axios.post('/api/deleteFiles', data).then((res) => {
                 console.log(res);
             }).catch((err) => {
                 console.log(err);
             })
         }
+
+        console.log('Files ', files);
 
 
         for (let i = 0; i < files.length; i++) {
