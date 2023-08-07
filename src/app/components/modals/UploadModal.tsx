@@ -93,7 +93,6 @@ const UploadModal = () =>  {
                         >
                             <option value="">Select a plan</option>
                             <option value="1">Create a new plan</option>
-                            <option value="2">Plan 1</option>
                         </select>
                     </div>
 

@@ -265,36 +265,38 @@ const EditorClient : React.FC<EditorClientProps> = ({
     }
 
     const handlePreview = async () => {
-        const loadingToast = toast.loading('Loading preview...');
-        loadingToast;
+        // const loadingToast = toast.loading('Loading preview...');
+        // loadingToast;
 
-        handleFileUpload().then(() => {
-            console.log('Files uploaded successfully!');
+        // handleFileUpload().then(() => {
+        //     console.log('Files uploaded successfully!');
 
-            const data = {
-                postID: postID,
-                title: title,
-                content: deltaContent,
-                displayContent: content,
-                uploadFiles: fileReferences
-            }
-            axios.post('/api/createPost', data)
-                .then((res) => {
-                    console.log(res);
-                    toast.dismiss(loadingToast);
-                    // toast.success('Post saved successfully!');
-                    router.push(`/view/${postID}`);
-                }
-            ).catch((err) => {
-                console.log(err);
-                toast.error('Error loading post!');
-            }
-            );
-        }).catch((err) => {
-            console.log(err);
-            toast.dismiss(loadingToast);
-            toast.error('Error uploading files!');
-        })
+        //     const data = {
+        //         postID: postID,
+        //         title: title,
+        //         content: deltaContent,
+        //         displayContent: content,
+        //         uploadFiles: fileReferences
+        //     }
+        //     axios.post('/api/createPost', data)
+        //         .then((res) => {
+        //             console.log(res);
+        //             toast.dismiss(loadingToast);
+        //             // toast.success('Post saved successfully!');
+        //             router.push(`/view/${postID}`);
+        //         }
+        //     ).catch((err) => {
+        //         console.log(err);
+        //         toast.error('Error loading post!');
+        //     }
+        //     );
+        // }).catch((err) => {
+        //     console.log(err);
+        //     toast.dismiss(loadingToast);
+        //     toast.error('Error uploading files!');
+        // })
+
+        router.push(`/view/${postID}`);
     }
 
     const handleUpload = async () => {
