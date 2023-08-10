@@ -1,41 +1,42 @@
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { AiOutlineArrowRight, AiOutlineSearch } from 'react-icons/ai';
-import Link from 'next/link';
-import getPosts from './actions/getPosts';
-import PostsGrid from './components/PostsGrid';
-
-
+import Image from "next/image";
+import React, { useState } from "react";
+import { AiOutlineArrowRight, AiOutlineSearch } from "react-icons/ai";
+import Link from "next/link";
+import getPosts from "./actions/getPosts";
+import PostsGrid from "./components/PostsGrid";
+import Search from "./components/Search/search";
 
 export default async function Home() {
   const posts = await getPosts();
 
   return (
     <div className="bg-white px-5 md:px-0">
-      <div className='flex flex-col h-full min-h-screen'>
-        {/* Home page section before log in */} 
+      <div className="flex flex-col h-full min-h-screen">
+        {/* Home page section before log in */}
         <div>
-          <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  mt-10'>
-            <div className='w-full grid grid-cols-1 md:grid-cols-2'>
-              <div className='py-10 md:my-auto'>
-                <span className='text-4xl md:text-6xl font-semibold'>
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  mt-10">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2">
+              <div className="py-10 md:my-auto">
+                <span className="text-4xl md:text-6xl font-semibold">
                   Lorem Ipsum
                 </span>
-                <div className='w-3/4'>
-                  <p className='text-sm font-light text-gray-500 py-4'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <div className="w-3/4">
+                  <p className="text-sm font-light text-gray-500 py-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
                   </p>
                 </div>
-                <Link href='/upload'>
-                  <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-light rounded-xl px-4 py-2 text-center'>
+                <Link href="/upload">
+                  <button className="bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-light rounded-xl px-4 py-2 text-center">
                     <span>
                       Start taking your notes&nbsp;
-                      <AiOutlineArrowRight className='inline-block'/>
+                      <AiOutlineArrowRight className="inline-block" />
                     </span>
                   </button>
                 </Link>
               </div>
-              <div className='hidden md:block'>
+              <div className="hidden md:block">
                 <Image
                   src="/images/home_page.svg"
                   alt="Home Page Image"
@@ -48,48 +49,13 @@ export default async function Home() {
           </div>
         </div>
 
-
         {/* Search bar */}
-        <div className='w-full mx-auto pt-10 pb-5'>
-          <div className='w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5'>
+        <div className="w-full mx-auto pt-10 pb-5">
+          <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
             {/* search bar here */}
-            <form>
-              <div className="pb-5">  
-                  <div className="flex w-full">
-                      <input type="search" id="search-dropdown" className="p-2.5 w-full h-14 text-sm text-gray-400 bg-gray-100 rounded-lg  focus:outline focus:outline-violet-300" placeholder="Search Notes..." required />
-                      <button type="submit" className="text-sm font-medium text-white bg-violet-800 rounded-r-lg border-violet-800 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-800 px-5">
-                          <AiOutlineSearch size={25}/>
-                          <span className="sr-only">Search</span>
-                      </button>
-                  </div>
-              </div>
-              <div className='flex mx-auto items-center text-sm justify-center overflow-x-auto py-2'>
-                <div className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
-                  Computing
-                </div>
-
-                <div className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
-                  Business
-                </div>
-
-                <div className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
-                  Physics
-                </div>
-
-                <div className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
-                  CS2030S
-                </div>
-
-                <div className='text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2'>
-                  CEG5104
-                </div>
-
-              </div>
-          </form>
+            <Search />
           </div>
         </div>
-
-
 
         {/* <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
           <div className='grid grid-cols-1 md:grid-cols-2'>
@@ -103,11 +69,7 @@ export default async function Home() {
         <div>
           <PostsGrid posts={posts} />
         </div>
-
       </div>
     </div>
-  )
+  );
 }
-
-
-
