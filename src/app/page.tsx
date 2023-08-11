@@ -1,13 +1,20 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { AiOutlineArrowRight, AiOutlineSearch } from "react-icons/ai";
+
 import Link from "next/link";
 import getPosts from "./actions/getPosts";
 import PostsGrid from "./components/PostsGrid";
 import Search from "./components/Search/search";
+import Hydrate from "./components/hydrate-client";
+import getQueryClient from "./libs/getQueryClient";
+import { dehydrate } from "@tanstack/react-query";
 
 export default async function Home() {
   const posts = await getPosts();
+  
+  const queryClient = getQueryClient();
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <div className="bg-white px-5 md:px-0">
@@ -50,12 +57,13 @@ export default async function Home() {
         </div>
 
         {/* Search bar */}
-        <div className="w-full mx-auto pt-10 pb-5">
-          <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
+        {/* <div className="w-full mx-auto pt-10 pb-5">
+          <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5"> */}
             {/* search bar here */}
-            <Search />
-          </div>
-        </div>
+            
+              <Search posts={posts}/>
+          {/* </div>
+        </div> */}
 
         {/* <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
           <div className='grid grid-cols-1 md:grid-cols-2'>
@@ -66,9 +74,9 @@ export default async function Home() {
           </div>
         </div> */}
 
-        <div>
+        {/* <div>
           <PostsGrid posts={posts} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

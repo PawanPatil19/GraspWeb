@@ -7,7 +7,7 @@ import { SafePost, SafeUser } from "@/app/types";
 import React from 'react';
 import {  BiEditAlt, BiSave, BiCheck } from 'react-icons/bi';
 import { AiOutlineEye, AiOutlineClose, AiOutlineUpload } from 'react-icons/ai';
-import { VscSettings, VscFile } from 'react-icons/vsc';
+import { VscSettings, VscFile, VscReferences } from 'react-icons/vsc';
 import { useParams } from 'next/navigation';
 import { Quill } from 'react-quill';
 import { ImageActions } from '@xeger/quill-image-actions';
@@ -121,17 +121,28 @@ const EditorClient : React.FC<EditorClientProps> = ({
     console.log(postID);
     const [files, setFiles] = useState<File[]>([]);
     const [fileNames, setFileNames] = useState<string[]>([]);
-    const [fileReferences, setFileReferences] = useState<string[]>(post?.uploadFiles || []);
+    // use Set data structure for stroing file References
+    const [fileReferences, setFileReferences] = useState<Set<string>>(new Set(post?.uploadFiles) || new Set());
+
+    // const [fileReferences, setFileReferences] = useState<Set()>(post?.uploadFiles || []);
     const [removedFiles, setRemovedFiles] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
     const getFileNames = () => {
         let tmpFileNames: string[] = [];
-        for (let i = 0; i < fileReferences.length; i++) {
-            const file = fileReferences[i];
+        // console.log(fileReferences);
+        // for (var file of fileReferences) {
+        //     console.log("FILE: ", file);
+        //     const fileName = file.split('/').pop();
+        //     tmpFileNames.push(fileName as string);
+        // }
+
+        fileReferences.forEach((file) => {
+            console.log("FILE: ", file);
             const fileName = file.split('/').pop();
             tmpFileNames.push(fileName as string);
-        }
+        })
+
         setFileNames(tmpFileNames);
     }
 
@@ -165,9 +176,15 @@ const EditorClient : React.FC<EditorClientProps> = ({
         tmpRemovedFiles.push(fileNames[index]);
         setRemovedFiles(tmpRemovedFiles);
 
-        let tmpFilereferences = [...fileReferences]
-        tmpFilereferences.splice(index, 1);
-        setFileReferences(tmpFilereferences);
+
+        let tmpFileRefArr = Array.from(fileReferences);
+        let tmpFileReferences = [...tmpFileRefArr]
+        tmpFileReferences.splice(index, 1);
+        console.log(tmpFileReferences)
+        console.log(tmpFiles);
+        console.log(tmpFileNames);
+        console.log(tmpRemovedFiles);
+        setFileReferences(new Set(tmpFileReferences));
     }
 
     const handleFileUpload = async () => {
@@ -208,7 +225,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
             });
 
             if (upload.ok) {
-                fileReferences.push(url+fileName);
+                fileReferences.add(url+fileName);
                 console.log('Uploaded successfully!');
             }
             else {
@@ -244,7 +261,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
                 title: title,
                 content: deltaContent,
                 displayContent: content,
-                uploadFiles: fileReferences
+                uploadFiles: Array.from(fileReferences)
             }
             axios.post('/api/createPost', data)
                 .then((res) => {
@@ -265,38 +282,38 @@ const EditorClient : React.FC<EditorClientProps> = ({
     }
 
     const handlePreview = async () => {
-        // const loadingToast = toast.loading('Loading preview...');
-        // loadingToast;
+        const loadingToast = toast.loading('Loading preview...');
+        loadingToast;
 
-        // handleFileUpload().then(() => {
-        //     console.log('Files uploaded successfully!');
+        handleFileUpload().then(() => {
+            console.log('Files uploaded successfully!');
 
-        //     const data = {
-        //         postID: postID,
-        //         title: title,
-        //         content: deltaContent,
-        //         displayContent: content,
-        //         uploadFiles: fileReferences
-        //     }
-        //     axios.post('/api/createPost', data)
-        //         .then((res) => {
-        //             console.log(res);
-        //             toast.dismiss(loadingToast);
-        //             // toast.success('Post saved successfully!');
-        //             router.push(`/view/${postID}`);
-        //         }
-        //     ).catch((err) => {
-        //         console.log(err);
-        //         toast.error('Error loading post!');
-        //     }
-        //     );
-        // }).catch((err) => {
-        //     console.log(err);
-        //     toast.dismiss(loadingToast);
-        //     toast.error('Error uploading files!');
-        // })
+            const data = {
+                postID: postID,
+                title: title,
+                content: deltaContent,
+                displayContent: content,
+                uploadFiles: Array.from(fileReferences)
+            }
+            axios.post('/api/createPost', data)
+                .then((res) => {
+                    console.log(res);
+                    toast.dismiss(loadingToast);
+                    // toast.success('Post saved successfully!');
+                    router.push(`/view/${postID}`);
+                }
+            ).catch((err) => {
+                console.log(err);
+                toast.error('Error loading post!');
+            }
+            );
+        }).catch((err) => {
+            console.log(err);
+            toast.dismiss(loadingToast);
+            toast.error('Error uploading files!');
+        })
 
-        router.push(`/view/${postID}`);
+        //router.push(`/view/${postID}`);
     }
 
     const handleUpload = async () => {
@@ -311,7 +328,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
                 title: title,
                 content: deltaContent,
                 displayContent: content,
-                uploadFiles: fileReferences
+                uploadFiles: Array.from(fileReferences)
             }
             axios.post('/api/createPost', data)
                 .then((res) => {

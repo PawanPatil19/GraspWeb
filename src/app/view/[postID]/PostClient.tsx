@@ -27,6 +27,17 @@ const PostClient : React.FC<PostClientProps> = ({
 }) => {
     const [isFavourite, setIsFavourite] = useState(false);
     const files = post.uploadFiles;
+
+    useEffect(() => {
+        const data = {
+            postID: post.postID
+        }
+        axios.post("/api/views", data ).then((res) => {
+            // print the response status and data
+            console.log("Viewed Post");
+            console.log(res.data);
+        });
+    }, []);
     
 
     return (

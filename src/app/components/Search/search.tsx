@@ -1,32 +1,67 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useQuery, QueryClientProvider, QueryClient } from "react-query";
+//import { useQuery, QueryClientProvider, QueryClient } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Post } from "@prisma/client";
+import {redirect} from "next/navigation";
+import getPosts from "@/app/actions/getPosts";
+import { SafePost } from "@/app/types";
+import PostDisplay from "../PostDisplay";
+import PostsGrid from "../PostsGrid";
 
-const Search = () => {
+interface PostProps {
+  posts: SafePost[];
+}
+
+const Search : React.FC<PostProps> = ({
+  posts
+}) => {
   // useNavigate() may be used only in the context of a <Router> component.
-  let navigate = useNavigate();
+  //let navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
 
-  const { isLoading, error, data } = useQuery("search", () =>
-    axios.get("/api/search", { params: { search } }).then((res) => {
+  async function getResults(search: string) {
+    console.log("Search Results: ", search);
+    const body = {
+      search : search
+    }
+    axios.post("/api/searchPosts", body ).then((res) => {
       // print the response status and data
-      console.log("Search Results ASDASDASDAS");
+      //console.log("Search Results ASDASDASDAS");
       console.log(res.data);
-      return res.data;
-    })
-  );
+      setSearchResults(res.data);
+    });
+  }
+
+  // useEffect(() => {
+  //   getPosts().then((posts) => setPosts(posts));
+  // }, []);
+
+
+
+
+  // const { data } = useQuery(
+  //   ["search"], 
+  //   () =>
+  //   axios.get("/api/search", { params: { search } }).then((res) => {
+  //     // print the response status and data
+  //     console.log("Search Results ASDASDASDAS");
+  //     console.log(res.data);
+  //     return res.data;
+  //   })
+  // );
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setSearching(true);
-    setSearchResults(data);
+    console.log(search);
+    getResults(search);
   };
 
   const handleSearchChange = (e: {
@@ -36,7 +71,8 @@ const Search = () => {
   };
 
   const handleSearchResultClick = (e: { id: any }) => {
-    navigate(`/post/${e.id}`);
+    //navigate(`/post/${e.id}`);
+    redirect(`post/${e.id}`);
   };
 
   return (
@@ -52,7 +88,8 @@ const Search = () => {
                 className="p-2.5 w-full h-14 text-sm text-gray-400 bg-gray-100 rounded-lg  focus:outline focus:outline-violet-300"
                 placeholder="Search Notes..."
                 required
-                onChange={handleSearchChange}
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
               />
               <button
                 type="submit"
@@ -84,31 +121,36 @@ const Search = () => {
               CEG5104
             </div>
           </div>
+
+          {/* clear button to the right of search bar */}
+          { searching ?
+            (<div className='flex justify-end'>
+                <button 
+                  className='text-xs font-light text-violet-800 px-5'
+                  onClick={() => {
+                      setSearching(false);
+                      setSearchResults([]);
+                      setSearch("");
+                    }
+                  }
+                  >
+                    Clear
+                </button>
+            </div>) :
+            (
+              <div></div>
+            )
+          }
+
+          
         </form>
       </div>
-      {searching && (
-        <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
-          <div className="flex flex-col">
-            {data.map((result: Post) => (
-              <div
-                className="flex flex-row justify-between items-center py-2 border-b-2 border-gray-200"
-                key={result.id}
-              >
-                <div className="text-sm font-medium text-gray-700">
-                  {result.title}
-                </div>
-                <button
-                  className="text-sm font-medium text-white bg-violet-800 rounded-full border-violet-800 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-800 px-5"
-                  id={result.id}
-                  onClick={handleSearchResultClick.bind(this, result)}
-                >
-                  View
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {searching ? (
+        <PostsGrid posts={searchResults} />
+       ) : (
+        <PostsGrid posts={posts} />
+        )
+      } 
     </div>
   );
 };

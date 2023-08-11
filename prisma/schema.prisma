@@ -59,6 +59,7 @@ model Post {
   authorId  String?  @db.ObjectId
   description String?
   coursePlanId String? @db.ObjectId
+  views Int @default(0)
 
   user User? @relation(fields: [authorId], references: [id], onDelete: Cascade)
   coursePlan CoursePlan? @relation(fields: [coursePlanId], references: [id], onDelete: Cascade)

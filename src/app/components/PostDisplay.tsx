@@ -39,7 +39,7 @@ const PostDisplay: React.FC<PostProps> = ({ post }) => {
             </p>
             <div className="flex mt-auto items-center">
               <AiOutlineEye className="text-2xl" />{" "}
-              <span className="px-2">0</span>
+              <span className="px-2">{post.views}</span>
               {liked ? (
                 <AiFillLike
                   className="text-2xl text-violet-800"

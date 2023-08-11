@@ -1,0 +1,143 @@
+Date : 2023-08-11 07:56:35
+Directory : /Users/pkp/Documents/development/grasp_web
+Total : 72 files,  14223 codes, 350 comments, 717 blanks, all 15290 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          4 |     10,879 |          0 |          4 |     10,883 |
+| TypeScript JSX     |         37 |      2,623 |        299 |        543 |      3,465 |
+| TypeScript         |         21 |        535 |         44 |        129 |        708 |
+| Prisma             |          1 |         63 |          2 |         14 |         79 |
+| CSS                |          1 |         38 |          1 |          8 |         47 |
+| JavaScript         |          3 |         35 |          2 |          4 |         41 |
+| JSON with Comments |          1 |         26 |          2 |          1 |         29 |
+| Markdown           |          1 |         21 |          0 |         14 |         35 |
+| XML                |          3 |          3 |          0 |          0 |          3 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                          | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                             |         72 |     14,223 |        350 |        717 |     15,290 |
+| . (Files)                                                                                     |          8 |     10,948 |          4 |         22 |     10,974 |
+| pages                                                                                         |          1 |         52 |          0 |         12 |         64 |
+| pages/api                                                                                     |          1 |         52 |          0 |         12 |         64 |
+| pages/api/auth                                                                                |          1 |         52 |          0 |         12 |         64 |
+| prisma                                                                                        |          1 |         63 |          2 |         14 |         79 |
+| public                                                                                        |          3 |          3 |          0 |          0 |          3 |
+| public (Files)                                                                                |          2 |          2 |          0 |          0 |          2 |
+| public/images                                                                                 |          1 |          1 |          0 |          0 |          1 |
+| src                                                                                           |         59 |      3,157 |        344 |        669 |      4,170 |
+| src/app                                                                                       |         59 |      3,157 |        344 |        669 |      4,170 |
+| src/app (Files)                                                                               |          5 |        158 |         19 |         30 |        207 |
+| src/app/actions                                                                               |          6 |        157 |          0 |         30 |        187 |
+| src/app/api                                                                                   |          8 |        258 |         44 |         66 |        368 |
+| src/app/api/createPost                                                                        |          1 |         53 |          1 |          8 |         62 |
+| src/app/api/deleteFiles                                                                       |          1 |         23 |          1 |          6 |         30 |
+| src/app/api/register                                                                          |          1 |         22 |          0 |          4 |         26 |
+| src/app/api/searchPosts                                                                       |          1 |         28 |          1 |          6 |         35 |
+| src/app/api/uploadFiles                                                                       |          2 |         37 |         17 |          8 |         62 |
+| src/app/api/uploadPost                                                                        |          1 |         75 |         23 |         27 |        125 |
+| src/app/api/views                                                                             |          1 |         20 |          1 |          7 |         28 |
+| src/app/components                                                                            |         20 |      1,510 |        194 |        292 |      1,996 |
+| src/app/components (Files)                                                                    |          8 |        264 |          6 |         46 |        316 |
+| src/app/components/Login                                                                      |          1 |         77 |          8 |          4 |         89 |
+| src/app/components/NavBar                                                                     |          1 |        168 |         45 |         29 |        242 |
+| src/app/components/Register                                                                   |          5 |        463 |         28 |        104 |        595 |
+| src/app/components/Search                                                                     |          1 |        116 |         21 |         22 |        159 |
+| src/app/components/modals                                                                     |          4 |        422 |         86 |         87 |        595 |
+| src/app/creatorStudio                                                                         |          1 |         61 |         17 |         21 |         99 |
+| src/app/editor                                                                                |          3 |        380 |         48 |         91 |        519 |
+| src/app/editor/[postID]                                                                       |          3 |        380 |         48 |         91 |        519 |
+| src/app/hooks                                                                                 |          3 |         42 |          0 |         11 |         53 |
+| src/app/libs                                                                                  |          3 |         24 |          0 |          9 |         33 |
+| src/app/membership                                                                            |          1 |         84 |          3 |         19 |        106 |
+| src/app/providers                                                                             |          1 |          8 |          0 |          3 |         11 |
+| src/app/types                                                                                 |          1 |         15 |          0 |          2 |         17 |
+| src/app/upload                                                                                |          3 |        156 |         13 |         29 |        198 |
+| src/app/userSettings                                                                          |          1 |        128 |          2 |         21 |        151 |
+| src/app/view                                                                                  |          3 |        176 |          4 |         45 |        225 |
+| src/app/view/[postID]                                                                         |          3 |        176 |          4 |         45 |        225 |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                      | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/pkp/Documents/development/grasp_web/.eslintrc.json                                     | JSON               |          3 |          0 |          1 |          4 |
+| /Users/pkp/Documents/development/grasp_web/README.md                                          | Markdown           |         21 |          0 |         14 |         35 |
+| /Users/pkp/Documents/development/grasp_web/next.config.js                                     | JavaScript         |         11 |          1 |          2 |         14 |
+| /Users/pkp/Documents/development/grasp_web/package-lock.json                                  | JSON               |     10,782 |          0 |          1 |     10,783 |
+| /Users/pkp/Documents/development/grasp_web/package.json                                       | JSON               |         81 |          0 |          1 |         82 |
+| /Users/pkp/Documents/development/grasp_web/pages/api/auth/[...nextauth].ts                    | TypeScript         |         52 |          0 |         12 |         64 |
+| /Users/pkp/Documents/development/grasp_web/postcss.config.js                                  | JavaScript         |          6 |          0 |          1 |          7 |
+| /Users/pkp/Documents/development/grasp_web/prisma/schema.prisma                               | Prisma             |         63 |          2 |         14 |         79 |
+| /Users/pkp/Documents/development/grasp_web/public/images/home_page.svg                        | XML                |          1 |          0 |          0 |          1 |
+| /Users/pkp/Documents/development/grasp_web/public/next.svg                                    | XML                |          1 |          0 |          0 |          1 |
+| /Users/pkp/Documents/development/grasp_web/public/vercel.svg                                  | XML                |          1 |          0 |          0 |          1 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getCoursePlanName.ts               | TypeScript         |         24 |          0 |          5 |         29 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getCoursePlans.ts                  | TypeScript         |         17 |          0 |          3 |         20 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getCurrentUser.ts                  | TypeScript         |         31 |          0 |         10 |         41 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getPostById.ts                     | TypeScript         |         28 |          0 |          4 |         32 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getPosts.ts                        | TypeScript         |         23 |          0 |          3 |         26 |
+| /Users/pkp/Documents/development/grasp_web/src/app/actions/getPostsByCreatorId.ts             | TypeScript         |         34 |          0 |          5 |         39 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/createPost/route.ts                    | TypeScript         |         53 |          1 |          8 |         62 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/deleteFiles/route.ts                   | TypeScript         |         23 |          1 |          6 |         30 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/register/route.ts                      | TypeScript         |         22 |          0 |          4 |         26 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/searchPosts/route.ts                   | TypeScript         |         28 |          1 |          6 |         35 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/uploadFiles/grasp_gcp_credentials.json | JSON               |         13 |          0 |          1 |         14 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/uploadFiles/route.ts                   | TypeScript         |         24 |         17 |          7 |         48 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/uploadPost/route.ts                    | TypeScript         |         75 |         23 |         27 |        125 |
+| /Users/pkp/Documents/development/grasp_web/src/app/api/views/route.ts                         | TypeScript         |         20 |          1 |          7 |         28 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Avatar.tsx                      | TypeScript JSX     |         20 |          0 |          4 |         24 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/ClientOnly.tsx                  | TypeScript JSX     |         20 |          0 |          7 |         27 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/EmptyState.tsx                  | TypeScript JSX     |         31 |          0 |          5 |         36 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/GraspEditor.tsx                 | TypeScript JSX     |         51 |          1 |          9 |         61 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Login/Login.tsx                 | TypeScript JSX     |         77 |          8 |          4 |         89 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/NavBar/navbar.tsx               | TypeScript JSX     |        168 |         45 |         29 |        242 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/NotesCard.tsx                   | TypeScript JSX     |         46 |          0 |          7 |         53 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/PostDisplay.tsx                 | TypeScript JSX     |         59 |          4 |          6 |         69 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/PostsGrid.tsx                   | TypeScript JSX     |         31 |          1 |          5 |         37 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Register/RegisterPart1.tsx      | TypeScript JSX     |        124 |          8 |         24 |        156 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Register/RegisterPart2.tsx      | TypeScript JSX     |         89 |          4 |         22 |        115 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Register/RegisterPart3.tsx      | TypeScript JSX     |        123 |          4 |         35 |        162 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Register/SignUp.tsx             | TypeScript JSX     |        104 |         10 |         20 |        134 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Register/SuccessPage.tsx        | TypeScript JSX     |         23 |          2 |          3 |         28 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/Search/search.tsx               | TypeScript JSX     |        116 |         21 |         22 |        159 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/hydrate-client.tsx              | TypeScript JSX     |          6 |          0 |          3 |          9 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/modals/LoginModal.tsx           | TypeScript JSX     |         89 |         23 |         18 |        130 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/modals/Modal.tsx                | TypeScript JSX     |         98 |          4 |         20 |        122 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/modals/RegisterModal.tsx        | TypeScript JSX     |        127 |         55 |         28 |        210 |
+| /Users/pkp/Documents/development/grasp_web/src/app/components/modals/UploadModal.tsx          | TypeScript JSX     |        108 |          4 |         21 |        133 |
+| /Users/pkp/Documents/development/grasp_web/src/app/creatorStudio/page.tsx                     | TypeScript JSX     |         61 |         17 |         21 |         99 |
+| /Users/pkp/Documents/development/grasp_web/src/app/editor/[postID]/EditorClient.tsx           | TypeScript JSX     |        351 |         47 |         75 |        473 |
+| /Users/pkp/Documents/development/grasp_web/src/app/editor/[postID]/loading.tsx                | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| /Users/pkp/Documents/development/grasp_web/src/app/editor/[postID]/page.tsx                   | TypeScript JSX     |         21 |          1 |         14 |         36 |
+| /Users/pkp/Documents/development/grasp_web/src/app/globals.css                                | CSS                |         38 |          1 |          8 |         47 |
+| /Users/pkp/Documents/development/grasp_web/src/app/hooks/useLoginModal.ts                     | TypeScript         |         12 |          0 |          4 |         16 |
+| /Users/pkp/Documents/development/grasp_web/src/app/hooks/useRegisterModal.ts                  | TypeScript         |         18 |          0 |          3 |         21 |
+| /Users/pkp/Documents/development/grasp_web/src/app/hooks/useUploadModal.ts                    | TypeScript         |         12 |          0 |          4 |         16 |
+| /Users/pkp/Documents/development/grasp_web/src/app/layout.tsx                                 | TypeScript JSX     |         42 |          0 |          8 |         50 |
+| /Users/pkp/Documents/development/grasp_web/src/app/libs/gcs.ts                                | TypeScript         |         13 |          0 |          5 |         18 |
+| /Users/pkp/Documents/development/grasp_web/src/app/libs/getQueryClient.ts                     | TypeScript         |          4 |          0 |          1 |          5 |
+| /Users/pkp/Documents/development/grasp_web/src/app/libs/prismadb.ts                           | TypeScript         |          7 |          0 |          3 |         10 |
+| /Users/pkp/Documents/development/grasp_web/src/app/loading.tsx                                | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| /Users/pkp/Documents/development/grasp_web/src/app/membership/page.tsx                        | TypeScript JSX     |         84 |          3 |         19 |        106 |
+| /Users/pkp/Documents/development/grasp_web/src/app/page.tsx                                   | TypeScript JSX     |         57 |         18 |          9 |         84 |
+| /Users/pkp/Documents/development/grasp_web/src/app/providers.tsx                              | TypeScript JSX     |         13 |          0 |          3 |         16 |
+| /Users/pkp/Documents/development/grasp_web/src/app/providers/ToasterProvider.tsx              | TypeScript JSX     |          8 |          0 |          3 |         11 |
+| /Users/pkp/Documents/development/grasp_web/src/app/types/index.ts                             | TypeScript         |         15 |          0 |          2 |         17 |
+| /Users/pkp/Documents/development/grasp_web/src/app/upload/UploadClient.tsx                    | TypeScript JSX     |        122 |         12 |         11 |        145 |
+| /Users/pkp/Documents/development/grasp_web/src/app/upload/loading.tsx                         | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| /Users/pkp/Documents/development/grasp_web/src/app/upload/page.tsx                            | TypeScript JSX     |         26 |          1 |         16 |         43 |
+| /Users/pkp/Documents/development/grasp_web/src/app/userSettings/page.tsx                      | TypeScript JSX     |        128 |          2 |         21 |        151 |
+| /Users/pkp/Documents/development/grasp_web/src/app/view/[postID]/PostClient.tsx               | TypeScript JSX     |        142 |          3 |         26 |        171 |
+| /Users/pkp/Documents/development/grasp_web/src/app/view/[postID]/loading.tsx                  | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| /Users/pkp/Documents/development/grasp_web/src/app/view/[postID]/page.tsx                     | TypeScript JSX     |         26 |          1 |         17 |         44 |
+| /Users/pkp/Documents/development/grasp_web/tailwind.config.js                                 | JavaScript         |         18 |          1 |          1 |         20 |
+| /Users/pkp/Documents/development/grasp_web/tsconfig.json                                      | JSON with Comments |         26 |          2 |          1 |         29 |
+| Total                                                                                         |                    |     14,223 |        350 |        717 |     15,290 |
++-----------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

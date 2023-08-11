@@ -7,6 +7,8 @@ import RegisterModal from './components/modals/RegisterModal'
 import LoginModal from './components/modals/LoginModal'
 import getCurrentUser from './actions/getCurrentUser'
 import UploadModal from './components/modals/UploadModal'
+import Providers from "./providers";
+
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +32,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+      <Providers>
         <ClientOnly>
           <Navbar currentUser={currentUser}/>
           <ToasterProvider />
@@ -37,6 +40,7 @@ export default async function RootLayout({
           <LoginModal />
           <UploadModal />
         </ClientOnly>
+        </Providers>
         {children}
         
       </body>

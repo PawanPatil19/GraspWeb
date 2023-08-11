@@ -35,7 +35,7 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser }) => {
         <div className="h-screen">
           {/*Search bar in right top corner*/}
           <div className="flex justify-end pt-5">
-            <Search />
+            {/* <Search post /> */}
           </div>
           {/* Upload card*/}
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto p-4 mt-10 rounded-2xl bg-white border-2 border-gray-300 hover:border-violet-800">
@@ -67,13 +67,13 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser }) => {
             <div className="w-full">
               <div className="flex items-center">
                 {showDrafts ? (
-                  <div className="text-3xl font-medium ">
+                  <div className="text-3xl font-medium">
                     <button
                       onClick={() => {
                         setShowDrafts(false);
                       }}
                     >
-                      Drafts
+                      <span className="underline">Drafts</span>
                     </button>
                   </div>
                 ) : (
@@ -96,7 +96,7 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser }) => {
                         setShowUploads(false);
                       }}
                     >
-                      Uploads
+                      <span className="underline">Uploads</span>
                     </button>
                   </div>
                 ) : (

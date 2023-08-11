@@ -39,7 +39,7 @@ const NotesCard: React.FC<PostProps> = ({
                     </Link>
                 </div>
                 <div className='flex mt-auto p-4'>
-                    <AiOutlineEye className='text-2xl'/> <span className='pr-4'>0</span>
+                    <AiOutlineEye className='text-2xl'/> <span className='pr-4'>{post.views}</span>
                     <AiOutlineLike className='text-2xl'/> <span>0</span>
     
                 </div>
