@@ -24,7 +24,7 @@ export default async function Home() {
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  mt-10">
             <div className="w-full grid grid-cols-1 md:grid-cols-2">
               <div className="py-10 md:my-auto">
-                <span className="text-4xl md:text-6xl font-semibold">
+                <span className="text-4xl md:text-6xl font-semibold text-black">
                   Lorem Ipsum
                 </span>
                 <div className="w-3/4">
@@ -35,7 +35,7 @@ export default async function Home() {
                   </p>
                 </div>
                 <Link href="/upload">
-                  <button className="bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-light rounded-xl px-4 py-2 text-center">
+                  <button className="text-black bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-light rounded-xl px-4 py-2 text-center">
                     <span>
                       Start taking your notes&nbsp;
                       <AiOutlineArrowRight className="inline-block" />
