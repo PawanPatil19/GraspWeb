@@ -358,7 +358,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
         <div className='flex flex-col'>
 
             <div className=''>
-                <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-10 rounded-2xl bg-white'>
+                <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-10 rounded-2xl bg-white px-4'>
                     <input 
                         className='w-full border-b-2 px-4 py-2 text-3xl focus:outline-none focus:border-violet-800 focus-visible:' 
                         type="text" 

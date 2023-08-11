@@ -17,17 +17,17 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div className="bg-white px-5 md:px-0">
+    <div className="bg-white px-5 md:p-4">
       <div className="flex flex-col h-full min-h-screen">
         {/* Home page section before log in */}
         <div>
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto  mt-10">
-            <div className="w-full grid grid-cols-1 md:grid-cols-2">
-              <div className="py-10 md:my-auto">
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto mt-10">
+            <div className="w-full grid grid-cols-1 md:grid-cols-5">
+              <div className="py-10 md:my-auto col-span-3">
                 <span className="text-4xl md:text-6xl font-semibold text-black">
                   Lorem Ipsum
                 </span>
-                <div className="w-3/4">
+                <div className="w-2/4">
                   <p className="text-sm font-light text-gray-500 py-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
@@ -43,12 +43,12 @@ export default async function Home() {
                   </button>
                 </Link>
               </div>
-              <div className="hidden md:block">
+              <div className="hidden md:block col-span-2">
                 <Image
                   src="/images/home_page.svg"
                   alt="Home Page Image"
-                  width={500}
-                  height={500}
+                  width={400}
+                  height={400}
                   priority
                 />
               </div>

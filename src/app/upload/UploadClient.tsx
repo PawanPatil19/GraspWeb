@@ -31,7 +31,7 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser }) => {
 
   return (
     <main className="bg-white">
-      <div className="mb-10 px-5 md:px-0">
+      <div className="mb-10 px-5 md:p-4">
         <div className="h-screen">
           {/*Search bar in right top corner*/}
           <div className="flex justify-end pt-5">
@@ -41,12 +41,12 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser }) => {
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto p-4 mt-10 rounded-2xl bg-white border-2 border-gray-300 hover:border-violet-800">
             <div className="w-full my-10">
               <div className="flex w-full justify-center">
-                <div className="text-2xl md:text-4xl font-medium text-center">
+                <div className="text-2xl md:text-3xl font-medium text-center">
                   Create your own notes
                 </div>
               </div>
               <div className="flex w-full justify-center pt-2">
-                <div className="text-sm md:text-lg font-light text-gray-400 text-center">
+                <div className="text-xs md:text-lg font-light text-gray-400 text-center">
                   Upload your notes and share it with others
                 </div>
               </div>
