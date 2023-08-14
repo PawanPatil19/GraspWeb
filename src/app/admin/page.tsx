@@ -3,27 +3,24 @@ import React from 'react';
 
 import ClientOnly from '@/app/components/ClientOnly';
 import getCurrentUser from '@/app/actions/getCurrentUser';
-import getPostsByCreatorId from '../actions/getPostsByCreatorId';
-import UploadClient from './UploadClient';
+
+import AdminClient from './AdminClient';
 import toast from 'react-hot-toast';
+import getUsers from '../actions/getUsers';
+import getAllPosts from '../actions/getAllPosts';
 
 
-// interface IParams {
-//     creatorID?: string;
-// }
-
-const UploadPage = async () => {
+const AdminPage = async () => {
 
     const currentUser = await getCurrentUser();
-    if(!currentUser) {
+
+    if(currentUser?.role != "ADMIN") {
         toast.error("You must be logged in to view this page");
         return null;
     }
     
-    const posts = await getPostsByCreatorId(currentUser?.id);
-
-    
-    // console.log(posts);
+    const posts = await getAllPosts();
+    const users = await getUsers();
     
     if(!posts) {
         return null;
@@ -31,8 +28,9 @@ const UploadPage = async () => {
 
     return (
         <ClientOnly>
-            <UploadClient 
+            <AdminClient 
                 posts={posts}
+                users={users}
                 currentUser={currentUser}
             />
         </ClientOnly>
@@ -40,7 +38,7 @@ const UploadPage = async () => {
 
 }
 
-export default UploadPage;
+export default AdminPage;
 
 
 

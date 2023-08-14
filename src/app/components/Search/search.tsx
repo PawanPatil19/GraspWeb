@@ -9,16 +9,18 @@ import { useQuery } from "@tanstack/react-query";
 import { Post } from "@prisma/client";
 import {redirect} from "next/navigation";
 import getPosts from "@/app/actions/getPosts";
-import { SafePost } from "@/app/types";
+import { SafePost, SafeUser } from "@/app/types";
 import PostDisplay from "../PostDisplay";
 import PostsGrid from "../PostsGrid";
 
 interface PostProps {
   posts: SafePost[];
+  currentUser?: SafeUser | null;
 }
 
 const Search : React.FC<PostProps> = ({
-  posts
+  posts, 
+  currentUser
 }) => {
   // useNavigate() may be used only in the context of a <Router> component.
   //let navigate = useNavigate();
@@ -29,7 +31,8 @@ const Search : React.FC<PostProps> = ({
   async function getResults(search: string) {
     console.log("Search Results: ", search);
     const body = {
-      search : search
+      search : search,
+      admin : false
     }
     axios.post("/api/searchPosts", body ).then((res) => {
       // print the response status and data
@@ -77,7 +80,7 @@ const Search : React.FC<PostProps> = ({
 
   return (
     <div className="w-full mx-auto pt-10 pb-5">
-      <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
+      <div className="w-full md:w-3/5 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
         {/* search bar here */}
         <form onSubmit={handleSearch}>
           <div className="pb-5">
@@ -100,7 +103,7 @@ const Search : React.FC<PostProps> = ({
               </button>
             </div>
           </div>
-          <div className="flex mx-auto items-center text-sm justify-center overflow-x-auto py-2">
+          {/* <div className="flex mx-auto items-center text-sm justify-center overflow-x-auto py-2">
             <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
               Computing
             </div>
@@ -120,7 +123,7 @@ const Search : React.FC<PostProps> = ({
             <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
               CEG5104
             </div>
-          </div>
+          </div> */}
 
           {/* clear button to the right of search bar */}
           { searching ?
@@ -146,9 +149,9 @@ const Search : React.FC<PostProps> = ({
         </form>
       </div>
       {searching ? (
-        <PostsGrid posts={searchResults} />
+        <PostsGrid posts={searchResults} currentUser={currentUser} />
        ) : (
-        <PostsGrid posts={posts} />
+        <PostsGrid posts={posts} currentUser={currentUser}/>
         )
       } 
     </div>

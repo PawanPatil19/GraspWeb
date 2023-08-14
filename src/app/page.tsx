@@ -9,12 +9,19 @@ import Search from "./components/Search/search";
 import Hydrate from "./components/hydrate-client";
 import getQueryClient from "./libs/getQueryClient";
 import { dehydrate } from "@tanstack/react-query";
+import getCurrentUser from "./actions/getCurrentUser";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const posts = await getPosts();
-  
+  const currentUser = await getCurrentUser();
   const queryClient = getQueryClient();
-  const dehydratedState = dehydrate(queryClient);
+
+  if (currentUser?.role == "ADMIN") {
+    redirect("/admin");
+  }
+
+
 
   return (
     <div className="bg-white px-5 md:p-4">
@@ -61,7 +68,7 @@ export default async function Home() {
           <div className="w-full md:w-2/4 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5"> */}
             {/* search bar here */}
             
-              <Search posts={posts}/>
+              <Search posts={posts} currentUser={currentUser}/>
           {/* </div>
         </div> */}
 

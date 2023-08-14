@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { AiOutlineSearch, AiOutlineLike, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar, AiOutlineEdit } from 'react-icons/ai';
 import {FaRegClone} from 'react-icons/fa';
 import {HiOutlineUserCircle} from 'react-icons/hi';
@@ -27,6 +27,25 @@ const PostClient : React.FC<PostClientProps> = ({
 }) => {
     const [isFavourite, setIsFavourite] = useState(false);
     const files = post.uploadFiles;
+
+    const handleClone = () => {
+        const data = {
+            postID: post.postID
+        }
+        toast.promise(
+            axios.post(`/api/clonePost`, data),
+            {
+                loading: 'Cloning post...',
+                success: 'Post cloned successfully',
+                error: 'Error cloning post'
+            }
+        ).then((res) => {
+            console.log(res.data);
+            redirect('/upload');
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     useEffect(() => {
         const data = {
@@ -57,9 +76,18 @@ const PostClient : React.FC<PostClientProps> = ({
                     </div>
                 </div>
 
-                <div className='max-w-screen-xl flex flex-wrap items-center mx-auto'>
+                <div className='max-w-screen-xl items-center mx-auto'>
+                    {
+                        post.published ? (<div></div>) : (
+                            <div className="px-4">
+                                    <span className="font-light text-white text-xs bg-violet-800 rounded-full px-4 py-1">Preview Mode</span>
+                            </div>
+                        )
+                    }
                     <div className='flex flex-col'>
-                        <div className='flex gap-3 font-bold text-2xl md:text-4xl px-4 mt-10'>
+                        
+                        
+                        <div className='flex gap-3 font-bold text-2xl md:text-4xl px-4 mt-4'>
                             {post?.title}
                             {isFavourite ? (
                                 <button onClick={() => setIsFavourite(false)}>
@@ -122,7 +150,9 @@ const PostClient : React.FC<PostClientProps> = ({
                                     <span className='hidden md:block text-gray-400'>Share</span>
                                 </span>
                                 <span className="flex gap-2">
-                                    <FaRegClone className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
+                                    <button onClick={handleClone}>
+                                        <FaRegClone className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/>
+                                    </button> 
                                     <span className='hidden md:block text-gray-400'>Clone</span>
                                 </span>
                             </div>
@@ -148,8 +178,8 @@ const PostClient : React.FC<PostClientProps> = ({
                                 <div key={file + index}>
                                 <a target="_blank" href={file} rel="noopener noreferrer">
                                     <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
-                                        <AiOutlineFileText className='inline-block text-2xl text-gray-400'/>
-                                        <span>{file.split("/").at(-1)}</span>
+                                        <AiOutlineFileText className='text-2xl text-gray-400'/>
+                                        <span className="truncate">{file.split("/").at(-1)}</span>
                                     </div>
                                 </a>
                                 </div>

@@ -13,7 +13,7 @@ interface ModalProps {
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryLabel?: string;
-    step?: number;
+    postID?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({
     disabled,
     secondaryAction,
     secondaryLabel,
-    step,
+    postID
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 

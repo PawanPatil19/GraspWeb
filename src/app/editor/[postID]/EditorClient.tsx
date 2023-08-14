@@ -79,6 +79,7 @@ const formats = [
     'italic',
     'underline',
     'strike',
+    'script',
     'blockquote',
     'list',
     'bullet',

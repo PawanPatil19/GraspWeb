@@ -1,16 +1,18 @@
 'use client';
 
-import { SafePost } from "../types";
+import { SafePost, SafeUser } from "../types";
 import ClientOnly from "./ClientOnly";
 import EmptyState from "./EmptyState";
 import PostDisplay from "./PostDisplay";
 
 interface PostProps {
     posts: SafePost[];
+    currentUser?: SafeUser | null;
 }
 
 const PostsGrid: React.FC<PostProps> = ({
-    posts
+    posts,
+    currentUser
 }) => {
     if(posts.length === 0) {
         return (
@@ -25,7 +27,7 @@ const PostsGrid: React.FC<PostProps> = ({
           <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-6'>
             {posts.map((post) => (
             <div key={post.postID}>
-              <PostDisplay post={post}/>
+              <PostDisplay post={post} currentUser={currentUser} />
             </div>
             ))}
 

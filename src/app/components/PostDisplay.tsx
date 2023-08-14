@@ -9,15 +9,15 @@ import {
 import { SafePost, SafeUser } from "../types";
 import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
-import getCoursePlanNameById from "../actions/getCoursePlanName";
-import getCoursePlanName from "../actions/getCoursePlanName";
-import { CoursePlan } from "@prisma/client";
+import LikeButton from "./LikeButton";
+
 
 interface PostProps {
   post: SafePost;
+  currentUser?: SafeUser | null;
 }
 
-const PostDisplay: React.FC<PostProps> = ({ post }) => {
+const PostDisplay: React.FC<PostProps> = ({ post, currentUser }) => {
   const [liked, setLiked] = useState(false);
   // console.log(post);
 
@@ -40,18 +40,8 @@ const PostDisplay: React.FC<PostProps> = ({ post }) => {
             <div className="flex mt-auto items-center">
               <AiOutlineEye className="text-2xl" />{" "}
               <span className="px-2">{post.views}</span>
-              {liked ? (
-                <AiFillLike
-                  className="text-2xl text-violet-800"
-                  onClick={() => setLiked(false)}
-                />
-              ) : (
-                <AiOutlineLike
-                  className="text-2xl"
-                  onClick={() => setLiked(true)}
-                />
-              )}
-              <span className="pl-2">0</span>
+              <LikeButton postID={post.postID} currentUser={currentUser} />
+              <span className="pl-2">{post.likes}</span>
               <div className="w-1/3 mt-auto ml-auto  bg-white border-2 border-black rounded-full text-black text-sm text-light px-3 py-1 hover:text-white hover:bg-violet-800 hidden md:block">
                 <Link href={`/view/${post.postID}`}>
                   Read <AiOutlineArrowRight className="inline-block" />
