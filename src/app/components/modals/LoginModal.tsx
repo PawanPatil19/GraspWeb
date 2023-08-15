@@ -57,29 +57,7 @@ const LoginModal = () => {
 
     const bodyContent = (
         <div className="relative px-6 flex-auto">
-            {/* google login button */}
-            {/* <div className='flex w-full'>
-                <button className='flex justify-center border-2 border-gray-100 bg-white rounded-full w-full text-black text-sm text-light px-3 py-2 hover:shadow'
-                    onClick={() => signIn('google')}>
-                    <FcGoogle className='text-2xl'/>
-                    <span className='pl-2'>Sign in with Google</span>
-                </button>
-            </div> */}
-            {/* apple login button */}
-            {/* <div className='flex items-center justify-center py-4'>
-                <button className='flex justify-center bg-white border-2 border-gray-100 w-full rounded-full text-black text-sm text-light px-3 py-2 hover:shadow'
-                    onClick={() => signIn('github')}>
-                    <AiFillGithub className='text-2xl'/>
-                    <span className='pl-2'>Sign in with Apple</span>
-                </button>
-            </div> */}
-            {/* or with lines */}
-            {/* <div className='flex items-center justify-center m-5'>
-                <div className='w-2/4 h-0.5 bg-gray-200'></div>
-                <span className='px-4 text-gray-400'>or</span>
-                <div className='w-2/4 h-0.5 bg-gray-200'></div>
-            </div> */}
-            {/* email and password */}
+            
             <form>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="email">
@@ -89,13 +67,15 @@ const LoginModal = () => {
                         className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 focus:outline focus:outline-violet-400" 
                         id="email" type="text" placeholder='' {...register("email")} />
                 </div>
-                <div>
+                <div className='mb-4'>
                     <label className="block text-gray-700 text-sm font-light mb-2" htmlFor="password">
                     Password
                     </label>
                     <input 
                         className="appearance-none rounded-lg w-full py-2 px-3 text-black bg-gray-100 mb-2 focus:outline focus:outline-violet-400" 
                         id="password" type="password" placeholder="" {...register("password")} />
+                </div>
+                <div>
                     <div className="flex justify-between items-center">
                         <div>
                             <input type="checkbox" id="rememberMe" name="rememberMe" value="rememberMe" />

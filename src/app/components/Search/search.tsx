@@ -80,7 +80,7 @@ const Search : React.FC<PostProps> = ({
 
   return (
     <div className="w-full mx-auto pt-10 pb-5">
-      <div className="w-full md:w-3/5 mx-auto rounded-lg shadow-lg px-5 md:px-10 py-5">
+      <div className="w-full md:w-3/5 mx-auto rounded-lg shadow-2xl px-5 md:px-10 py-5">
         {/* search bar here */}
         <form onSubmit={handleSearch}>
           <div className="pb-5">

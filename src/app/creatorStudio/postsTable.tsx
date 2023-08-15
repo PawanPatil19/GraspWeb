@@ -136,7 +136,7 @@ const PostTable: React.FC<PostTableProps> = ({
                 <Table className="mt-6">
                     <TableHead>
                     <TableRow>
-                        <TableHeaderCell>Tite</TableHeaderCell>
+                        <TableHeaderCell>Title</TableHeaderCell>
                         {/* <TableHeaderCell>Published on</TableHeaderCell> */}
                         <TableHeaderCell>Uploaded</TableHeaderCell>
                         <TableHeaderCell>Action</TableHeaderCell>
@@ -147,7 +147,11 @@ const PostTable: React.FC<PostTableProps> = ({
                     {displayPosts.map((item, index) => (
 
                         <TableRow key={item.id}>
-                        <TableCell>{item.title}</TableCell>
+                        <TableCell>
+                            <span>
+                            {item.title?.substring(0, 50)}
+                            </span>
+                        </TableCell>
                         {/* <TableCell>{item.updatedAt}</TableCell> */}
                         <TableCell>
                             <Switch 

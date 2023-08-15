@@ -27,9 +27,13 @@ const RootClient: React.FC<RootClientProps> = ({ posts, currentUser }) => {
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto mt-10">
             <div className="w-full grid grid-cols-1 md:grid-cols-5">
               <div className="py-10 md:my-auto col-span-3">
-                <span className="text-4xl md:text-6xl font-semibold text-black">
-                  Lorem Ipsum
-                </span>
+                <p className="text-4xl md:text-6xl font-semibold text-black">
+                  Bridging <span className="text-violet-800">Educators</span>
+                </p>
+                <p className="text-4xl md:text-6xl font-semibold text-black mt-4">
+                  In The Virtual World
+                </p>
+
                 <div className="w-2/4">
                   <p className="text-sm font-light text-gray-500 py-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -37,6 +41,7 @@ const RootClient: React.FC<RootClientProps> = ({ posts, currentUser }) => {
                     aliqua.
                   </p>
                 </div>
+                <div className="mt-4">
                 {
                   currentUser == null ? (
                     <button 
@@ -58,10 +63,11 @@ const RootClient: React.FC<RootClientProps> = ({ posts, currentUser }) => {
                     </Link>
                   )
                 }
+                </div>
               </div>
               <div className="hidden md:block col-span-2">
                 <Image
-                  src="/images/home_page.svg"
+                  src="/images/home_page1.svg"
                   alt="Home Page Image"
                   width={400}
                   height={400}

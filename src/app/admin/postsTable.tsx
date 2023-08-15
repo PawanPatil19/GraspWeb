@@ -22,8 +22,8 @@ import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { redirect } from "next/navigation";
   
 const colors: { [key: string]: Color } = {
-Verification: "gray",
-Active: "emerald",
+    Verification: "gray",
+    Active: "emerald",
 };
 
 interface PostTableProps {

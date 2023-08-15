@@ -32,39 +32,38 @@ const CreatorStudioClient: React.FC<CreatorStudioClientProps> = ({ posts, curren
                 <div className='w-full my-10'>
                     <div className='grid md:grid-cols-2 gap-5'>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-5'>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
+                            <div className='bg-gray-100 rounded-2xl p-5 shadow-lg'>
                                 <div className='text-sm font-medium pb-5'>Posts</div>
                                 <div className='text-5xl font-medium'>{countUploadedPosts}</div>
                             </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
+                            <div className='bg-gray-100 rounded-2xl p-5 shadow-lg'>
                                 <div className='text-sm font-medium pb-5'>Views</div>
                                 <div className='text-5xl font-medium'>{totalViews}</div>
                             </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
+                            <div className='bg-gray-100 rounded-2xl p-5 shadow-lg'>
                                 <div className='text-sm font-medium pb-5'>Followers</div>
                                 <div className='text-5xl font-medium'>0</div>
                             </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
+                            <div className='bg-gray-100 rounded-2xl p-5 shadow-lg'>
                                 <div className='text-sm font-medium pb-5'>Likes</div>
                                 <div className='text-5xl font-medium'>{totalLikes}</div>
                             </div>
                         </div>
 
-                        <div className='bg-gray-100 h-96 rounded-2xl'>
+                        <div className='bg-gray-100 h-96 rounded-2xl shadow-lg'>
                             <div className='text-sm font-medium p-5'>Your Profile</div>
-                            <div className='flex flex-col p-5 items-center'>
+                            <div className='flex flex-col p-5 items-center gap-5'>
                                 <VscAccount className='text-9xl text-gray-400'/>
                                 <div className='text-3xl font-medium'>{currentUser?.name}</div>
-                            </div>
-
-                            <div className="flex flex-col p-5 gap-3">
-                                <div className="flex">
-                                    <FaUniversity className="text-2xl" />
-                                    <div className='ml-2 text-md font-medium'>Affliated University</div>
-                                </div>
-                                <div className="flex">
-                                    <AiFillMail className='text-2xl'/>
-                                    <div className='ml-2 text-md font-medium '>{currentUser?.email}</div>
+                                <div>
+                                    <div className="flex text-gray-500">
+                                        <FaUniversity className="text-2xl" />
+                                        <div className='ml-2 text-md font-medium'>Affliated University</div>
+                                    </div>
+                                    <div className="flex text-gray-500 mt-2">
+                                        <AiFillMail className='text-2xl'/>
+                                        <div className='ml-2 text-md font-medium '>{currentUser?.email}</div>
+                                    </div>
                                 </div>
                                 
                             </div>

@@ -98,8 +98,6 @@ const PostClient : React.FC<PostClientProps> = ({
                         )
                     }
                     <div className='flex flex-col'>
-                        
-                        
                         <div className='flex gap-3 font-bold text-2xl md:text-4xl px-4 mt-4'>
                             {post?.title}
                             {isFavourite ? (
@@ -121,8 +119,7 @@ const PostClient : React.FC<PostClientProps> = ({
                         <div className='flex p-4 items-center gap-4'>
                             <div className=''>
                                 {
-                                    <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>
-                                    
+                                    <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>  
                                 }
                                  
                             </div>
