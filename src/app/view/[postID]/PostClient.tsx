@@ -1,16 +1,19 @@
 'use client';
 
 import axios from "axios";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { redirect, useRouter } from "next/navigation";
-import { AiOutlineSearch, AiOutlineLike, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar, AiOutlineEdit } from 'react-icons/ai';
+import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
+import { AiOutlineSearch, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar, AiOutlineEdit } from 'react-icons/ai';
 import {FaRegClone} from 'react-icons/fa';
 import {HiOutlineUserCircle} from 'react-icons/hi';
-import Avatar from '../../components/Avatar';
 import { SafePost, SafeUser } from "@/app/types";
 import moment from 'moment';
 import Link from "next/link";
+import LikeButton from "@/app/components/LikeButton";
+import useConfirmationModal from "@/app/hooks/useConfirmationModal";
+import CloneConfirmationModal from "@/app/components/modals/CloneConfirmationModal";
 
 
 
@@ -27,6 +30,15 @@ const PostClient : React.FC<PostClientProps> = ({
 }) => {
     const [isFavourite, setIsFavourite] = useState(false);
     const files = post.uploadFiles;
+
+    const cloneConfirmationModal = useConfirmationModal();
+
+
+    const copyLink = () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url);
+        toast.success("Link copied to clipboard");
+    }
 
     const handleClone = () => {
         const data = {
@@ -61,11 +73,12 @@ const PostClient : React.FC<PostClientProps> = ({
 
     return (
         <main className="bg-white px-5 md:px-0">
+        <CloneConfirmationModal postID={post.postID}/>
         <div className='mb-10'>
-            <div className='min-h-screen'>
+            <div className='min-h-screen py-5'>
 
                 {/*Search bar in right top corner*/}
-                <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
+                {/* <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
                     <div className='flex justify-end w-full pt-4'>
                         <div className='flex justify-end w-full md:w-1/3'>
                             <div className='flex justify-end w-full md:w-1/2'>
@@ -74,7 +87,7 @@ const PostClient : React.FC<PostClientProps> = ({
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className='max-w-screen-xl items-center mx-auto'>
                     {
@@ -117,9 +130,9 @@ const PostClient : React.FC<PostClientProps> = ({
                                 <div className='text-sm text-gray-400'>
                                     {post?.authorName}
                                 </div>
-                                <div className='text-sm text-violet-400 hover:text-violet-800 hover:underline'>
+                                {/* <div className='text-sm text-violet-400 hover:text-violet-800 hover:underline'>
                                     + Follow
-                                </div>
+                                </div> */}
                             </div> 
                         </div>
                     </div>
@@ -134,27 +147,31 @@ const PostClient : React.FC<PostClientProps> = ({
                                 <Link href={`/editor/${post.postID}`}>
                                 {
                                     post.authorId === currentUser?.id ? (
-                                        <span className="flex gap-2">
-                                            <AiOutlineEdit className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
-                                            <span className='hidden md:block text-gray-400'>Edit</span>
-                                        </span>
+                                        <div className="flex gap-2 hover:text-violet-800 ">
+                                            <AiOutlineEdit className='inline-block text-2xl'/> 
+                                            <span className='hidden md:block '>Edit</span>
+                                        </div>
                                     ) : null
                                 }
                                 </Link>
-                                <span className="flex gap-2">
-                                    <AiOutlineLike className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/> 
-                                    <span className='hidden md:block text-gray-400'>Like</span>
-                                </span>
-                                <span className="flex gap-2">
-                                    <AiOutlineShareAlt className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline '/> 
-                                    <span className='hidden md:block text-gray-400'>Share</span>
-                                </span>
-                                <span className="flex gap-2">
-                                    <button onClick={handleClone}>
-                                        <FaRegClone className='inline-block text-2xl text-gray-400 hover:text-violet-800 hover:underline'/>
+                                <div className="flex gap-2 hover:text-violet-800">
+                                    <LikeButton postID={post.postID} currentUser={currentUser} /> 
+                                    <span className='hidden md:block'>Like</span>
+                                </div>
+                                
+                                <button onClick={copyLink}>
+                                    <div className="flex gap-2 hover:text-violet-800">
+                                        <AiOutlineShareAlt className='inline-block text-2xl'/> 
+                                        <span className='hidden md:block '>Share</span>
+                                    </div>
+                                </button>
+                                
+                                <div className="flex gap-2 hover:text-violet-800">
+                                    <button onClick={cloneConfirmationModal.onOpen}>
+                                        <FaRegClone className='inline-block text-2xl'/>
                                     </button> 
-                                    <span className='hidden md:block text-gray-400'>Clone</span>
-                                </span>
+                                    <span className='hidden md:block '>Clone</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -176,12 +193,12 @@ const PostClient : React.FC<PostClientProps> = ({
                         {
                             files.map((file, index) => (
                                 <div key={file + index}>
-                                <a target="_blank" href={file} rel="noopener noreferrer">
-                                    <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
-                                        <AiOutlineFileText className='text-2xl text-gray-400'/>
-                                        <span className="truncate">{file.split("/").at(-1)}</span>
-                                    </div>
-                                </a>
+                                    <a target="_blank" href={file} rel="noopener noreferrer">
+                                        <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
+                                            <AiOutlineFileText className='text-2xl text-gray-400'/>
+                                            <span className="truncate">{file.split("/").at(-1)}</span>
+                                        </div>
+                                    </a>
                                 </div>
                             ))
                         }

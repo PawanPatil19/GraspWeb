@@ -6,7 +6,6 @@ import {VscAccount} from 'react-icons/vsc';
 import {BiAnalyse, BiBell, BiLogOutCircle, BiBrightness} from 'react-icons/bi';
 import { Dropdown } from "@nextui-org/react";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
@@ -38,7 +37,6 @@ const Navbar : React.FC<NavbarProps> = ({
       setNav(!nav);
     }
 
-    const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
 
     return (
@@ -161,7 +159,7 @@ const Navbar : React.FC<NavbarProps> = ({
                     </li>
 
                     <li className="md:py-2">
-                      <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">How it works</a>
+                      <a href="/guide" className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">How it works</a>
                     </li>
 
                     {currentUser == null ? (
@@ -257,7 +255,7 @@ const Navbar : React.FC<NavbarProps> = ({
                         </li>
 
                         <li className="py-4">
-                          <a href="#" className="block py-2 pl-3 pr-4 text-gray-400 font-light">How it works</a>
+                          <a href="/guide" className="block py-2 pl-3 pr-4 text-gray-400 font-light">How it works</a>
                         </li>
 
                         <li className="py-4">
@@ -285,11 +283,6 @@ const Navbar : React.FC<NavbarProps> = ({
                             <button onClick={loginModal.onOpen} type='button' className="block py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-violet-800 md:hover:bg-transparent md:border-0 md:hover:text-violet-800 md:p-0 font-light">Sign in</button>
                           </li>
                         }
-
-                        {currentUser == null  ? (
-                          <li className='py-4'>
-                            <button onClick={registerModal.onOpen} type="button" className="text-white bg-violet-800 hover:bg-violet-500 focus:ring-4 focus:outline-none font-medium rounded-full px-4 py-2 text-center mb- ">Get started</button>
-                          </li> ) : null}
                       </ul>
                     </div>
                     

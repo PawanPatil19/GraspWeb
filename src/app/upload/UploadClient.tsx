@@ -1,13 +1,6 @@
 "use client";
 
 import {
-  AiOutlineSearch,
-  AiOutlineLike,
-  AiOutlineDownload,
-  AiOutlineHighlight,
-  AiOutlineShareAlt,
-  AiOutlineStar,
-  AiFillStar,
   AiOutlineArrowRight,
 } from "react-icons/ai";
 
