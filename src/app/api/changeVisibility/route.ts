@@ -19,6 +19,8 @@ export async function POST(
         published
     } = body;
 
+    console.log("published ", published);
+
     const updateVisibility = await prisma.post.update({
         where: {
             postID,

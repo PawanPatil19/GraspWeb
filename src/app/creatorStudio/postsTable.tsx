@@ -13,13 +13,14 @@ import {
     Button,
     Color,
   } from "@tremor/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { TailSpin } from "react-loader-spinner";
 import { SafePost } from "../types";
 import useConfirmationModal from "../hooks/useConfirmationModal";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { redirect } from "next/navigation";
+import {Switch} from "@nextui-org/react";
   
 const colors: { [key: string]: Color } = {
 Verification: "gray",
@@ -38,6 +39,38 @@ const PostTable: React.FC<PostTableProps> = ({
     const [search, setSearch] = useState("");
     const [displayPosts, setDisplayPosts] = useState(posts);
     const [isLoading, setIsLoading] = useState(false);
+
+    let publishedStatusArr = [];
+
+    for (let i = 0; i < displayPosts.length; i++) {
+        publishedStatusArr.push(displayPosts[i].published);
+    }
+
+    const [isChecked, setIsChecked] = useState(publishedStatusArr);
+
+
+    const changeStatus = (postID: string, index: number) => {
+        console.log("Change Status: ", index);
+
+        const data = {
+            postID: postID,
+            published: isChecked[index]
+        }
+        console.log("Checked before: ", isChecked)
+        isChecked[index] = !isChecked[index];
+        
+        setIsChecked(isChecked);
+        console.log("Checked after: ", isChecked);
+        
+        axios.post("/api/changeVisibility", data).then((res) => {
+            console.log(res.data);
+            //setIsChecked(isChecked);  
+        });
+    }
+    useEffect(() => {
+        setIsChecked(isChecked);
+        console.log("Checked: ", isChecked);
+    }, [isChecked]);
 
     const confirmationModal = useConfirmationModal();
 
@@ -104,36 +137,29 @@ const PostTable: React.FC<PostTableProps> = ({
                     <TableHead>
                     <TableRow>
                         <TableHeaderCell>Tite</TableHeaderCell>
-                        <TableHeaderCell>Author</TableHeaderCell>
-                        <TableHeaderCell>Status</TableHeaderCell>
+                        {/* <TableHeaderCell>Published on</TableHeaderCell> */}
+                        <TableHeaderCell>Uploaded</TableHeaderCell>
                         <TableHeaderCell>Action</TableHeaderCell>
                     </TableRow>
                     </TableHead>
 
                     <TableBody>
-                    {displayPosts.map((item) => (
+                    {displayPosts.map((item, index) => (
+
                         <TableRow key={item.id}>
+                        <TableCell>{item.title}</TableCell>
+                        {/* <TableCell>{item.updatedAt}</TableCell> */}
                         <TableCell>
-                            
-                            {item.title}
-                        </TableCell>
-                        <TableCell>{item.authorName}</TableCell>
-                        <TableCell>
-                            {
-                                item.published ? (
-                                    <Badge color="gray" size="xs">
-                                        Published
-                                    </Badge>
-                                ) : (
-                                    <Badge color="gray" size="xs">
-                                        Draft
-                                    </Badge>
-                                )
-                            }
+                            <Switch 
+                                initialChecked={isChecked[index]}
+                                size="md"
+                                color="secondary"
+                                onChange={() => changeStatus(item.postID, index)}
+                            />
                         </TableCell>
                         <TableCell>
                             <Button size="xs" variant="secondary" color="gray">
-                            <a href={`/view/${item.postID}`}>View</a>
+                                <a href={`/view/${item.postID}`}>View</a>
                             </Button>
                             &nbsp;
                             <ConfirmationModal postID={item.postID} />

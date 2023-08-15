@@ -1,14 +1,12 @@
 "use client";
 
-
 import { SafePost, SafeUser } from "@/app/types";
-import { v4 as uuidv4 } from "uuid";
-import NotesCard from "../components/NotesCard";
 import React, { useState } from "react";
 import { VscAccount } from "react-icons/vsc";
 import { FaUniversity } from "react-icons/fa";
 import { AiFillMail } from "react-icons/ai";
 import PostTable from "./postsTable";
+
 
 interface CreatorStudioClientProps {
   posts: SafePost[];
