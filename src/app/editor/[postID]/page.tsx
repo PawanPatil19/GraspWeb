@@ -4,6 +4,7 @@ import React from 'react';
 import getPostById from "../../actions/getPostById";
 import ClientOnly from '@/app/components/ClientOnly';
 import EditorClient from './EditorClient';
+import EditorClient1 from './EditorClient1';
 import getCurrentUser from '@/app/actions/getCurrentUser';
 
 
@@ -20,7 +21,7 @@ const EditorPage = async ( {params }: {params: IParams}) => {
 
     return (
         <ClientOnly>
-            <EditorClient 
+            <EditorClient1
                 post={post}
                 currentUser={currentUser}
             />

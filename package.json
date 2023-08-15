@@ -22,6 +22,7 @@
     "@nextui-org/react": "^1.0.0-beta.13",
     "@nextui-org/switch": "^2.0.11",
     "@prisma/client": "^5.1.1",
+    "@syncfusion/ej2-react-richtexteditor": "^22.2.9",
     "@tanstack/react-query": "^4.32.6",
     "@tanstack/react-query-devtools": "^4.32.6",
     "@tremor/react": "^3.6.1",
