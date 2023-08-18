@@ -37,7 +37,6 @@ export async function POST(
             data: {
                 title,
                 content,
-                displayContent,
                 uploadFiles,
                 updatedAt: new Date(),
             },
@@ -49,7 +48,6 @@ export async function POST(
                 postID,
                 title,
                 content,
-                displayContent,
                 uploadFiles,
                 authorName: currentUser.name,
                 authorId: currentUser.id,

@@ -14,8 +14,14 @@ import Link from "next/link";
 import LikeButton from "@/app/components/LikeButton";
 import useConfirmationModal from "@/app/hooks/useConfirmationModal";
 import CloneConfirmationModal from "@/app/components/modals/CloneConfirmationModal";
+import 'suneditor/dist/css/suneditor.min.css';
+import dynamic from "next/dynamic";
 
+const SunEditor = dynamic(() => import("suneditor-react"), {
+    ssr: false,
+});
 
+import SunEditorCore from "suneditor/src/lib/core";
 
 
 interface PostClientProps {
@@ -32,6 +38,10 @@ const PostClient : React.FC<PostClientProps> = ({
     const files = post.uploadFiles;
 
     const cloneConfirmationModal = useConfirmationModal();
+
+    function centerDivElements() {
+
+    }
 
 
     const copyLink = () => {
@@ -200,8 +210,20 @@ const PostClient : React.FC<PostClientProps> = ({
                             ))
                         }
                     </div>
-                    <div className="ql-editor">
-                        <div dangerouslySetInnerHTML={{__html: post.displayContent}} className="py-5"/>
+                    <div className="grasp-sun-editor">
+                        <SunEditor
+                            setContents={post.content ? post.content : ""}
+                            hideToolbar={true}
+                            disable={true}
+                            readOnly={true}
+                            height="auto"
+                            setOptions={{
+                                resizingBar: false, 
+                                showPathLabel: false
+                            }}   
+                            setDefaultStyle="border: 0;"
+                        />
+
                     </div>
                 </div>
 

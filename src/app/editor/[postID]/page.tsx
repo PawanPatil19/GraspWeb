@@ -4,7 +4,7 @@ import React from 'react';
 import getPostById from "../../actions/getPostById";
 import ClientOnly from '@/app/components/ClientOnly';
 import EditorClient from './EditorClient';
-import EditorClient1 from './EditorClient1';
+import EditorClient1 from './EditorClient';
 import getCurrentUser from '@/app/actions/getCurrentUser';
 
 

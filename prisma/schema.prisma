@@ -52,8 +52,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String?
-  content   Json
-  displayContent String
+  content   String?
   uploadFiles String[]
   published Boolean @default(false)
   authorName String?

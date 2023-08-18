@@ -47,7 +47,7 @@ const Navbar : React.FC<NavbarProps> = ({
               {/* Navbar left */}
               <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
                 <div className='flex'>
-                  <a href="/" className="z-10">
+                  <a href="/" className="z-0">
                     <Image
                           src="/images/grasp_logo.png"
                           alt="Vercel Logo"

@@ -69,6 +69,8 @@
     "react-select": "^5.7.3",
     "react-switch": "^7.0.0",
     "sort-by": "^1.2.0",
+    "suneditor": "^2.45.1",
+    "suneditor-react": "^3.6.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "uuid": "^9.0.0",

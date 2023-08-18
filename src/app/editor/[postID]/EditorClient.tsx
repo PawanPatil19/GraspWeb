@@ -1,100 +1,27 @@
 'use client';
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { SafePost, SafeUser } from "@/app/types";
-import React from 'react';
+import * as React from 'react';
 import {  BiEditAlt, BiSave, BiCheck } from 'react-icons/bi';
 import { AiOutlineEye, AiOutlineClose, AiOutlineUpload } from 'react-icons/ai';
 import { VscSettings, VscFile, VscReferences } from 'react-icons/vsc';
 import { useParams } from 'next/navigation';
-import { Quill } from 'react-quill';
-import { ImageActions } from '@xeger/quill-image-actions';
-import { ImageFormats } from '@xeger/quill-image-formats';
-import BlotFormatter, {AlignAction, DeleteAction, ImageSpec, ResizeAction} from 'quill-blot-formatter';
 import { redirect, useRouter } from 'next/navigation';
 import useUploadModal from '@/app/hooks/useUploadModal';
+import dynamic from "next/dynamic";
+import 'suneditor/dist/css/suneditor.min.css';
+ // Import Sun Editor's CSS File
+
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
+});
+
+import SunEditorCore from "suneditor/src/lib/core";
 
 
-
-import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-
-import 'react-quill/dist/quill.snow.css';
-import Link from "next/link";
-
-const BlockEmbed = Quill.import('blots/block/embed');
-
-
-Quill.register('modules/imageActions', ImageActions);
-Quill.register('modules/imageFormats', ImageFormats);
-Quill.register('modules/blotFormatter', BlotFormatter);
-
-
-class CustomImageSpec extends ImageSpec {
-    getActions() {
-        return [AlignAction, DeleteAction];
-    }
-}
-
-
-
-const modules = {
-    
-    toolbar: [
-        [{ 'font': [] }, { 'size': [] }],
-        [ 'bold', 'italic', 'underline', 'strike' ],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'script': 'super' }, { 'script': 'sub' }],
-        [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
-        [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
-        [ 'direction', { 'align': [] }],
-        [ 'link', 'image', 'video', 'formula' ],
-        [ 'clean' ]
-    ],
-
-    clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
-      matchVisual: false,
-    },
-    imageActions: {},
-    imageFormats: {},
-    // ImageResize : {
-    //     modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-    // }
-    // blotFormatter: {
-    //     specs: [CustomImageSpec],
-    // },
-}
-
-
-
-
-const formats = [
-    'header',
-    'font',
-    'size',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'script',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'align',
-    'link',
-    'image',
-    'video',
-    'formula',
-    'code-block',
-    'width',
-    'float',
-    'color',
-    'background'
-]
 
 
 interface EditorClientProps {
@@ -103,15 +30,20 @@ interface EditorClientProps {
 }
 
 
-const EditorClient : React.FC<EditorClientProps> = ({
+const EditorClient1 : React.FC<EditorClientProps> = ({
     post,
     currentUser
 }) => {
 
+    const editor = useRef<SunEditorCore>();
+
+    // The sunEditor parameter will be set to the core suneditor instance when this function is called
+     const getSunEditorInstance = (sunEditor: SunEditorCore) => {
+        editor.current = sunEditor;
+    };
+
     const router = useRouter();
     const uploadModal = useUploadModal();
-    const [content, setContent] = useState(post?.displayContent || null);
-    const [deltaContent, setDeltaContent] = useState(post?.content || null);
     const [title, setTitle] = useState(post?.title || null);
     const [preview, setPreview] = useState(false);
     const [edit, setEdit] = useState(true);
@@ -125,18 +57,18 @@ const EditorClient : React.FC<EditorClientProps> = ({
     // use Set data structure for stroing file References
     const [fileReferences, setFileReferences] = useState<Set<string>>(new Set(post?.uploadFiles) || new Set());
 
-    // const [fileReferences, setFileReferences] = useState<Set()>(post?.uploadFiles || []);
     const [removedFiles, setRemovedFiles] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
+    const [editorContent, setEditorContent] = useState(post?.content);
+
+    const handleEditorChange = (content: string) => {
+        setEditorContent(content);
+        console.log(content);
+    }
+
     const getFileNames = () => {
         let tmpFileNames: string[] = [];
-        // console.log(fileReferences);
-        // for (var file of fileReferences) {
-        //     console.log("FILE: ", file);
-        //     const fileName = file.split('/').pop();
-        //     tmpFileNames.push(fileName as string);
-        // }
 
         fileReferences.forEach((file) => {
             console.log("FILE: ", file);
@@ -236,20 +168,8 @@ const EditorClient : React.FC<EditorClientProps> = ({
         }
     }
 
-    const onEditorChange = (content: string, delta: any, source: string, editor: any) => {
-        setContent(content);
-        const deltaContent = editor.getContents();
-        console.log(content);
-        console.log(deltaContent);
-        setDeltaContent(deltaContent);
-    };
-
     // send postID, title, content to axios.post
     const handleSave = async () => {
-
-        // console.log(content);
-        // // change content to delta
-        // console.log(deltaContent);
 
         const loadingToast = toast.loading('Saving post...');
         loadingToast;
@@ -260,8 +180,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
             const data = {
                 postID: postID,
                 title: title,
-                content: deltaContent,
-                displayContent: content,
+                content: editorContent,
                 uploadFiles: Array.from(fileReferences)
             }
             axios.post('/api/createPost', data)
@@ -292,8 +211,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
             const data = {
                 postID: postID,
                 title: title,
-                content: deltaContent,
-                displayContent: content,
+                content: editorContent,
                 uploadFiles: Array.from(fileReferences)
             }
             axios.post('/api/createPost', data)
@@ -327,8 +245,7 @@ const EditorClient : React.FC<EditorClientProps> = ({
             const data = {
                 postID: postID,
                 title: title,
-                content: deltaContent,
-                displayContent: content,
+                content: editorContent,
                 uploadFiles: Array.from(fileReferences)
             }
             axios.post('/api/createPost', data)
@@ -437,15 +354,39 @@ const EditorClient : React.FC<EditorClientProps> = ({
                         rel="stylesheet"
                         href="https://unpkg.com/react-quill@1.3.3/dist/quill.bubble.css"
                     />
-                    <div className='col-span-9 min-h-screen' id='quill-container'>
-                        <ReactQuill 
-                            placeholder='Write your content here...'
-                            theme='snow'
-                            modules={modules}
-                            formats={formats}
-                            onChange={onEditorChange}
-                            defaultValue={content as string}
-                        />
+                    <div className='col-span-9 min-h-screen' id='editor-container'>
+                    <SunEditor
+                        lang="en"
+                        height={"auto"}
+                        placeholder={'Please type here....'}
+                        setOptions={{
+                        resizingBar: true,
+                        buttonList: [
+                            [
+                            'formatBlock',
+                            'font',
+                            'bold',
+                            'underline',
+                            'italic',
+                            'strike',
+                            'blockquote',
+                            'showBlocks',
+                            'fontColor',
+                            'hiliteColor',
+                            'align',
+                            'list',
+                            'table',
+                            'link',
+                            'image',
+                            'video',
+                            'removeFormat'
+                            ]
+                        ]
+                        }}
+                        onChange={handleEditorChange}
+                        setContents={editorContent ? editorContent : ''}
+                        
+                    />
                     </div>
                     <div className='col-span-2 bg-gray-100 px-5'>
                         <div className='flex flex-col py-5'>
@@ -488,4 +429,4 @@ const EditorClient : React.FC<EditorClientProps> = ({
 
 }
 
-export default EditorClient;
+export default EditorClient1;
