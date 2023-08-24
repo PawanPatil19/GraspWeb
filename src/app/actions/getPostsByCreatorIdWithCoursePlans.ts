@@ -28,6 +28,7 @@ export default async function getPostsByCreatorIdWithCoursePlans(params: any) {
                 updatedAt: post.updatedAt.toISOString(),
                 coursePlan: {
                     ...post.coursePlan,
+                    createdAt: post.coursePlan?.createdAt.toISOString(),
                 }
             };
         });

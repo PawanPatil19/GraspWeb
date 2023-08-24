@@ -8,16 +8,18 @@ export type SafePost = Omit<
 };
 
 export type SafeCoursePlan = Omit<
-    CoursePlan, "createdAt" | "updatedAt"> & {
+    CoursePlan, "createdAt" > & {
     createdAt: string;
 };
 
 export type SafePostWithPlan = Omit<
-    Post, "createdAt" | "updatedAt"> & {
+    Post, "createdAt" | "updatedAt" | "coursePlan"> & {
     createdAt: string;
     updatedAt: string;
-    coursePlan: CoursePlan;
+    coursePlan: SafeCoursePlan;
 };
+
+
 
 export type SafeUser = Omit<
     User,

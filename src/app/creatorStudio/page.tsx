@@ -3,7 +3,6 @@ import React from 'react';
 
 import ClientOnly from '@/app/components/ClientOnly';
 import getCurrentUser from '@/app/actions/getCurrentUser';
-import getPostsByCreatorId from '../actions/getPostsByCreatorId';
 import CreatorStudioClient from './creatorStudioClient';
 import toast from 'react-hot-toast';
 import getCreatorCoursePlansById from '../actions/getCreatorCoursePlansById';

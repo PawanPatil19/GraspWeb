@@ -1,15 +1,15 @@
 "use client";
 
-import { SafePost, SafePostWithPlan, SafeUser } from "@/app/types";
+import { SafeCoursePlan, SafePost, SafePostWithPlan, SafeUser } from "@/app/types";
 import React, { useState } from "react";
 import { CoursePlan } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import NotesCard from "@/app/components/NotesCard";
 
 interface CoursePlanPageClientProps {
-  posts: SafePostWithPlan[];
+  posts: SafePostWithPlan[] | null;
   currentUser?: SafeUser | null;
-  coursePlan?: CoursePlan;
+  coursePlan?: SafeCoursePlan | null;
 }
 
 const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, currentUser, coursePlan }) => {  
@@ -18,8 +18,8 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
     const [showUploads, setShowUploads] = useState(false);
 
 
-    const drafts = posts.filter((post) => post.published === false);
-    const uploads = posts.filter((post) => post.published === true);
+    const drafts = posts?.filter((post) => post.published === false);
+    const uploads = posts?.filter((post) => post.published === true);
 
 
   return (
@@ -58,7 +58,7 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
                               <span className="flex items-center">
                                 Drafts
                                 <span className="ml-2 text-xs font-light text-gray-400">
-                                  {drafts.length}
+                                  {drafts?.length}
                                 </span>
                               </span>
                           </button>
@@ -70,7 +70,7 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
                               <span className="flex items-center">
                                 Drafts
                                 <span className="ml-2 text-xs font-light text-gray-400">
-                                  {drafts.length}
+                                  {drafts?.length}
                                 </span>
                               </span>
                             </button>
@@ -85,7 +85,7 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
                               <span className="flex items-center">
                                 Uploads
                                 <span className="ml-2 text-xs font-light text-gray-400">
-                                  {uploads.length}
+                                  {uploads?.length}
                                 </span>
                               </span>
                           </button>
@@ -97,7 +97,7 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
                               <span className="flex items-center">
                                 Uploads
                                 <span className="ml-2 text-xs font-light text-gray-400">
-                                  {uploads.length}
+                                  {uploads?.length}
                                 </span>
                               </span>
                             </button>
@@ -112,12 +112,12 @@ const CoursePlanPageClient : React.FC<CoursePlanPageClientProps> = ({ posts, cur
 
               <div className="grid grid-cols-1 md:grid-cols-3 mt-7 gap-12">
                 {showDrafts
-                  ? drafts.map((post) => (
+                  ? drafts?.map((post) => (
                       <div key={post.postID}>
                         <NotesCard post={post} />
                       </div>
                     ))
-                  : uploads.map((post) => (
+                  : uploads?.map((post) => (
                       <div key={post.postID}>
                         <NotesCard post={post} />
                       </div>

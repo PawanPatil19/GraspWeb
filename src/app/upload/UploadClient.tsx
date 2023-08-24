@@ -90,7 +90,7 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser, courseP
                 >
                     <option value="null">All</option>
                     {
-                      coursePlans.map((coursePlan) => {
+                      coursePlans.map((coursePlan, index) => {
                         return <option value={coursePlan.id} key={index}>{coursePlan.title}</option>
                       }
                       )

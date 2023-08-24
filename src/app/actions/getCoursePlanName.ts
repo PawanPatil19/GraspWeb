@@ -15,7 +15,10 @@ export default async function getCoursePlanNameById(params: any) {
             return null;
         }
 
-        return coursePlan
+        return {
+            ...coursePlan,
+            createdAt: coursePlan.createdAt.toISOString(),
+        }
     } catch (error : any) {
         console.error(error);
         throw new Error(error);
