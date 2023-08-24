@@ -7,6 +7,9 @@ import ClientOnly from '@/app/components/ClientOnly';
 import PostClient from './PostClient';
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 
 interface IParams {
@@ -17,11 +20,13 @@ const PostPage = async ( {params }: {params: IParams}) => {
 
     const post = await getPostById(params);
     const currentUser = await getCurrentUser();
-    //console.log(post);
 
-    
-    
-    
+
+    if(!currentUser) {
+        redirect('/');
+        return null;
+    }
+
     if(!post) {
         return null;
     }

@@ -7,6 +7,18 @@ export type SafePost = Omit<
     updatedAt: string;
 };
 
+export type SafeCoursePlan = Omit<
+    CoursePlan, "createdAt" | "updatedAt"> & {
+    createdAt: string;
+};
+
+export type SafePostWithPlan = Omit<
+    Post, "createdAt" | "updatedAt"> & {
+    createdAt: string;
+    updatedAt: string;
+    coursePlan: CoursePlan;
+};
+
 export type SafeUser = Omit<
     User,
     'createdAt' | 'updatedAt' | 'emailVerified'
@@ -14,3 +26,4 @@ export type SafeUser = Omit<
     createdAt: string;
     updatedAt: string;
 };
+

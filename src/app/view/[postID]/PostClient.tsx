@@ -39,10 +39,6 @@ const PostClient : React.FC<PostClientProps> = ({
 
     const cloneConfirmationModal = useConfirmationModal();
 
-    function centerDivElements() {
-
-    }
-
 
     const copyLink = () => {
         const url = window.location.href;

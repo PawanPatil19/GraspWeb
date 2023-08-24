@@ -11,10 +11,13 @@ import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
 import Avatar from '../Avatar';
 import { redirect, usePathname } from 'next/navigation';
-
+import useNotificationsModal from '@/app/hooks/useNotificationsModal';
+import { Badge } from "@tremor/react";
+import Link from 'next/link';
 
 interface NavbarProps {
   currentUser? : SafeUser | null;
+  notifications? : number;
 }
 
 const navigation = [
@@ -27,7 +30,8 @@ function classNames(...classes: string[]) {
 
 
 const Navbar : React.FC<NavbarProps> = ({
-  currentUser
+  currentUser,
+  notifications
 }) => {
     // const [showDropdown, setShowDropdown] = React.useState(false);
     const [nav, setNav] = React.useState(false);
@@ -38,6 +42,7 @@ const Navbar : React.FC<NavbarProps> = ({
     }
 
     const loginModal = useLoginModal();
+    const notificationsModal = useNotificationsModal();
 
     return (
       <>
@@ -203,25 +208,30 @@ const Navbar : React.FC<NavbarProps> = ({
                             </a>
                           </Dropdown.Item>
                           <Dropdown.Item key="copy">
-                            <a href="#" className="text-gray-700 block py-2 text-sm" role="menuitem" id="menu-item-1">
-                              <span className='flex justify-between'>
-                                <span>
-                                  <BiBell size={20} className="inline-block"/> &nbsp;Notifications
-                                </span>
-                                <span className="inline-block px-2 py-1 text-xs font-medium leading-none text-red-100 bg-red-600 rounded-full">4</span>
-                              </span>
-                            </a>
+                            
+                            <span className='flex justify-between'>
+                              <button onClick={notificationsModal.onOpen}>
+                                <BiBell size={20} className="inline-block"/> &nbsp;Notifications
+                              </button>
+                              <Badge color="gray" className="rounded-full">
+                                {notifications}
+                              </Badge>
+                            </span>
+                            
                           </Dropdown.Item>
                           </Dropdown.Section>
                           <Dropdown.Item key="delete" withDivider color="error">
+                            
                             <button onClick={() => {
-                              signOut();
-                              redirect('/');
+                              signOut().then(() => {
+                                redirect('/');
+                              })
                             }}>
                               <span className='items-center'>
                                 <BiLogOutCircle size={20} className="inline-block"/> &nbsp;Sign Out
                               </span>
                             </button>
+                            
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>

@@ -1,20 +1,20 @@
 import prisma from "@/app/libs/prismadb";
 
-export default async function getCoursePlans(params: any) {
-    const authorId = params;
+export default async function getCreatorCoursePlansById(params: any) {
     try {
+        const creatorID = params;
         const plans = await prisma.coursePlan.findMany({
             where: {
-                authorId: authorId,
+                authorId: creatorID,
             },
             orderBy: {
                 createdAt: "desc",
-            },
+            }
         });
-    
 
         return plans;
-    } catch (error: any) {
+    } catch (error : any) {
+        console.error(error);
         throw new Error(error);
     }
 }

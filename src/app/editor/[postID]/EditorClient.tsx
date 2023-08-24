@@ -13,6 +13,7 @@ import { redirect, useRouter } from 'next/navigation';
 import useUploadModal from '@/app/hooks/useUploadModal';
 import dynamic from "next/dynamic";
 import 'suneditor/dist/css/suneditor.min.css';
+
  // Import Sun Editor's CSS File
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
@@ -20,6 +21,8 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 });
 
 import SunEditorCore from "suneditor/src/lib/core";
+import UploadModal from "@/app/components/modals/UploadModal";
+import { CoursePlan } from "@prisma/client";
 
 
 
@@ -27,12 +30,14 @@ import SunEditorCore from "suneditor/src/lib/core";
 interface EditorClientProps {
     post: SafePost | null;
     currentUser?: SafeUser | null;
+    coursePlans?: CoursePlan[] | null;
 }
 
 
 const EditorClient1 : React.FC<EditorClientProps> = ({
     post,
-    currentUser
+    currentUser,
+    coursePlans
 }) => {
 
     const editor = useRef<SunEditorCore>();
@@ -44,23 +49,28 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
 
     const router = useRouter();
     const uploadModal = useUploadModal();
+
     const [title, setTitle] = useState(post?.title || null);
     const [preview, setPreview] = useState(false);
     const [edit, setEdit] = useState(true);
     const [save, setSave] = useState(false);
     const [upload, setUpload] = useState(false);
+
     const params = useParams();
     const postID = params?.postID;
-    console.log(postID);
+    //console.log(postID);
+
     const [files, setFiles] = useState<File[]>([]);
     const [fileNames, setFileNames] = useState<string[]>([]);
     // use Set data structure for stroing file References
     const [fileReferences, setFileReferences] = useState<Set<string>>(new Set(post?.uploadFiles) || new Set());
-
     const [removedFiles, setRemovedFiles] = useState<string[]>([]);
+    
     const [loading, setLoading] = useState(false);
 
     const [editorContent, setEditorContent] = useState(post?.content);
+
+    
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
@@ -113,15 +123,10 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
         let tmpFileRefArr = Array.from(fileReferences);
         let tmpFileReferences = [...tmpFileRefArr]
         tmpFileReferences.splice(index, 1);
-        console.log(tmpFileReferences)
-        console.log(tmpFiles);
-        console.log(tmpFileNames);
-        console.log(tmpRemovedFiles);
         setFileReferences(new Set(tmpFileReferences));
     }
 
     const handleFileUpload = async () => {
-
         // delete the files that were removed
         for (let i = 0; i < removedFiles.length; i++) {
             const file = removedFiles[i];
@@ -135,9 +140,6 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                 console.log(err);
             })
         }
-
-        console.log('Files ', files);
-
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -274,6 +276,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     return (
         <main className="bg-white">
         <div className='flex flex-col'>
+            <UploadModal plans={coursePlans}/>
 
             <div className=''>
                 <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-10 rounded-2xl bg-white px-4'>
@@ -361,6 +364,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                         placeholder={'Please type here....'}
                         setOptions={{
                         resizingBar: true,
+
                         buttonList: [
                             [
                             'formatBlock',
@@ -407,10 +411,19 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                             </div>
                             
                             {fileNames.map((file, index) => (
-                                <div key={index} className='mt-5'>
-                                    <div className='flex font-light text-gray-500 items-center'>
-                                        <VscFile className='text-lg' /> &nbsp; {file}
-                                        <AiOutlineClose className='text-lg ml-auto hover:text-violet-800' onClick={() => removeFile(index)} />
+                                <div className="mt-4">
+                                    <div className='bg-white rounded-lg border-2 border-gray-400 p-2'>
+                                        <div className="flex justify-between">
+                                            <div className="flex">
+                                                <VscFile className='text-lg' /> 
+                                                <div className='text-xs font-light ml-2'>{file.split(".", 2).at(-1)?.toUpperCase()}</div>
+                                            </div>
+                                            <AiOutlineClose className='text-lg ml-auto hover:text-violet-800' onClick={() => removeFile(index)} />
+                                        </div>
+                                        <div className='flex font-light text-gray-500 items-center'>
+                                            <p className='text-sm truncate'>{file}</p>
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             ))}

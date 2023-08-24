@@ -1,16 +1,16 @@
 'use client';
 
-import { SafePost, SafeUser } from "../types";
+import { SafePost, SafePostWithPlan, SafeUser } from "../types";
 import ClientOnly from "./ClientOnly";
 import EmptyState from "./EmptyState";
 import PostDisplay from "./PostDisplay";
 
-interface PostProps {
-    posts: SafePost[];
+interface PostsGridProps {
+    posts: SafePostWithPlan[];
     currentUser?: SafeUser | null;
 }
 
-const PostsGrid: React.FC<PostProps> = ({
+const PostsGrid: React.FC<PostsGridProps> = ({
     posts,
     currentUser
 }) => {

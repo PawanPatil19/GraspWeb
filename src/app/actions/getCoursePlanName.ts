@@ -8,9 +8,6 @@ export default async function getCoursePlanNameById(params: any) {
         const coursePlan = await prisma.coursePlan.findUnique({
             where: {
                 id: coursePlanId,
-            },
-            include: {
-                user: true,
             }
         });
 
@@ -18,10 +15,7 @@ export default async function getCoursePlanNameById(params: any) {
             return null;
         }
 
-        return {
-            ...coursePlan,
-            createdAt: coursePlan.createdAt.toString(),
-        };
+        return coursePlan
     } catch (error : any) {
         console.error(error);
         throw new Error(error);

@@ -6,6 +6,7 @@ import getCurrentUser from '@/app/actions/getCurrentUser';
 import getPostsByCreatorId from '../actions/getPostsByCreatorId';
 import UploadClient from './UploadClient';
 import toast from 'react-hot-toast';
+import getCreatorCoursePlansById from '../actions/getCreatorCoursePlansById';
 
 
 // interface IParams {
@@ -22,6 +23,8 @@ const UploadPage = async () => {
     
     const posts = await getPostsByCreatorId(currentUser?.id);
 
+    const coursePlans = await getCreatorCoursePlansById(currentUser?.id);
+
     
     // console.log(posts);
     
@@ -34,6 +37,7 @@ const UploadPage = async () => {
             <UploadClient 
                 posts={posts}
                 currentUser={currentUser}
+                coursePlans={coursePlans}
             />
         </ClientOnly>
     )

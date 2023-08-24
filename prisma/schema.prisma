@@ -24,6 +24,7 @@ model User {
   account Account[]
   post    Post[]
   coursePlan CoursePlan[]
+  notification Notification[]
 }
 
 model Account {
@@ -79,4 +80,18 @@ model CoursePlan {
   user User? @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   post Post[]
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  notificationProviderId String? @db.ObjectId
+  notificationProviderName String?
+  notificationType String?
+  notificationReceiverId String? @db.ObjectId
+  statusRead Boolean @default(false)
+  postID String? 
+  postTitle String?
+
+  user User? @relation(fields: [notificationProviderId], references: [id], onDelete: Cascade)
 }

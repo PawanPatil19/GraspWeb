@@ -16,7 +16,7 @@ export default async function getPostsByCreatorId(params: any) {
                 createdAt: "desc",
             },
             include: {
-                user: true,
+                coursePlan: true,
             }
         });
 
@@ -29,6 +29,9 @@ export default async function getPostsByCreatorId(params: any) {
                 ...post,
                 createdAt: post.createdAt.toString(),
                 updatedAt: post.updatedAt.toString(),
+                coursePlan: {
+                    ...post.coursePlan,
+                }
             };
         });
 

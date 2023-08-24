@@ -8,6 +8,7 @@ import RootClient from "./RootClient";
 export default async function Home() {
   const posts = await getPosts();
   const currentUser = await getCurrentUser();
+  console.log(currentUser);
 
 
   if (currentUser?.role == "ADMIN") {

@@ -9,16 +9,16 @@ import { useQuery } from "@tanstack/react-query";
 import { Post } from "@prisma/client";
 import {redirect} from "next/navigation";
 import getPosts from "@/app/actions/getPosts";
-import { SafePost, SafeUser } from "@/app/types";
+import { SafePost, SafePostWithPlan, SafeUser } from "@/app/types";
 import PostDisplay from "../PostDisplay";
 import PostsGrid from "../PostsGrid";
 
-interface PostProps {
-  posts: SafePost[];
+interface SearchProps {
+  posts: SafePostWithPlan[];
   currentUser?: SafeUser | null;
 }
 
-const Search : React.FC<PostProps> = ({
+const Search : React.FC<SearchProps> = ({
   posts, 
   currentUser
 }) => {

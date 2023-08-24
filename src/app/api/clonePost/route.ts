@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { v4 as uuidv4 } from "uuid";
 import { Prisma } from "@prisma/client";
+import axios from "axios";
 
 export async function POST(
     request: Request
@@ -38,8 +39,7 @@ export async function POST(
         data: {
             postID: newPostId,
             title: currPost.title,
-            content: currPost.content as Prisma.JsonObject,
-            displayContent: currPost.displayContent,
+            content: currPost.content,
             uploadFiles: currPost.uploadFiles,
             authorName: currentUser.name,
             authorId: currentUser.id,
@@ -49,5 +49,22 @@ export async function POST(
         }
     });
     console.log(newPost);
+
+    const createNotification = async () => {
+        const data = {
+            notificationProviderId : currentUser?.id,
+            notificationProviderName : currentUser?.name,
+            notificationType : "like",
+            notificationReceiverId : currPost.authorId,
+            postID : postID,
+            postTitle : currPost.title,
+        }
+        await axios.post("/api/createNotification", data).then((res) => {
+            console.log(res.data);
+        });
+    }
+
+    createNotification();
+
     return NextResponse.json(newPost);
 }

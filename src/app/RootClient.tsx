@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 
-import { SafePost, SafeUser } from "@/app/types";
+import { SafePost, SafePostWithPlan, SafeUser } from "@/app/types";
 import Link from "next/link";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Search from "./components/Search/search";
@@ -11,7 +11,7 @@ import useLoginModal from "./hooks/useLoginModal";
 
 
 interface RootClientProps {
-    posts: SafePost[];
+    posts: SafePostWithPlan[];
     currentUser?: SafeUser | null;
 }
 

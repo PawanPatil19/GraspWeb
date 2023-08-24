@@ -6,6 +6,8 @@ import getCurrentUser from '@/app/actions/getCurrentUser';
 import getPostsByCreatorId from '../actions/getPostsByCreatorId';
 import CreatorStudioClient from './creatorStudioClient';
 import toast from 'react-hot-toast';
+import getCreatorCoursePlansById from '../actions/getCreatorCoursePlansById';
+import getPostsByCreatorIdWithCoursePlans from '../actions/getPostsByCreatorIdWithCoursePlans';
 
 const CreatorStudioPage = async () => {
 
@@ -16,9 +18,16 @@ const CreatorStudioPage = async () => {
         return null;
     }
     
-    const posts = await getPostsByCreatorId(currentUser?.id);
+    const posts = await getPostsByCreatorIdWithCoursePlans(currentUser?.id);
+
     
     if(!posts) {
+        return null;
+    }
+
+    const coursePlans = await getCreatorCoursePlansById(currentUser?.id);
+
+    if(!coursePlans) {
         return null;
     }
 
@@ -37,6 +46,7 @@ const CreatorStudioPage = async () => {
                 currentUser={currentUser}
                 totalViews={totalViews}
                 totalLikes={totalLikes}
+                coursePlans={coursePlans}
             />
         </ClientOnly>
     )

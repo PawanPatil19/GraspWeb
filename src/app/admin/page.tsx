@@ -15,7 +15,6 @@ const AdminPage = async () => {
     const currentUser = await getCurrentUser();
 
     if(currentUser?.role != "ADMIN") {
-        toast.error("You must be logged in to view this page");
         return null;
     }
     

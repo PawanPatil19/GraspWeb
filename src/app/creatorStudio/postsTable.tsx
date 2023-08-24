@@ -16,11 +16,12 @@ import {
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { TailSpin } from "react-loader-spinner";
-import { SafePost } from "../types";
+import { SafePost, SafePostWithPlan } from "../types";
 import useConfirmationModal from "../hooks/useConfirmationModal";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { redirect } from "next/navigation";
 import {Switch} from "@nextui-org/react";
+import { CoursePlan } from "@prisma/client";
   
 const colors: { [key: string]: Color } = {
 Verification: "gray",
@@ -28,7 +29,7 @@ Active: "emerald",
 };
 
 interface PostTableProps {
-    posts: SafePost[];
+    posts: SafePostWithPlan[];
 }
 
   
@@ -39,6 +40,10 @@ const PostTable: React.FC<PostTableProps> = ({
     const [search, setSearch] = useState("");
     const [displayPosts, setDisplayPosts] = useState(posts);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [ coursePlanName, setCoursePlanName ] = useState([]);
+
+    console.log("Display Posts: ", displayPosts);
 
     let publishedStatusArr = [];
 
@@ -137,7 +142,7 @@ const PostTable: React.FC<PostTableProps> = ({
                     <TableHead>
                     <TableRow>
                         <TableHeaderCell>Title</TableHeaderCell>
-                        {/* <TableHeaderCell>Published on</TableHeaderCell> */}
+                        <TableHeaderCell>Course Plan</TableHeaderCell>
                         <TableHeaderCell>Uploaded</TableHeaderCell>
                         <TableHeaderCell>Action</TableHeaderCell>
                     </TableRow>
@@ -149,10 +154,24 @@ const PostTable: React.FC<PostTableProps> = ({
                         <TableRow key={item.id}>
                         <TableCell>
                             <span>
-                            {item.title?.substring(0, 50)}
+                            {
+                                item.title ? ( item.title.length? item.title :item.title?.substring(0, 40)) : "-"
+                            }
                             </span>
                         </TableCell>
-                        {/* <TableCell>{item.updatedAt}</TableCell> */}
+                        <TableCell>
+                            {
+                                item.coursePlan ? (
+                                    <Badge color="gray" size="xs">
+                                        {item.coursePlan.title}
+                                    </Badge>
+                                ) : (
+                                    <Badge color="gray" size="xs">
+                                        -
+                                    </Badge>
+                                )
+                            }
+                        </TableCell>
                         <TableCell>
                             <Switch 
                                 initialChecked={isChecked[index]}
