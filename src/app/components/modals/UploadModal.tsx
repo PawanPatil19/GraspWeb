@@ -109,9 +109,9 @@ const UploadModal: React.FC<UploadModelProps> = ({
                             <option value="">Select a plan</option>
                             <option value="1">Create a new plan</option>
                             {
-                                plans?.map((plan) => {
+                                plans?.map((plan, index) => {
                                     return (
-                                        <option value={plan.id}>{plan.title}</option>
+                                        <option value={plan.id} key={index}>{plan.title}</option>
                                     )
                                 })
                             }
