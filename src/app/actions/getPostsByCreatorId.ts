@@ -31,6 +31,7 @@ export default async function getPostsByCreatorId(params: any) {
                 updatedAt: post.updatedAt.toString(),
                 coursePlan: {
                     ...post.coursePlan,
+                    createdAt: post.coursePlan?.createdAt.toString(),
                 }
             };
         });

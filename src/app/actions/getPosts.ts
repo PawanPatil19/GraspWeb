@@ -21,6 +21,7 @@ export default async function getPosts() {
                 updatedAt: post.updatedAt.toString(),
                 coursePlan: {
                     ...post.coursePlan,
+                    createdAt: post.coursePlan?.createdAt.toString(),
                 }
             };
         });

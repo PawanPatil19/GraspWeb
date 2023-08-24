@@ -25,9 +25,9 @@ const NotificationsPanelModal: React.FC<NotificationsModelProps> = ({
     const bodyContent = (
         <div className="relative px-2 flex flex-col gap-4">
             {
-                notifications?.map((notification, index) => (
+                notifications?.map((notif, index) => (
                     <div className="bg-gray-100 rounded-3xl" key={index}>
-                        <NotificationCard notification={notification} />
+                        <NotificationCard notification={notif} />
                     </div>
                 ))
             }
