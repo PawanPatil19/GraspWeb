@@ -103,8 +103,8 @@ const CreatorStudioClient: React.FC<CreatorStudioClientProps> = ({ posts, curren
                     <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-5 mt-4'>
                         {coursePlans?.map((coursePlan, index) => (
                             index < 4 && !viewAll ? (
-                                <Link href={`/coursePlanPage/${coursePlan.id}`}>
-                                    <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl border-2 border-gray-400' key={index}>
+                                <Link href={`/coursePlanPage/${coursePlan.id}`} key={index}>
+                                    <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl border-2 border-gray-400' >
                                         <div className='p-4'>
                                             <div className='text-lg hover:text-violet-800'>{coursePlan.title}</div>
                                             <div className='text-sm text-gray-400'>{moment(coursePlan.createdAt).format('MMM DD, YYYY')}</div>
