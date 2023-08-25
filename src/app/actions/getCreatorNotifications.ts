@@ -13,6 +13,8 @@ export default async function getCreatorNotifications(params: any) {
             }
         });
 
+        // console.log("here: ", notifications);
+
         return notifications;
     } catch (error : any) {
         console.error(error);

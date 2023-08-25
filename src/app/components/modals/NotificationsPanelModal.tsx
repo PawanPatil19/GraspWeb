@@ -7,9 +7,10 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import useNotificationsModal from '@/app/hooks/useNotificationsModal';
 import NotificationCard  from "../NotificationCard";
+import { Notification } from "@prisma/client";
 
 interface NotificationsModelProps {
-    notifications? : Notification[] | null;
+    notifications : Notification[]
 }
 
 
@@ -19,8 +20,6 @@ const NotificationsPanelModal: React.FC<NotificationsModelProps> = ({
     const router = useRouter();
     const notificationsModal = useNotificationsModal();
     const [isLoading, setIsLoading] = useState(false);
-
-    console.log("Notifications: ", notifications);
 
     const bodyContent = (
         <div className="relative px-2 flex flex-col gap-4">

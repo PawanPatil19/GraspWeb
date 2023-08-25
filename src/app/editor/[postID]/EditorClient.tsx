@@ -411,7 +411,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                             </div>
                             
                             {fileNames.map((file, index) => (
-                                <div className="mt-4">
+                                <div className="mt-4" key={index}>
                                     <div className='bg-white rounded-lg border-2 border-gray-400 p-2'>
                                         <div className="flex justify-between">
                                             <div className="flex">

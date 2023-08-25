@@ -31,17 +31,18 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const currentUser = await getCurrentUser();
-  const notifications = await getCreatorNotifications(currentUser?.id);
+  const notifs = await getCreatorNotifications(currentUser?.id);
+  console.log("Notifs: ", notifs);
   return (
     <html lang="en">
       <body className={poppins.className}>
       <Providers>
         <ClientOnly>
-          <Navbar currentUser={currentUser} notifications={notifications.length}/>
+          <Navbar currentUser={currentUser} notifications={notifs.length}/>
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
-          <NotificationsPanelModal notifications={notifications} />
+          <NotificationsPanelModal notifications={notifs} />
         </ClientOnly>
         </Providers>
         {children}

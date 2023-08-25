@@ -9,7 +9,7 @@ interface NotificationCardProps {
 const NotificationCard: React.FC<NotificationCardProps> = ({
   notification,
 }) => {
-  const unread = !notification.statusRead;
+  const unread = notification.statusRead;
   console.log(unread);
 
   const content = {
