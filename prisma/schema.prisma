@@ -59,7 +59,7 @@ model Post {
   authorName String
   authorId  String  @db.ObjectId
   description String?
-  coursePlanId String @db.ObjectId
+  coursePlanId String @db.ObjectId @default("null")
   views Int @default(0)
   likes Int @default(0)
   parentPostId String?

@@ -41,7 +41,7 @@ export async function POST(
             title: currPost.title,
             content: currPost.content,
             uploadFiles: currPost.uploadFiles,
-            authorName: currentUser.name,
+            authorName: currentUser.name as string,
             authorId: currentUser.id,
             published: false,
             parentPostAuthorId: currPost.authorId,

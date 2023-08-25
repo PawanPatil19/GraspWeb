@@ -49,7 +49,7 @@ export async function POST(
                 title,
                 content,
                 uploadFiles,
-                authorName: currentUser.name,
+                authorName: currentUser.name as string,
                 authorId: currentUser.id,
             },
         });
