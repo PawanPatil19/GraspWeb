@@ -44,35 +44,11 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser, courseP
     <main className="bg-white">
       <div className="mb-10 px-5 md:p-4">
         <div className="h-screen">
-          
-          {/* Upload card*/}
-          {/* <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto p-4 mt-10 rounded-2xl bg-white border-2 border-gray-300 hover:border-violet-800">
-            <div className="w-full my-10">
-              <div className="flex w-full justify-center">
-                <div className="text-2xl md:text-3xl font-medium text-center">
-                  Create your own notes
-                </div>
-              </div>
-              <div className="flex w-full justify-center pt-2">
-                <div className="text-xs md:text-lg font-light text-gray-400 text-center">
-                  Upload your notes and share it with others
-                </div>
-              </div>
-              <div className="flex w-full justify-center pt-5">
-                <a href={`/editor/${uuidv4()}`}>
-                  <button className="bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center">
-                    Go to Editor{" "}
-                    <AiOutlineArrowRight className="inline-block" />
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div> */}
 
           {/* Create button */}
           <div className="max-w-screen-xl flex justify-between items-center mx-auto p-4">
             <div className="flex items-center gap-4">
-              <div className="font-medium text-4xl">
+              <div className="font-medium text-2xl md:text-4xl">
                 Your Notes
               </div>
 
@@ -102,7 +78,7 @@ const UploadClient: React.FC<UploadClientProps> = ({ posts, currentUser, courseP
 
             <div className="">
               <a href={`/editor/${uuidv4()}`}>
-                <button className="bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center">
+                <button className="bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center hidden md:block">
                   Create +
                 </button>
               </a>

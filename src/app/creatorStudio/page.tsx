@@ -7,8 +7,20 @@ import CreatorStudioClient from './creatorStudioClient';
 import toast from 'react-hot-toast';
 import getCreatorCoursePlansById from '../actions/getCreatorCoursePlansById';
 import getPostsByCreatorIdWithCoursePlans from '../actions/getPostsByCreatorIdWithCoursePlans';
+import { headers } from 'next/headers';
 
 const CreatorStudioPage = async () => {
+    const headersList = headers();
+
+    // Get the user-agent property value and assign it to a constant
+    const userAgent = headersList.get('user-agent');
+    console.log("userAgent: ", userAgent)
+    
+    // Let's check if the device is a mobile device
+    let isMobileView = userAgent!.match(
+        /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    );
+    console.log("ismoible: ", isMobileView)
 
     const currentUser = await getCurrentUser();
 
@@ -46,6 +58,7 @@ const CreatorStudioPage = async () => {
                 totalViews={totalViews}
                 totalLikes={totalLikes}
                 coursePlans={coursePlans}
+                isMobileView={isMobileView as RegExpMatchArray}
             />
         </ClientOnly>
     )

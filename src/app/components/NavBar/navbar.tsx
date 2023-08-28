@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React from 'react';
 import {VscAccount} from 'react-icons/vsc';
+import { MdNotificationsNone, MdOutlineNotificationsNone } from 'react-icons/md';
 import {BiAnalyse, BiBell, BiLogOutCircle, BiBrightness} from 'react-icons/bi';
 import { Dropdown } from "@nextui-org/react";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
@@ -238,8 +239,19 @@ const Navbar : React.FC<NavbarProps> = ({
                     )}
 
                   </ul>
-                  <div onClick={handleNav} className="md:hidden">
-                    <AiOutlineMenu size={30} className="text-gray-400 inline-block"/>
+                  <div className="md:hidden flex gap-4 items-center">
+                      {
+                        currentUser ? (
+                          <button onClick={notificationsModal.onOpen}>
+                            <MdOutlineNotificationsNone size={25} className="text-gray-400 inline-block"/>
+                          </button>
+                        ) : (
+                          <div></div>
+                        )
+                      }
+                      <button onClick={handleNav}>
+                        <AiOutlineMenu size={30} className="text-gray-400 inline-block"/>
+                      </button>
                   </div>
                 </div>
               </div>
@@ -268,23 +280,25 @@ const Navbar : React.FC<NavbarProps> = ({
                           <a href="/guide" className="block py-2 pl-3 pr-4 text-gray-400 font-light">How it works</a>
                         </li>
 
-                        <li className="py-4">
-                          <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 font-light">Upload</a>
-                        </li>
+                        
 
-                        {currentUser == null  ? (
+                        {currentUser ? (
                           <div>
+                            <li className="py-4">
+                              <a href="/upload" className="block py-2 pl-3 pr-4 text-gray-400 font-light">Upload</a>
+                            </li>
                             <li className="py-4">
                               <a href="/creatorStudio" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Creator Studio</a>
                             </li>
+                          
                             <li className="py-4">
-                              <a href="#" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Notifications</a>
-                            </li>
-                            {/* <li className="py-4">
-                              <a href="/userSettings" className="block py-2 pl-3 pr-4 text-gray-400  font-light">Settings</a>
-                            </li> */}
-                            <li className="py-4">
-                              <a href="#" className="block py-2 pl-3 pr-4 text-red-500  font-light">Sign Out</a>
+                              <button onClick={() => {
+                                signOut().then(() => {
+                                  redirect('/');
+                                })
+                              }}>
+                                <span className="block py-2 pl-3 pr-4 text-red-500  font-light">Sign Out</span>
+                              </button>
                             </li>
 
                           </div>

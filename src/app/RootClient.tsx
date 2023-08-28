@@ -34,7 +34,7 @@ const RootClient: React.FC<RootClientProps> = ({ posts, currentUser }) => {
                   In The Virtual World
                 </p>
 
-                <div className="w-2/4">
+                <div className="w-full md:w-2/4 lg:w-2/4">
                   <p className="text-sm font-light text-gray-500 py-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna

@@ -32,7 +32,7 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
   const notifs = await getCreatorNotifications(currentUser?.id);
-  console.log("Notifs: ", notifs);
+
   return (
     <html lang="en">
       <body className={poppins.className}>

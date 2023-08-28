@@ -22,22 +22,30 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 });
 
 import SunEditorCore from "suneditor/src/lib/core";
+import { VscFile } from "react-icons/vsc";
 
 
 interface PostClientProps {
     post: SafePost;
     currentUser?: SafeUser | null;
+    isMobileView?: RegExpMatchArray;
 }
 
 
 const PostClient : React.FC<PostClientProps> = ({
     post,
-    currentUser
+    currentUser,
+    isMobileView
 }) => {
+    console.log("mobile: ", isMobileView);
     const [isFavourite, setIsFavourite] = useState(false);
     const files = post.uploadFiles;
 
     const cloneConfirmationModal = useConfirmationModal();
+
+    const handleError = () => {
+        toast.error("You cannot edit this post in mobile view");
+    }
 
 
     const copyLink = () => {
@@ -82,19 +90,6 @@ const PostClient : React.FC<PostClientProps> = ({
         <CloneConfirmationModal postID={post.postID}/>
         <div className='mb-10'>
             <div className='min-h-screen py-5'>
-
-                {/*Search bar in right top corner*/}
-                {/* <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                    <div className='flex justify-end w-full pt-4'>
-                        <div className='flex justify-end w-full md:w-1/3'>
-                            <div className='flex justify-end w-full md:w-1/2'>
-                                <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
-                                <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-
                 <div className='max-w-screen-xl items-center mx-auto'>
                     {
                         post.published ? (<div></div>) : (
@@ -106,15 +101,7 @@ const PostClient : React.FC<PostClientProps> = ({
                     <div className='flex flex-col'>
                         <div className='flex gap-3 font-bold text-2xl md:text-4xl px-4 mt-4'>
                             {post?.title}
-                            {isFavourite ? (
-                                <button onClick={() => setIsFavourite(false)}>
-                                    <AiFillStar className='inline-block text-yellow-400 text-2xl'/>
-                                </button>
-                            ) : (
-                                <button onClick={() => setIsFavourite(true)}>
-                                    <AiOutlineStar className='inline-block text-grey-400 text-2xl'/>
-                                </button>
-                            )}
+                            
                         </div>
                         <div>
                             <div className='text-sm text-gray-400 px-4 py-2 font-light'>
@@ -147,16 +134,22 @@ const PostClient : React.FC<PostClientProps> = ({
                     <div className='flex justify-end w-full'>
                         <div className='flex justify-end'>
                             <div className='flex justify-end gap-7 items-center text-gray-700'>
-                                <Link href={`/editor/${post.postID}`}>
+                                
                                 {
                                     post.authorId === currentUser?.id ? (
-                                        <div className="flex gap-2 hover:text-violet-800 ">
-                                            <AiOutlineEdit className='inline-block text-2xl'/> 
-                                            <span className='hidden md:block '>Edit</span>
-                                        </div>
+                                        isMobileView ? (<div className="flex gap-2 hover:text-violet-800" onClick={handleError}>
+                                        <AiOutlineEdit className='inline-block text-2xl'/> 
+                                        <span className='hidden md:block '>Edit</span>
+                                         </div>):
+                                        (<Link href={`/editor/${post.postID}`}>
+                                            <div className="flex gap-2 hover:text-violet-800 ">
+                                                <AiOutlineEdit className='inline-block text-2xl'/> 
+                                                <span className='hidden md:block '>Edit</span>
+                                            </div>
+                                        </Link>)
                                     ) : null
                                 }
-                                </Link>
+                                
                                 <div className="flex gap-2 hover:text-violet-800">
                                     <LikeButton postID={post.postID} currentUser={currentUser} /> 
                                     <span className='hidden md:block'>Like</span>
@@ -190,16 +183,21 @@ const PostClient : React.FC<PostClientProps> = ({
                 
                 <div className='max-w-screen-xl items-center justify-between mx-auto py-5'>
                     { files.length === 0 ? null :
-                    <span className="text-gray-400">Files</span>
+                    <span className="text-gray-400 text-xs md:text-md">Files</span>
                     }   
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         {
                             files.map((file, index) => (
                                 <div key={file + index}>
                                     <a target="_blank" href={file} rel="noopener noreferrer">
-                                        <div className='flex gap-2 border-2 px-2 py-4 rounded-lg hover:border-violet-800'>
-                                            <AiOutlineFileText className='text-2xl text-gray-400'/>
-                                            <span className="truncate">{file.split("/").at(-1)}</span>
+                                        <div className='bg-white rounded-lg border-2 border-gray-400 p-2'>
+                                            <div className="flex items-center py-1">
+                                                    <VscFile className='text-lg text-gray-500' /> 
+                                                    <div className='text-xs font-light ml-2 text-gray-500'>{file.split("/").at(-1)?.split(".", 2).at(-1)?.toUpperCase()}</div>
+                                            </div>
+                                            <div className='flex font-light text-black items-center'>
+                                                <p className='text-sm truncate'>{file.split("/").at(-1)}</p>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>

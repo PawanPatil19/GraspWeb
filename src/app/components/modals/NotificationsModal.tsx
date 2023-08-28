@@ -44,7 +44,7 @@ const NotificationsModal: React.FC<NotificationModalProps> = ({
     return (
         <>
             <div className="max-w-screen-xl mx-auto flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
-                <div className="relative w-full ml-auto md:w-1/3 top-20 max-w-3xl ">
+                <div className="relative w-11/12 mx-auto md:ml-auto md:w-1/3 top-20 ">
 
                 {/*content*/}
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-96 overflow-y-scroll ">

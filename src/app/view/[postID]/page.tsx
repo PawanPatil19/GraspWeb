@@ -10,6 +10,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { redirect } from 'next/navigation';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import { headers } from 'next/headers';
 
 
 interface IParams {
@@ -17,6 +18,18 @@ interface IParams {
 }
 
 const PostPage = async ( {params }: {params: IParams}) => {
+    const headersList = headers();
+
+    // Get the user-agent property value and assign it to a constant
+    const userAgent = headersList.get('user-agent');
+    console.log("userAgent: ", userAgent)
+    
+    // Let's check if the device is a mobile device
+    let isMobileView = userAgent!.match(
+        /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    );
+
+    console.log("isMobileView: ", isMobileView, userAgent)
 
     const post = await getPostById(params);
     const currentUser = await getCurrentUser();
@@ -36,6 +49,7 @@ const PostPage = async ( {params }: {params: IParams}) => {
             <PostClient 
                 post={post}
                 currentUser={currentUser}
+                isMobileView={isMobileView as RegExpMatchArray}
             />
         </ClientOnly>
     )
