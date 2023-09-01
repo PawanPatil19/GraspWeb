@@ -80,7 +80,7 @@ const Search : React.FC<SearchProps> = ({
 
   return (
     <div className="w-full mx-auto pt-10 pb-5">
-      <div className="w-full md:w-3/5 mx-auto rounded-lg shadow-2xl px-5 md:px-10 py-5">
+      <div className="w-full md:w-3/5 mx-auto rounded-lg shadow-2xl px-5 md:px-10 py-5 mb-10">
         {/* search bar here */}
         <form onSubmit={handleSearch}>
           <div className="pb-5">
@@ -103,27 +103,6 @@ const Search : React.FC<SearchProps> = ({
               </button>
             </div>
           </div>
-          {/* <div className="flex mx-auto items-center text-sm justify-center overflow-x-auto py-2">
-            <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
-              Computing
-            </div>
-
-            <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
-              Business
-            </div>
-
-            <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
-              Physics
-            </div>
-
-            <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
-              CS2030S
-            </div>
-
-            <div className="text-violet-800 rounded-full bg-white border-2 border-violet-800 hover:bg-violet-800 hover:text-white py-1 px-3 mx-2">
-              CEG5104
-            </div>
-          </div> */}
 
           {/* clear button to the right of search bar */}
           { searching ?

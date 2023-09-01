@@ -8,7 +8,7 @@ import {
     SubmitHandler,
     useForm,
 } from "react-hook-form";
-import Modal from '@/app/components/modals/Modal';
+import PopupModal from '@/app/components/modals/PopupModal';
 
 import toast from 'react-hot-toast';
 import { useParams } from 'next/navigation';
@@ -54,24 +54,22 @@ const ConfirmationModal: React.FC<ConfirmationModalProps>  = ({
             });
     };
 
-    // const bodyContentPart1 = (
-    //     <div className="flex justify-end">
-    //         <div className='py-5'>
+    const bodyContent = (
+        <div className='text-xs font-light px-6'>
+            All the content of this post will be deleted. This action cannot be undone.
+        </div>
+    )
 
-    //         </div>
-    //     </div>
-    // )
-
-    return (<Modal
+    return (<PopupModal
             disabled={isLoading}
             isOpen={confirmationModal.isOpen}
             onClose={confirmationModal.onClose}
-            title="Do you want to delete this post?"
-            actionLabel='Ok'
-            secondaryLabel='Cancel'
+            title="Delete this post?"
+            actionLabel='Delete'
+            secondaryLabel='No'
             secondaryAction={confirmationModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
-            //body={bodyContentPart1}
+            body={bodyContent}
             // footer={footerContent}
         />);
             

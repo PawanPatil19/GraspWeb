@@ -22,7 +22,7 @@ const PostsGrid: React.FC<PostsGridProps> = ({
         )
     }
     return(
-        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
+        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4'>
           {/* Card layout  */}
           <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-6'>
             {posts.map((post) => (

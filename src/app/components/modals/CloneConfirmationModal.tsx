@@ -8,11 +8,12 @@ import {
     SubmitHandler,
     useForm,
 } from "react-hook-form";
-import Modal from '@/app/components/modals/Modal';
+import PopupModal from '@/app/components/modals/PopupModal';
 
 import toast from 'react-hot-toast';
 import { redirect, useParams } from 'next/navigation';
 import useConfirmationModal from '@/app/hooks/useConfirmationModal';
+import { FaRegClone } from 'react-icons/fa';
 
 interface CloneConfirmationModalProps {
     postID?: string;
@@ -52,17 +53,24 @@ const CloneConfirmationModal: React.FC<CloneConfirmationModalProps>  = ({
             console.log(err);
         });
     };
+    
+    const bodyContent = (
+        <div className='text-xs font-light px-6'>
+            All the content of this post will be copied to a new post. You can edit the new post after cloning.
+        </div>
+    )
 
 
-    return (<Modal
+    return (<PopupModal
             disabled={isLoading}
             isOpen={confirmationModal.isOpen}
             onClose={confirmationModal.onClose}
-            title="Do you want to clone this post?"
+            title="Clone this post?"
             actionLabel='Clone'
-            secondaryLabel='Cancel'
+            secondaryLabel='No'
             secondaryAction={confirmationModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
+            body={bodyContent}
         />);
             
     
