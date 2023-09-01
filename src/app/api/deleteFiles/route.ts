@@ -6,8 +6,10 @@ export async function POST(
 ) {
     const body = await request.json();
     const {
-        fileName,
+        file,
     } = body;
+
+    console.log(file);
     
     const storage = new Storage({
         projectId: process.env.PROJECT_ID,
@@ -19,10 +21,10 @@ export async function POST(
 
       // delete the file
     const bucket = storage.bucket(process.env.BUCKET_NAME as string);
-    const file = bucket.file(fileName as string);
-    const res = await file.delete();
+    const file_ref = bucket.file(file as string);
+    const res = await file_ref.delete();
 
-    console.log(`gs://${bucket.name}/${file.name} deleted.`);
+    console.log(`gs://${bucket.name}/${file_ref.name} deleted.`);
     return NextResponse.json(res);
 
 }

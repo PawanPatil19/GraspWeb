@@ -1,98 +1,71 @@
-'use client';
 
-import Image from 'next/image';
 import React from 'react';
-import { AiOutlineSearch, AiOutlineEye, AiOutlineLike, AiOutlineEdit, AiOutlineArrowRight } from 'react-icons/ai';
+
+import ClientOnly from '@/app/components/ClientOnly';
+import getCurrentUser from '@/app/actions/getCurrentUser';
+import CreatorStudioClient from './creatorStudioClient';
+import toast from 'react-hot-toast';
+import getCreatorCoursePlansById from '../actions/getCreatorCoursePlansById';
+import getPostsByCreatorIdWithCoursePlans from '../actions/getPostsByCreatorIdWithCoursePlans';
+import { headers } from 'next/headers';
+
+const CreatorStudioPage = async () => {
+    const headersList = headers();
+
+    // Get the user-agent property value and assign it to a constant
+    const userAgent = headersList.get('user-agent');
+    console.log("userAgent: ", userAgent)
+    
+    // Let's check if the device is a mobile device
+    let isMobileView = userAgent!.match(
+        /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    );
 
 
-export default function Home() {
+    const currentUser = await getCurrentUser();
 
-  return (
-    <main className="bg-white px-5 md:px-0">
-      <div className='mb-10'>
-        <div className='h-full'>
+    if(!currentUser) {
+        toast.error("You must be logged in to view this page");
+        return null;
+    }
+    
+    const posts = await getPostsByCreatorIdWithCoursePlans(currentUser?.id);
 
-            {/*Search bar in right top corner*/}
-            <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
-                <div className='flex justify-end w-full pt-4'>
-                    <div className='flex justify-end w-full md:w-1/3'>
-                        <div className='flex justify-end w-full md:w-1/2'>
-                            <input className='w-full border-b-2 px-4 py-2 text-center focus:outline-none focus-visible:' type="text" placeholder="Search"/>
-                            <AiOutlineSearch className='my-auto mx-2 text-2xl text-violet-800'/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
+    if(!posts) {
+        return null;
+    }
 
-            {/* Analytics cards */}
-            <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-white'>
-                <span className='text-2xl md:text-3xl font-medium'>
-                    Your Dashboard
-                </span>
-                <div className='w-full my-10'>
-                    <div className='grid md:grid-cols-2 gap-5'>
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-5'>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
-                                <div className='text-sm font-medium pb-5'>Views</div>
-                                <div className='text-5xl font-medium'>00</div>
-                            </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
-                                <div className='text-sm font-medium pb-5'>Likes</div>
-                                <div className='text-5xl font-medium'>00</div>
-                            </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
-                                <div className='text-sm font-medium pb-5'>Followers</div>
-                                <div className='text-5xl font-medium'>00</div>
-                            </div>
-                            <div className='bg-gray-100 rounded-2xl p-5'>
-                                <div className='text-sm font-medium pb-5'>Posts</div>
-                                <div className='text-5xl font-medium'>00</div>
-                            </div>
-                        </div>
+    const coursePlans = await getCreatorCoursePlansById(currentUser?.id);
 
-                        <div className='bg-gray-100 h-96 rounded-2xl'>
-                            <div className='text-sm font-medium p-5'>Revenue</div>
+    if(!coursePlans) {
+        return null;
+    }
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+    const totalViews = posts.reduce((acc, post) => {
+        return acc + post.views;
+    }, 0);
 
-            {/* Account Registered */}
-            <div className='w-full md:w-2/4 flex flex-wrap items-center justify-between mx-auto my-auto mt-10 rounded-2xl bg-gray-100'>
-                <div className='w-full my-10'>
-                    <div className='flex justify-center text-sm font-light mb-2 px-2 text-center'>
-                        You have no bank account registered with your creator account
-                    </div>
-                    <div className='flex justify-center text-sm font-light mt-5'>
-                        <button className='bg-white border-r-4 border-b-4 border-t-2 border-l-2 border-violet-800 hover:bg-violet-800 hover:text-white font-medium rounded-xl px-4 py-2 text-center'>
-                            Add your account details <AiOutlineArrowRight className='inline-block'/>
-                        </button>
-                    </div>
-                </div>
+    const totalLikes = posts.reduce((acc, post) => {
+        return acc + post.likes;
+    }, 0);
 
-            </div>
+    return (
+        <ClientOnly>
+            <CreatorStudioClient 
+                posts={posts}
+                currentUser={currentUser}
+                totalViews={totalViews}
+                totalLikes={totalLikes}
+                coursePlans={coursePlans}
+                isMobileView={isMobileView as RegExpMatchArray}
+            />
+        </ClientOnly>
+    )
 
-
-            
-             {/* Your notes section*/}
-            
-             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto my-auto mt-12'>
-                <div className='w-full'>
-                    <div className=''>
-                        <div className='text-3xl font-medium'>Your notes</div>
-                    </div>
-                    
-                </div>
-            </div>
-
-        </div>
-
-
-      </div>
-    </main>
-  )
 }
+
+export default CreatorStudioPage;
 
 
 

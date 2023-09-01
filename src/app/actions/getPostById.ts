@@ -23,14 +23,7 @@ export default async function getPostById(params: IParams) {
         return {
             ...post,
             createdAt: post.createdAt.toString(),
-            user: {
-                ...post.user,
-                createdAt: post.user?.createdAt.toString(),
-                updatedAt: post.user?.updatedAt.toString(),
-                emailVerified:
-                    post.user?.emailVerified?.toString() || null,
-
-            }
+            updatedAt: post.updatedAt.toString(),
         };
     } catch (error : any) {
         console.error(error);

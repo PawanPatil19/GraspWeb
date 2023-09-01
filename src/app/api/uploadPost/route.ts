@@ -64,7 +64,7 @@ export async function POST(
                 data: {
                     title: newPlan,
                     authorId: currentUser.id,
-                    authorName: currentUser.name,
+                    authorName: currentUser.name as string,
                 }
             }
         );

@@ -64,6 +64,7 @@ const RegisterModal = () => {
             .then(() => {
                 registerModal.onClose();
                 toast.success("Account created successfully.");
+                window.location.reload();
             })
             .catch((error) => {
                 toast.error("Something went wrong.");

@@ -16,15 +16,31 @@ import Modal from '@/app/components/modals/Modal';
 import toast from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 
+import getCurrentUser from '@/app/actions/getCurrentUser';
+import { CoursePlan } from '@prisma/client';
+
+interface UploadModelProps {
+    plans?: CoursePlan[] | null
+}
 
 
-const UploadModal = () =>  {
+
+const UploadModal: React.FC<UploadModelProps> = ({
+    plans
+}
+) =>  {
     const uploadModal = useUploadModal();
     const [isLoading, setIsLoading] = useState(false);
     const [createPlan, setCreatePlan] = useState(false);
+    
 
     const params = useParams();
+    //console.log(params);
     const postID = params?.postID;
+    //console.log(postID);
+    // const currentUser = await getCurrentUser();
+
+    // const coursePlans = await getCreatorCoursePlans(currentUser?.id);
 
     const {
         register,
@@ -41,7 +57,7 @@ const UploadModal = () =>  {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
-        console.log(data);
+        data.postID = postID;
         axios.post('/api/uploadPost', data)
             .then(() => {
                 console.log("Done")
@@ -79,6 +95,7 @@ const UploadModal = () =>  {
                             Course plan
                         </label>
                         <select 
+
                             className="w-full border-2 border-gray-300 p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent" 
                             {...register("coursePlanId", { required: true })}
                             onChange={(e) => {
@@ -91,7 +108,13 @@ const UploadModal = () =>  {
                         >
                             <option value="">Select a plan</option>
                             <option value="1">Create a new plan</option>
-                            <option value="2">Plan 1</option>
+                            {
+                                plans?.map((plan, index) => {
+                                    return (
+                                        <option value={plan.id} key={index}>{plan.title}</option>
+                                    )
+                                })
+                            }
                         </select>
                     </div>
 

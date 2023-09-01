@@ -1,16 +1,18 @@
 'use client';
 
-import { SafePost } from "../types";
+import { SafePost, SafePostWithPlan, SafeUser } from "../types";
 import ClientOnly from "./ClientOnly";
 import EmptyState from "./EmptyState";
 import PostDisplay from "./PostDisplay";
 
-interface PostProps {
-    posts: SafePost[];
+interface PostsGridProps {
+    posts: SafePostWithPlan[];
+    currentUser?: SafeUser | null;
 }
 
-const PostsGrid: React.FC<PostProps> = ({
-    posts
+const PostsGrid: React.FC<PostsGridProps> = ({
+    posts,
+    currentUser
 }) => {
     if(posts.length === 0) {
         return (
@@ -20,12 +22,12 @@ const PostsGrid: React.FC<PostProps> = ({
         )
     }
     return(
-        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 md:p-4 mt-10'>
+        <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4'>
           {/* Card layout  */}
           <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-6'>
             {posts.map((post) => (
             <div key={post.postID}>
-              <PostDisplay post={post}/>
+              <PostDisplay post={post} currentUser={currentUser} />
             </div>
             ))}
 

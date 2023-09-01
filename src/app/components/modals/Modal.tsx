@@ -1,5 +1,5 @@
-import { use, useCallback, useEffect, useState } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useCallback, useEffect, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
 
 interface ModalProps {
@@ -13,7 +13,7 @@ interface ModalProps {
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryLabel?: string;
-    step?: number;
+    postID?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({
     disabled,
     secondaryAction,
     secondaryLabel,
-    step,
+    postID
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 
@@ -76,14 +76,14 @@ const Modal: React.FC<ModalProps> = ({
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 rounded-t">
-                  <h3 className="text-lg font-bold pt-2 text-violet-800">
+                <div className="flex items-center justify-between p-5 rounded-t">
+                  <h3 className="text-lg font-light pt-2 px-6 text-violet-800">
                     {title}
                   </h3>
                   <button className="p-1 ml-auto bg-transparent border-0 float-right text-gray-300 text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={handleClose}
                   >
-                   <AiOutlineCloseCircle/>
+                   <AiOutlineClose className="text-sm"/>
                   </button>
                 </div>
 

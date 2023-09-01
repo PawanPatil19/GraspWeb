@@ -37,7 +37,6 @@ export async function POST(
             data: {
                 title,
                 content,
-                displayContent,
                 uploadFiles,
                 updatedAt: new Date(),
             },
@@ -46,12 +45,11 @@ export async function POST(
     } else {
         const post = await prisma.post.create({
             data: {
-                postID,
-                title,
-                content,
-                displayContent,
-                uploadFiles,
-                authorName: currentUser.name,
+                postID: postID,
+                title: title,
+                content: content,
+                uploadFiles: uploadFiles,
+                authorName: currentUser.name as string,
                 authorId: currentUser.id,
             },
         });

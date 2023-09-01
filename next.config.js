@@ -7,7 +7,8 @@ const nextConfig = {
         domains:[
             "lh3.googleusercontent.com",
         ]
-    }
+    },
+    output: "standalone"
 }
 
 module.exports = nextConfig
