@@ -21,7 +21,7 @@ export default async function getPostsByCreatorIdWithCoursePlans(params: any) {
             return null;
         }
 
-        const safePosts = posts.map((post) => {
+        const safePosts = posts.map((post: any) => {
             return {
                 ...post,
                 createdAt: post.createdAt.toISOString(),

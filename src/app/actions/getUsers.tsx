@@ -11,7 +11,7 @@ export default async function getUsers() {
             },
         });
         
-        const safeUsers = users.map((user) => {
+        const safeUsers = users.map((user: any) => {
             return {
                 ...user,
                 createdAt: user.createdAt.toISOString(),

@@ -12,10 +12,10 @@ export async function POST(request: Request) {
         postID: postID,
     },
     data: { views: { increment: 1 } },
-  }).then((res) => {
+  }).then((res: any) => {
     console.log("res: ", res);
     return NextResponse.json({ message: "success" });
-  }).catch((err) => {
+  }).catch((err: any) => {
     console.log("err: ", err);
     return NextResponse.json({ message: "failed" });
   });

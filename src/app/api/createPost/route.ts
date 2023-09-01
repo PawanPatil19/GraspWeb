@@ -45,10 +45,10 @@ export async function POST(
     } else {
         const post = await prisma.post.create({
             data: {
-                postID,
-                title,
-                content,
-                uploadFiles,
+                postID: postID,
+                title: title,
+                content: content,
+                uploadFiles: uploadFiles,
                 authorName: currentUser.name as string,
                 authorId: currentUser.id,
             },

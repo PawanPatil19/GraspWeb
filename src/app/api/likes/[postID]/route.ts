@@ -43,11 +43,9 @@ export async function POST(
             postID: postID,
         },
         data: { likes: { increment: 1 } },
-    }).then((res) => {
-
-        console.log(res.likes);
+    }).then((res: any) => {
         return NextResponse.json(res);
-    }).catch((err) => {
+    }).catch((err: any) => {
         console.log(err);
     });
 

@@ -56,6 +56,8 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     const [save, setSave] = useState(false);
     const [upload, setUpload] = useState(false);
 
+    const [savedState, setSavedState] = useState(false);
+
     const params = useParams();
     const postID = params?.postID;
     //console.log(postID);
@@ -92,6 +94,8 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     useEffect(() => {
         getFileNames();
     }, [])
+
+
 
         
 
@@ -286,7 +290,11 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                         placeholder="Write your title here..."
                         value={title? title : ''}
                         onChange={(e) => setTitle(e.target.value)}
+                        maxLength={80}
                     />
+                    <span className="ml-auto text-xs text-gray-400 mt-2">
+                        (max 80 characters)
+                    </span>
                 </div>
             </div>
             <div className='min-h-screen'>
