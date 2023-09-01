@@ -13,6 +13,7 @@ import { redirect, useRouter } from 'next/navigation';
 import useUploadModal from '@/app/hooks/useUploadModal';
 import dynamic from "next/dynamic";
 import 'suneditor/dist/css/suneditor.min.css';
+import Router from "next/router"
 
  // Import Sun Editor's CSS File
 
@@ -56,7 +57,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     const [save, setSave] = useState(false);
     const [upload, setUpload] = useState(false);
 
-    const [savedState, setSavedState] = useState(false);
+    const [savedState, setSavedState] = useState(true);
 
     const params = useParams();
     const postID = params?.postID;
@@ -76,6 +77,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
 
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
+        setSavedState(false);
         console.log(content);
     }
 
@@ -95,6 +97,34 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
         getFileNames();
     }, [])
 
+    React.useEffect(() => {
+        const confirmationMessage = 'Changes you made may not be saved.';
+        const beforeUnloadHandler = (e: BeforeUnloadEvent) => {
+          (e || window.event).returnValue = confirmationMessage;
+          return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
+        };
+        const beforeRouteHandler = (url: string) => {
+          if (Router.pathname !== url && !confirm(confirmationMessage)) {
+            // to inform NProgress or something ...
+            Router.events.emit('routeChangeError');
+            // tslint:disable-next-line: no-string-throw
+            throw `Route change to "${url}" was aborted (this error can be safely ignored). See https://github.com/zeit/next.js/issues/2476.`;
+          }
+        };
+        if (!savedState) {
+          window.addEventListener('beforeunload', beforeUnloadHandler);
+          Router.events.on('routeChangeStart', beforeRouteHandler);
+        } else {
+          window.removeEventListener('beforeunload', beforeUnloadHandler);
+          Router.events.off('routeChangeStart', beforeRouteHandler);
+        }
+        return () => {
+          window.removeEventListener('beforeunload', beforeUnloadHandler);
+          Router.events.off('routeChangeStart', beforeRouteHandler);
+        };
+      }, [savedState]);
+      
+
 
 
         
@@ -108,9 +138,12 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
         let tmpFileNames = [...fileNames]
         tmpFileNames.push(event.target.files[0].name);
         setFileNames(tmpFileNames);
+
+        setSavedState(false);
     }
 
     const removeFile = (index: number) => {
+        setSavedState(false);
         let tmpFiles = [...files]
         tmpFiles.splice(index, 1);
         setFiles(tmpFiles);
@@ -128,6 +161,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
         let tmpFileReferences = [...tmpFileRefArr]
         tmpFileReferences.splice(index, 1);
         setFileReferences(new Set(tmpFileReferences));
+        
     }
 
     const handleFileUpload = async () => {
@@ -179,6 +213,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
 
         const loadingToast = toast.loading('Saving post...');
         loadingToast;
+        setSavedState(true);
 
         handleFileUpload().then(() => {
             console.log('Files uploaded successfully!');
@@ -210,6 +245,8 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     const handlePreview = async () => {
         const loadingToast = toast.loading('Loading preview...');
         loadingToast;
+
+        setSavedState(true);
 
         handleFileUpload().then(() => {
             console.log('Files uploaded successfully!');
@@ -244,6 +281,8 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     const handleUpload = async () => {
         const loadingToast = toast.loading('Uploading...');
         loadingToast;
+
+        setSavedState(true);
 
         handleFileUpload().then(() => {
             console.log('Files uploaded successfully!');
@@ -289,11 +328,14 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                         type="text" 
                         placeholder="Write your title here..."
                         value={title? title : ''}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                            setSavedState(false);
+                        }}
                         maxLength={80}
                     />
                     <span className="ml-auto text-xs text-gray-400 mt-2">
-                        (max 80 characters)
+                        (max. 80 characters)
                     </span>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import { AiOutlineSearch, AiOutlineFileText, AiOutlineShareAlt, AiOutlineStar, AiFillStar, AiOutlineEdit } from 'react-icons/ai';
-import {FaRegClone} from 'react-icons/fa';
+import {FaClone, FaRegClone} from 'react-icons/fa';
 import {HiOutlineUserCircle} from 'react-icons/hi';
 import { SafePost, SafeUser } from "@/app/types";
 import moment from 'moment';
@@ -37,9 +37,12 @@ const PostClient : React.FC<PostClientProps> = ({
     currentUser,
     isMobileView
 }) => {
-    console.log("mobile: ", isMobileView);
+    console.log("Parent:", post.parentPostId, post);
     const [isFavourite, setIsFavourite] = useState(false);
     const files = post.uploadFiles;
+
+    const [isCloned, setIsCloned] = useState(false);
+    const [parentPost, setParentPost] = useState<SafePost | null>(null);
 
     const cloneConfirmationModal = useConfirmationModal();
 
@@ -47,6 +50,8 @@ const PostClient : React.FC<PostClientProps> = ({
         toast.error("You cannot edit this post in mobile view");
     }
 
+    console.log("authorID: ", post.authorId);
+    console.log("currentUserID: ", currentUser?.id);
 
     const copyLink = () => {
         const url = window.location.href;
@@ -83,6 +88,30 @@ const PostClient : React.FC<PostClientProps> = ({
             console.log(res.data);
         });
     }, []);
+
+    useEffect(() => {
+        
+        if (post.authorId !== currentUser?.id) {
+            const data = {
+                currentUserID: currentUser?.id,
+                authorID: post.authorId,
+                parentPostID: post.postID
+            }
+
+            axios.post("/api/checkCloneStatus", data).then((res) => {
+                if (res.data.length > 0) {
+                    setIsCloned(true);
+                    console.log("Parent Post: ", res.data);
+                    setParentPost(res.data);
+                }
+            })
+        } else {
+            if(post.parentPostAuthorId !== null) {
+                setIsCloned(true);
+            }
+        }
+        
+    }, [isCloned])
     
 
     return (
@@ -109,7 +138,10 @@ const PostClient : React.FC<PostClientProps> = ({
                             </div>
                         </div>
 
-                        <div className='flex p-4 items-center gap-4'>
+                        <Link href={`/profile/${post?.authorId}`}>
+                        <div 
+                            className='flex p-4 items-center gap-4'
+                        >
                             <div className=''>
                                 {
                                     <HiOutlineUserCircle className='inline-block text-5xl text-gray-400'/>  
@@ -125,15 +157,23 @@ const PostClient : React.FC<PostClientProps> = ({
                                 </div> */}
                             </div> 
                         </div>
+                        </Link>
                     </div>
 
                 </div>
 
 
                 <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4'>
-                    <div className='flex justify-end w-full'>
-                        <div className='flex justify-end'>
-                            <div className='flex justify-end gap-7 items-center text-gray-700'>
+                    <div className='w-full flex justify-between items-center '>
+                        
+                            {
+                                isCloned ? (
+                                    <span className="text-xs font-light px-4">Cloned from <Link href={`/view/${post.parentPostId}`}><span className="text-violet-800 hover:underline">{post.parentPostId}</span></Link></span>
+                                ) : (
+                                    <div></div>
+                                )
+                            }
+                            <div className='flex gap-7 items-center text-gray-700'>
                                 
                                 {
                                     post.authorId === currentUser?.id ? (
@@ -162,14 +202,25 @@ const PostClient : React.FC<PostClientProps> = ({
                                     </div>
                                 </button>
                                 
-                                <div className="flex gap-2 hover:text-violet-800">
-                                    <button onClick={cloneConfirmationModal.onOpen}>
-                                        <FaRegClone className='inline-block text-2xl'/>
-                                    </button> 
-                                    <span className='hidden md:block '>Clone</span>
-                                </div>
+                                {isCloned ? (
+                                    <div className="flex gap-2 ">
+                                        <button onClick={cloneConfirmationModal.onOpen}>
+                                            <FaClone className='inline-block text-2xl text-violet-800'/>
+                                        </button> 
+                                        <span className='hidden md:block '>Cloned</span>
+                                    </div>
+                                ):
+                                (
+                                    <div className="flex gap-2 hover:text-violet-800">
+                                        <button onClick={cloneConfirmationModal.onOpen}>
+                                            <FaRegClone className='inline-block text-2xl'/>
+                                        </button> 
+                                        <span className='hidden md:block '>Clone</span>
+                                    </div>
+                                )
+                                }
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -183,9 +234,9 @@ const PostClient : React.FC<PostClientProps> = ({
                 
                 <div className='max-w-screen-xl items-center justify-between mx-auto py-5'>
                     { files.length === 0 ? null :
-                    <span className="text-gray-400 text-xs md:text-md">Files</span>
+                    <span className="text-gray-400 text-xs md:text-md px-4">Files</span>
                     }   
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4">
                         {
                             files.map((file, index) => (
                                 <div key={file + index}>

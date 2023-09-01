@@ -27,7 +27,7 @@ const PostDisplay: React.FC<PostDisplayProps> = ({ post, currentUser }) => {
     <div className="py-2 ">
       <div className="bg-white rounded-lg shadow-2xl h-52 w-full hover:outline hover:outline-violet-800">
         <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full">
-          <div className="flex flex-col bg-gradient-to-r from-violet-800 to-violet-500 p-5 text-white rounded-t-lg md:rounded-l-lg">
+          <div className="flex flex-col bg-gradient-to-r from-violet-800 to-violet-500 p-5 text-white rounded-t-lg md:rounded-l-lg md:rounded-tr-none">
             {
               post.title ? post.title.length > 20 ? (
                 <p className="text-lg font-medium">{post.title}</p>

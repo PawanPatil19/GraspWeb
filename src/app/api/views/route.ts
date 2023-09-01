@@ -13,7 +13,6 @@ export async function POST(request: Request) {
     },
     data: { views: { increment: 1 } },
   }).then((res: any) => {
-    console.log("res: ", res);
     return NextResponse.json({ message: "success" });
   }).catch((err: any) => {
     console.log("err: ", err);
