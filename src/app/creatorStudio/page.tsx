@@ -20,7 +20,7 @@ const CreatorStudioPage = async () => {
     let isMobileView = userAgent!.match(
         /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
     );
-    console.log("ismoible: ", isMobileView)
+
 
     const currentUser = await getCurrentUser();
 

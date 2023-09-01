@@ -422,7 +422,6 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
                                         </div>
                                         <div className='flex font-light text-gray-500 items-center'>
                                             <p className='text-sm truncate'>{file}</p>
-                                            
                                         </div>
                                     </div>
                                 </div>
