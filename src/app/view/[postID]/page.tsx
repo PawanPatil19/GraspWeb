@@ -32,6 +32,8 @@ const PostPage = async ( {params }: {params: IParams}) => {
     console.log("isMobileView: ", isMobileView, userAgent)
 
     const post = await getPostById(params);
+
+    console.log("This post: ", post)
     const currentUser = await getCurrentUser();
 
 

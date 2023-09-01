@@ -78,7 +78,7 @@ const EditorClient1 : React.FC<EditorClientProps> = ({
     const handleEditorChange = (content: string) => {
         setEditorContent(content);
         setSavedState(false);
-        console.log(content);
+        console.log("This content: ", content);
     }
 
     const getFileNames = () => {

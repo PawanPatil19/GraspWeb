@@ -43,6 +43,7 @@ const PostTable: React.FC<PostTableProps> = ({
 
     const [ coursePlanName, setCoursePlanName ] = useState([]);
 
+
     console.log("Display Posts: ", displayPosts);
 
     let publishedStatusArr = [];
@@ -161,7 +162,7 @@ const PostTable: React.FC<PostTableProps> = ({
                         </TableCell>
                         <TableCell>
                             {
-                                item.coursePlan ? (
+                                item.coursePlan.title ? (
                                     <Badge color="gray" size="xs">
                                         {item.coursePlan.title}
                                     </Badge>
@@ -173,12 +174,27 @@ const PostTable: React.FC<PostTableProps> = ({
                             }
                         </TableCell>
                         <TableCell>
-                            <Switch 
-                                initialChecked={isChecked[index]}
-                                size="md"
-                                color="secondary"
-                                onChange={() => changeStatus(item.postID, index)}
-                            />
+                            {
+                                item.coursePlan.title ? (
+                                    <Switch 
+                                        initialChecked={isChecked[index]}
+                                        size="md"
+                                        color="secondary"
+                                        onChange={() => changeStatus(item.postID, index)}
+
+                                    />
+                                ) : (
+                                    <Switch 
+                                        initialChecked={isChecked[index]}
+                                        size="md"
+                                        color="secondary"
+                                        onChange={() => changeStatus(item.postID, index)}
+                                        disabled={true}
+                                    />
+                                )
+
+                            }
+                            
                         </TableCell>
                         <TableCell>
                             <Button size="xs" variant="secondary" color="gray">

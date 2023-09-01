@@ -59,6 +59,10 @@ const PostClient : React.FC<PostClientProps> = ({
         toast.success("Link copied to clipboard");
     }
 
+    const handleCloneAction = () => {
+        toast("You have already cloned this post");
+    }
+
     const handleClone = () => {
         const data = {
             postID: post.postID
@@ -168,7 +172,10 @@ const PostClient : React.FC<PostClientProps> = ({
                         
                             {
                                 isCloned ? (
-                                    <span className="text-xs font-light px-4">Cloned from <Link href={`/view/${post.parentPostId}`}><span className="text-violet-800 hover:underline">{post.parentPostId}</span></Link></span>
+                                    post.authorId === currentUser?.id ? 
+                                    (
+                                        <span className="text-xs font-light px-4">Cloned from <Link href={`/view/${post.parentPostId}`}><span className="text-violet-800 hover:underline">{post.parentPostId}</span></Link></span>
+                                    ): (<div></div>)
                                 ) : (
                                     <div></div>
                                 )
@@ -204,7 +211,7 @@ const PostClient : React.FC<PostClientProps> = ({
                                 
                                 {isCloned ? (
                                     <div className="flex gap-2 ">
-                                        <button onClick={cloneConfirmationModal.onOpen}>
+                                        <button onClick={handleCloneAction}>
                                             <FaClone className='inline-block text-2xl text-violet-800'/>
                                         </button> 
                                         <span className='hidden md:block '>Cloned</span>
